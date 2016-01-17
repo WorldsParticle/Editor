@@ -14,13 +14,16 @@ TEMPLATE = app
 
 SOURCES +=  main.cpp        \
     mainwindow.cpp \
-    openglwindow.cpp
+    openglwindow.cpp \
+    toolwidget.cpp
 
 HEADERS  += \
     mainwindow.hpp \
-    openglwindow.hpp
+    openglwindow.hpp \
+    toolwidget.hpp
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    toolwidget.ui
 
 CONFIG += c++14
 #QMAKE_CXXFLAGS += -std=c++14

@@ -21,10 +21,10 @@ public slots:
 
 protected:
     virtual void    keyPressEvent(QKeyEvent *e);
-    void            resizeEvent(QResizeEvent* event);
-    void            mousePressEvent(QMouseEvent *event);
-    void            keyReleaseEvent(QKeyEvent *e);
-    void            mouseMoveEvent(QMouseEvent *event);
+    virtual void    resizeEvent(QResizeEvent* event);
+    virtual void    mousePressEvent(QMouseEvent *event);
+    virtual void    keyReleaseEvent(QKeyEvent *e);
+    virtual void    mouseMoveEvent(QMouseEvent *event);
 
 private:
         QOpenGLContext _context;

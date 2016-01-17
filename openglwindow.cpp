@@ -35,6 +35,8 @@ OpenGLWindow::OpenGLWindow(QWindow *parent) :
                 << this->format().minorVersion();
 
     _engine = new Engine::Core();
+
+    setTitle("Explorateur");
 }
 
 

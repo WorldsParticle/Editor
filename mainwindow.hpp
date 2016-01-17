@@ -17,6 +17,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+
+    virtual void    keyPressEvent(QKeyEvent *e);
+
 private:
     Ui::MainWindow *_ui;
     OpenGLWindow   _glWindow;
