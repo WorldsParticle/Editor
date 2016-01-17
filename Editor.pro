@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,15 +13,17 @@ TEMPLATE = app
 
 
 SOURCES +=  main.cpp        \
-            MainWindow.cpp \
-    OpenGLWindow.cpp
+    mainwindow.cpp \
+    openglwindow.cpp
 
-HEADERS  += MainWindow.hpp \
-    OpenGLWindow.hpp
+HEADERS  += \
+    mainwindow.hpp \
+    openglwindow.hpp
 
 FORMS    += mainwindow.ui
 
 CONFIG += c++14
+#QMAKE_CXXFLAGS += -std=c++14
 
 unix: LIBS += -L/usr/local/lib/ -lEngine
 unix: INCLUDEPATH += -I/usr/local/include/
