@@ -66,7 +66,7 @@ void    OpenGLWindow::keyPressEvent(QKeyEvent *e)
     e->accept();
 
     if (e->key() == Qt::Key_Escape)
-        this->hide();
+        this->close();
     else if (e->key() == Qt::Key_A) {
         if (scr == false) {
             showMaximized();
