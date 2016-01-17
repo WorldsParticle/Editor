@@ -11,6 +11,8 @@ class OpenGLWindow : public QWidget
 public:
     explicit OpenGLWindow(QWidget *parent = 0);
 
+    void    run(void);
+
 private:
     Engine::Core    engine;
 };

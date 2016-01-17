@@ -7,7 +7,7 @@ OpenGLWindow::OpenGLWindow(QWidget *parent) :
 }
 
 void
-OpenGLWindow::run()
+OpenGLWindow::run(void)
 {
     // glClear()
 }

@@ -21,5 +21,7 @@ HEADERS  += MainWindow.hpp \
 
 FORMS    += mainwindow.ui
 
+CONFIG += c++14
+
 unix: LIBS += -L/usr/local/lib/ -lEngine
 unix: INCLUDEPATH += -I/usr/local/include/
