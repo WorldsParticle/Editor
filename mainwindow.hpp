@@ -2,6 +2,8 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include <QDockWidget>
+#include "openglwindow.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +18,8 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow *_ui;
+    OpenGLWindow   _glWindow;
 };
 
 #endif // MAINWINDOW_HPP

@@ -1,20 +1,37 @@
 #ifndef OPENGLWINDOW_HPP
 #define OPENGLWINDOW_HPP
 
-#include    <QWidget>
+#include    <QWindow>
+#include    <GL/glew.h>
+#include    <QOpenGLContext>
+#include    <QKeyEvent>
+#include    <QTime>
 #include    <Engine/Core.hpp>
 
-class OpenGLWindow : public QWidget
+class OpenGLWindow : public QWindow
 {
     Q_OBJECT
+    public:
+        explicit OpenGLWindow(QWindow *parent = 0);
+        ~OpenGLWindow();
 
-public:
-    explicit OpenGLWindow(QWidget *parent = 0);
+public slots:
 
-    void    run(void);
+    void    run();
+
+protected:
+    virtual void    keyPressEvent(QKeyEvent *e);
+    void            resizeEvent(QResizeEvent* event);
+    void            mousePressEvent(QMouseEvent *event);
+    void            keyReleaseEvent(QKeyEvent *e);
+    void            mouseMoveEvent(QMouseEvent *event);
 
 private:
-    Engine::Core    engine;
+        QOpenGLContext _context;
+        QSurfaceFormat _format;
+        Engine::Core   *_engine;
+
+        bool           _mouseTracking;
 };
 
 #endif // OPENGLWINDOW_HPP

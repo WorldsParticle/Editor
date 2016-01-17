@@ -1,14 +1,17 @@
-#include "MainWindow.hpp"
+#include "mainwindow.hpp"
+#include "openglwindow.hpp"
 #include "ui_mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    _ui(new Ui::MainWindow),
+    _glWindow(NULL)
 {
-    ui->setupUi(this);
+    _ui->setupUi(this);
+    connect(_ui->runButton, SIGNAL(pressed()), &_glWindow, SLOT(run()));
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete _ui;
 }
