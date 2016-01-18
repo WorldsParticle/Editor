@@ -21,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _centralLayout.addWidget(&_toolWidget, 0);
 
     dockGlWindow();
-    show();
 
+    show();
     _glWindow.run();
 }
 
@@ -41,7 +41,7 @@ void    MainWindow::keyPressEvent(QKeyEvent *e)
 void    MainWindow::paintEvent(QPaintEvent *e)
 {
     QPainter painter(this);
-    painter.drawPixmap(rect(), QPixmap(":/images/bg.jpg"));
+    painter.drawPixmap(rect(), QPixmap("://ressources/images/bg.jpg"));
     QWidget::paintEvent(e);
 }
 

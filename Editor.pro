@@ -12,18 +12,17 @@ TARGET = Editor
 TEMPLATE = app
 
 
-SOURCES +=  main.cpp        \
-    mainwindow.cpp \
-    openglwindow.cpp \
-    toolwidget.cpp
+SOURCES +=	main.cpp \
+    		mainwindow.cpp \
+    		openglwindow.cpp \
+    		toolwidget.cpp
 
-HEADERS  += \
-    mainwindow.hpp \
-    openglwindow.hpp \
-    toolwidget.hpp
+HEADERS  +=	mainwindow.hpp \
+    		openglwindow.hpp \
+    		toolwidget.hpp
 
-FORMS    += mainwindow.ui \
-    toolwidget.ui
+FORMS    += 	mainwindow.ui \
+    		toolwidget.ui
 
 CONFIG += c++14
 #QMAKE_CXXFLAGS += -std=c++14
@@ -33,3 +32,4 @@ unix: INCLUDEPATH += -I/usr/local/include/
 
 RESOURCES += \
     ress.qrc
+

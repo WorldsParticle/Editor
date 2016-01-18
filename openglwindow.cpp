@@ -47,7 +47,9 @@ OpenGLWindow::~OpenGLWindow()
 
 void    OpenGLWindow::run(void)
 {
-    this->_engine->load("./resources/scenes/altair/altair.dae");
+    qDebug() << "a";
+    //this->_engine->load("./resources/scenes/altair/altair.dae");
+    qDebug() << "a";
     while (isVisible())
     {
         _engine->update();
@@ -58,7 +60,6 @@ void    OpenGLWindow::run(void)
 
         QCoreApplication::processEvents();
     }
-    qDebug() << "hya";
 }
 
 void    OpenGLWindow::keyPressEvent(QKeyEvent *e)

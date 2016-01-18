@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
+    <width>242</width>
     <height>669</height>
    </rect>
   </property>
@@ -20,6 +20,18 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="horizontalSpacing">
+    <number>0</number>
+   </property>
    <item row="0" column="0" rowspan="2">
     <widget class="QTabWidget" name="tabWidget">
      <property name="sizePolicy">
@@ -29,13 +41,35 @@
       </sizepolicy>
      </property>
      <property name="tabShape">
-      <enum>QTabWidget::Triangular</enum>
+      <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
       <number>1</number>
      </property>
+     <property name="iconSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="documentMode">
+      <bool>true</bool>
+     </property>
+     <property name="tabsClosable">
+      <bool>false</bool>
+     </property>
+     <property name="tabBarAutoHide">
+      <bool>false</bool>
+     </property>
      <widget class="QWidget" name="tabTerrain">
+      <attribute name="icon">
+       <iconset resource="ress.qrc">
+        <normaloff>:/ressources/images/mountain.png</normaloff>:/ressources/images/mountain.png</iconset>
+      </attribute>
       <attribute name="title">
+       <string/>
+      </attribute>
+      <attribute name="toolTip">
        <string>Terrain</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -61,10 +95,20 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tabParticules">
+      <attribute name="icon">
+       <iconset resource="ress.qrc">
+        <normaloff>:/ressources/images/particle.png</normaloff>:/ressources/images/particle.png</iconset>
+      </attribute>
       <attribute name="title">
+       <string/>
+      </attribute>
+      <attribute name="toolTip">
        <string>Particules</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="rightMargin">
+        <number>9</number>
+       </property>
        <item>
         <widget class="QSlider" name="horizontalSlider">
          <property name="orientation">
@@ -89,7 +133,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tabModele">
+      <attribute name="icon">
+       <iconset resource="ress.qrc">
+        <normaloff>:/ressources/images/model.png</normaloff>:/ressources/images/model.png</iconset>
+      </attribute>
       <attribute name="title">
+       <string/>
+      </attribute>
+      <attribute name="toolTip">
        <string>Modele</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -103,7 +154,14 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tabSkybox">
+      <attribute name="icon">
+       <iconset resource="ress.qrc">
+        <normaloff>:/ressources/images/sky.png</normaloff>:/ressources/images/sky.png</iconset>
+      </attribute>
       <attribute name="title">
+       <string/>
+      </attribute>
+      <attribute name="toolTip">
        <string>Skybox</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout"/>
@@ -138,6 +196,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="ress.qrc"/>
+ </resources>
  <connections/>
 </ui>

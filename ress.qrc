@@ -1,6 +1,9 @@
 <RCC>
-    <qresource prefix="/images">
-        <file>index.png</file>
-        <file>bg.jpg</file>
+    <qresource prefix="/">
+        <file>ressources/images/bg.jpg</file>
+        <file>ressources/images/model.png</file>
+        <file>ressources/images/mountain.png</file>
+        <file>ressources/images/particle.png</file>
+        <file>ressources/images/sky.png</file>
     </qresource>
 </RCC>
