@@ -47,9 +47,8 @@ OpenGLWindow::~OpenGLWindow()
 
 void    OpenGLWindow::run(void)
 {
-    qDebug() << "a";
-    //this->_engine->load("./resources/scenes/altair/altair.dae");
-    qDebug() << "a";
+    //this->_engine->load("./ressources/scenes/altair/altair.dae");
+
     while (isVisible())
     {
         _engine->update();
