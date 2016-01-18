@@ -2,6 +2,7 @@
 #define TOOLWIDGET_HPP
 
 #include <QWidget>
+#include <QPaintEvent>
 
 namespace Ui {
 class ToolWidget;
@@ -15,8 +16,15 @@ public:
     explicit ToolWidget(QWidget *parent = 0);
     ~ToolWidget();
 
+public slots:
+    void    switchVisibility();
+
+protected:
+    virtual void    paintEvent(QPaintEvent *e);
+
+
 private:
-    Ui::ToolWidget *ui;
+    Ui::ToolWidget *_ui;
 };
 
 #endif // TOOLWIDGET_HPP

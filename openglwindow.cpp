@@ -47,7 +47,6 @@ OpenGLWindow::~OpenGLWindow()
 
 void    OpenGLWindow::run(void)
 {
-    this->show();
     while (isVisible())
     {
         _engine->update();
@@ -58,27 +57,18 @@ void    OpenGLWindow::run(void)
 
         QCoreApplication::processEvents();
     }
+    qDebug() << "hya";
 }
 
 void    OpenGLWindow::keyPressEvent(QKeyEvent *e)
 {
     if (e->isAutoRepeat())
         return;
-    static bool scr = false; // Miroir, miroir, qui est la plus belle des horreurs dans ce code ?
+
     e->accept();
 
     if (e->key() == Qt::Key_Escape)
-        this->close();
-    else if (e->key() == Qt::Key_A) {
-        if (scr == false) {
-            showMaximized();
-            scr = true;
-        }
-        else {
-            showNormal();
-            scr = false;
-        }
-    }
+        exit(1); // à remplacer quand on mettra en place les threads
     else if (e->key() == Qt::Key_Z){
     }
     else if (e->key() == Qt::Key_Q){
@@ -93,6 +83,9 @@ void    OpenGLWindow::keyReleaseEvent(QKeyEvent *e)
 {
     if (e->isAutoRepeat())
         return;
+
+    e->accept();
+
     if (e->key() == Qt::Key_Z){
     }
     if (e->key() == Qt::Key_Q){

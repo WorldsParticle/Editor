@@ -11,12 +11,11 @@
 class OpenGLWindow : public QWindow
 {
     Q_OBJECT
-    public:
+public:
         explicit OpenGLWindow(QWindow *parent = 0);
         ~OpenGLWindow();
 
 public slots:
-
     void    run();
 
 protected:
