@@ -26,8 +26,125 @@
      <height>25</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="actionNouveau_monde"/>
+    <addaction name="actionOuvrir_monde"/>
+    <addaction name="separator"/>
+    <addaction name="actionEnregistrer_le_monde"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuitter_2"/>
+   </widget>
+   <widget class="QMenu" name="menuEdition">
+    <property name="title">
+     <string>Generation</string>
+    </property>
+    <addaction name="actionLancer_la_generation"/>
+    <addaction name="separator"/>
+    <addaction name="actionConfigurer"/>
+   </widget>
+   <widget class="QMenu" name="menuAide">
+    <property name="title">
+     <string>Exploration</string>
+    </property>
+    <addaction name="actionExplorer"/>
+    <addaction name="separator"/>
+    <addaction name="actionConfigurer_2"/>
+   </widget>
+   <widget class="QMenu" name="menuAide_2">
+    <property name="title">
+     <string>Outils</string>
+    </property>
+    <addaction name="actionMod_les"/>
+    <addaction name="actionSkybox"/>
+    <addaction name="actionTextures"/>
+    <addaction name="actionParticules"/>
+   </widget>
+   <widget class="QMenu" name="menuAide_3">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+    <addaction name="actionAide_en_ligne"/>
+   </widget>
+   <addaction name="menuFichier"/>
+   <addaction name="menuEdition"/>
+   <addaction name="menuAide"/>
+   <addaction name="menuAide_2"/>
+   <addaction name="menuAide_3"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNouveau_monde">
+   <property name="text">
+    <string>Nouveau</string>
+   </property>
+  </action>
+  <action name="actionOuvrir_monde">
+   <property name="text">
+    <string>Ouvrir</string>
+   </property>
+  </action>
+  <action name="actionLancer_la_generation">
+   <property name="text">
+    <string>Générer</string>
+   </property>
+  </action>
+  <action name="actionExplorer">
+   <property name="text">
+    <string>Explorer</string>
+   </property>
+  </action>
+  <action name="actionMod_les">
+   <property name="text">
+    <string>Terrain</string>
+   </property>
+  </action>
+  <action name="actionSkybox">
+   <property name="text">
+    <string>Particules</string>
+   </property>
+  </action>
+  <action name="actionTextures">
+   <property name="text">
+    <string>Modèles</string>
+   </property>
+  </action>
+  <action name="actionParticules">
+   <property name="text">
+    <string>Skybox</string>
+   </property>
+  </action>
+  <action name="actionEnregistrer_le_monde">
+   <property name="text">
+    <string>Enregistrer</string>
+   </property>
+  </action>
+  <action name="actionQuitter">
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionQuitter_2">
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionConfigurer">
+   <property name="text">
+    <string>Configurer</string>
+   </property>
+  </action>
+  <action name="actionConfigurer_2">
+   <property name="text">
+    <string>Configurer</string>
+   </property>
+  </action>
+  <action name="actionAide_en_ligne">
+   <property name="text">
+    <string>Aide en ligne</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
