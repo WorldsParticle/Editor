@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPaintEvent>
+#include <QPropertyAnimation>
 
 namespace Ui {
 class ToolWidget;
@@ -24,7 +25,8 @@ protected:
 
 
 private:
-    Ui::ToolWidget *_ui;
+    Ui::ToolWidget      *_ui;
+    QPropertyAnimation  *_slideAnimation;
 };
 
 #endif // TOOLWIDGET_HPP
