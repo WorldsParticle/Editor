@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     _ui->setupUi(this);
     setWindowTitle("Editeur");
+    _ui->statusBar->showMessage("Welcome to WorldsParticle editor !", 5000);
+
     setAttribute(Qt::WA_QuitOnClose, true);
 
     _ui->centralWidget->setLayout(&_centralLayout);
