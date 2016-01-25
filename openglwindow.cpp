@@ -3,6 +3,9 @@
 #include <iostream>
 #include <qcoreapplication.h>
 
+namespace Editor
+{
+
 OpenGLWindow::OpenGLWindow(QWindow *parent) :
     QWindow(parent),
     _context(this),
@@ -100,7 +103,7 @@ void    OpenGLWindow::keyReleaseEvent(QKeyEvent *e)
 void    OpenGLWindow::resizeEvent(QResizeEvent* event)
 {
 
-   // GLWindow::resizeEvent(event);
+    // GLWindow::resizeEvent(event);
 }
 
 void    OpenGLWindow::mousePressEvent(QMouseEvent *event)
@@ -112,8 +115,8 @@ void    OpenGLWindow::mousePressEvent(QMouseEvent *event)
         _mouseTracking = true;
     }
     else if (event->button() == Qt::RightButton){
-    setCursor(Qt::ArrowCursor);
-    _mouseTracking = false;
+        setCursor(Qt::ArrowCursor);
+        _mouseTracking = false;
     }
 }
 
@@ -123,4 +126,6 @@ void    OpenGLWindow::mouseMoveEvent(QMouseEvent *event){
         QPoint glob = mapToGlobal(QPoint(width()/2,height()/2));
         QCursor::setPos(glob);
     }
+}
+
 }

@@ -8,12 +8,15 @@
 #include    <QTime>
 #include    <Engine/Core.hpp>
 
+namespace Editor
+{
+
 class OpenGLWindow : public QWindow
 {
     Q_OBJECT
 public:
-        explicit OpenGLWindow(QWindow *parent = 0);
-        ~OpenGLWindow();
+    explicit OpenGLWindow(QWindow *parent = 0);
+    ~OpenGLWindow();
 
 public slots:
     void    run();
@@ -26,11 +29,13 @@ protected:
     virtual void    mouseMoveEvent(QMouseEvent *event);
 
 private:
-        QOpenGLContext _context;
-        QSurfaceFormat _format;
-        Engine::Core   *_engine;
+    QOpenGLContext _context;
+    QSurfaceFormat _format;
+    Engine::Core   *_engine;
 
-        bool           _mouseTracking;
+    bool           _mouseTracking;
 };
+
+}
 
 #endif // OPENGLWINDOW_HPP

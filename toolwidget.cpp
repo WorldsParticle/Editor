@@ -3,6 +3,9 @@
 #include <qdebug.h>
 #include <QPainter>
 
+namespace Editor
+{
+
 ToolWidget::ToolWidget(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::ToolWidget),
@@ -45,4 +48,6 @@ void    ToolWidget::paintEvent(QPaintEvent *e)
     QPainter painter(this);
     painter.fillRect(rect(), QColor(0, 0, 0, 0));
     QWidget::paintEvent(e);
+}
+
 }

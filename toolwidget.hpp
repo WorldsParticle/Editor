@@ -9,6 +9,9 @@ namespace Ui {
 class ToolWidget;
 }
 
+namespace Editor
+{
+
 class ToolWidget : public QWidget
 {
     Q_OBJECT
@@ -28,5 +31,7 @@ private:
     Ui::ToolWidget      *_ui;
     QPropertyAnimation  *_slideAnimation;
 };
+
+}
 
 #endif // TOOLWIDGET_HPP

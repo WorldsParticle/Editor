@@ -12,6 +12,9 @@ namespace Ui {
 class MainWindow;
 }
 
+namespace Editor
+{
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -35,5 +38,7 @@ private:
     QWidget         *_docker;
     QHBoxLayout     _centralLayout;
 };
+
+}
 
 #endif // MAINWINDOW_HPP

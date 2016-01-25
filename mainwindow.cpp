@@ -5,6 +5,9 @@
 #include <qdebug.h>
 #include <QThread>
 
+namespace Editor
+{
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     _ui(new Ui::MainWindow),
@@ -56,4 +59,6 @@ void    MainWindow::dockGlWindow()
 {
     _docker = QWidget::createWindowContainer(&_glWindow);
     _centralLayout.addWidget(_docker, 1);
+}
+
 }
