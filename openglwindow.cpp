@@ -37,20 +37,20 @@ OpenGLWindow::OpenGLWindow(QWindow *parent) :
                 << this->format().majorVersion() << "."
                 << this->format().minorVersion();
 
-    _engine = new Engine::Core();
-
     setTitle("Explorateur");
 }
 
 
 OpenGLWindow::~OpenGLWindow()
 {
-    delete _engine;
+
 }
 
-void    OpenGLWindow::run(void)
+void    OpenGLWindow::run(Engine::Core *engine)
 {
-    //this->_engine->load("./ressources/scenes/altair/altair.dae");
+    if (!engine)
+        return;
+    _engine = engine;
 
     while (isVisible())
     {

@@ -14,21 +14,22 @@ MainWindow::MainWindow(QWidget *parent) :
     _glWindow(),
     _toolWidget(),
     _docker(NULL),
-    _centralLayout()
+    _centralLayout(),
+    _engine()
 {
     _ui->setupUi(this);
     setWindowTitle("Editeur");
     _ui->statusBar->showMessage("Welcome to WorldsParticle editor !", 5000);
-
     setAttribute(Qt::WA_QuitOnClose, true);
 
     _ui->centralWidget->setLayout(&_centralLayout);
     _centralLayout.addWidget(&_toolWidget, 0);
-
     dockGlWindow();
 
+    //_engine.load("./resources/scenes/altair/altair.dae");
+
     show();
-    _glWindow.run();
+    _glWindow.run(&_engine);
 }
 
 MainWindow::~MainWindow()
