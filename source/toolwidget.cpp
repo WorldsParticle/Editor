@@ -1,4 +1,4 @@
-#include "toolwidget.hpp"
+#include "include/toolwidget.hpp"
 #include "ui_toolwidget.h"
 #include <qdebug.h>
 #include <QPainter>

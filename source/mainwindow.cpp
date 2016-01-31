@@ -1,5 +1,5 @@
-#include "mainwindow.hpp"
-#include "openglwindow.hpp"
+#include "include/mainwindow.hpp"
+#include "include/openglwindow.hpp"
 #include "ui_mainwindow.h"
 #include <QPainter>
 #include <qdebug.h>

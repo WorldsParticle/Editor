@@ -1,4 +1,4 @@
-#include "openglwindow.hpp"
+#include "include/openglwindow.hpp"
 #include <qdebug.h>
 #include <iostream>
 #include <qcoreapplication.h>
