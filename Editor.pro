@@ -12,17 +12,17 @@ TARGET = Editor
 TEMPLATE = app
 
 
-SOURCES +=	main.cpp \
-    		mainwindow.cpp \
-    		openglwindow.cpp \
-    		toolwidget.cpp
+SOURCES +=	source/main.cpp \
+                source/mainwindow.cpp \
+                source/openglwindow.cpp \
+                source/toolwidget.cpp
 
-HEADERS  +=	mainwindow.hpp \
-    		openglwindow.hpp \
-    		toolwidget.hpp
+HEADERS  +=	include/mainwindow.hpp \
+                include/openglwindow.hpp \
+                include/toolwidget.hpp
 
-FORMS    += 	mainwindow.ui \
-    		toolwidget.ui
+FORMS    += 	interface/mainwindow.ui \
+                interface/toolwidget.ui
 
 CONFIG += c++14
 #QMAKE_CXXFLAGS += -std=c++14
