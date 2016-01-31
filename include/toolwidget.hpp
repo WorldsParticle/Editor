@@ -30,7 +30,7 @@ public:
 
 public slots:
     ///
-    /// \brief switchVisibility is a slot wich switch the _ui->tabwidget visibility
+    /// \brief switchVisibility is a slot which switch the _ui->tabwidget visibility
     ///
     void    switchVisibility();
 
@@ -44,7 +44,7 @@ protected:
 
 private:
     ///
-    /// \brief _ui contain some ui elements wich are defined in toolwidget.ui
+    /// \brief _ui contain some ui elements which are defined in toolwidget.ui
     ///
     Ui::ToolWidget      *_ui;
 

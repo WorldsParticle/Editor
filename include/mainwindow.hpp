@@ -58,17 +58,17 @@ private:
     void            dockGlWindow();
 
     ///
-    /// \brief _ui contain some ui elements wich are defined in mainwindow.ui
+    /// \brief _ui contain some ui elements which are defined in mainwindow.ui
     ///
     Ui::MainWindow  *_ui;
 
     ///
-    /// \brief _glWindow is the OpenGLWindow, wich create an openGL context for the engine rendering
+    /// \brief _glWindow is the OpenGLWindow, which create an openGL context for the engine rendering
     ///
     OpenGLWindow    _glWindow;
 
     ///
-    /// \brief _toolWidget is a widget wich enable user to interact wich the engine
+    /// \brief _toolWidget is a widget which enable user to interact with the engine
     ///
     ToolWidget      _toolWidget;
 

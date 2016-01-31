@@ -29,7 +29,7 @@ public:
 
 public slots:
     ///
-    /// \brief run launch the main loop, wich remain active while this window is visible
+    /// \brief run launch the main loop, which remain active while this window is visible
     ///
     void    run(Engine::Core *engine);
 
