@@ -2,7 +2,6 @@
 #define OPENGLWINDOW_HPP
 
 #include    <QWindow>
-#include    <GL/glew.h>
 #include    <QOpenGLContext>
 #include    <QKeyEvent>
 #include    <QTime>

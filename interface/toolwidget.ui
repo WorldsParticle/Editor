@@ -63,7 +63,7 @@
      </property>
      <widget class="QWidget" name="tabTerrain">
       <attribute name="icon">
-       <iconset resource="../ress.qrc">
+       <iconset>
         <normaloff>:/ressources/images/mountain.png</normaloff>:/ressources/images/mountain.png</iconset>
       </attribute>
       <attribute name="title">
@@ -96,7 +96,7 @@
      </widget>
      <widget class="QWidget" name="tabParticules">
       <attribute name="icon">
-       <iconset resource="../ress.qrc">
+       <iconset>
         <normaloff>:/ressources/images/particle.png</normaloff>:/ressources/images/particle.png</iconset>
       </attribute>
       <attribute name="title">
@@ -134,7 +134,7 @@
      </widget>
      <widget class="QWidget" name="tabModele">
       <attribute name="icon">
-       <iconset resource="../ress.qrc">
+       <iconset>
         <normaloff>:/ressources/images/model.png</normaloff>:/ressources/images/model.png</iconset>
       </attribute>
       <attribute name="title">
@@ -155,7 +155,7 @@
      </widget>
      <widget class="QWidget" name="tabSkybox">
       <attribute name="icon">
-       <iconset resource="../ress.qrc">
+       <iconset>
         <normaloff>:/ressources/images/sky.png</normaloff>:/ressources/images/sky.png</iconset>
       </attribute>
       <attribute name="title">
@@ -196,8 +196,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../ress.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
