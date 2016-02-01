@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPaintEvent>
 #include <QPropertyAnimation>
+#include <Engine/Core.hpp>
 
 namespace Ui {
 class ToolWidget;
@@ -28,11 +29,23 @@ public:
     ///
     ~ToolWidget();
 
+    ///
+    /// \brief setEngine set the current engine
+    /// \param engine is the new one
+    ///
+    inline void    setEngine(Engine::Core *engine)
+    { _engine = engine; }
+
 public slots:
     ///
     /// \brief switchVisibility is a slot which switch the _ui->tabwidget visibility
     ///
     void    switchVisibility();
+
+    ///
+    /// \brief importModel import a model to the scene. Maybe have to remove this methode in the mainWindow
+    ///
+    void    importModel();
 
 protected:
     ///
@@ -52,6 +65,11 @@ private:
     /// \brief _slideAnimation is used for having a smooth animation when switching the _ui->tabwidget visibility
     ///
     QPropertyAnimation  *_slideAnimation;
+
+    ///
+    /// \brief _engine is the worldsparticle engine, where the magic happen
+    ///
+    Engine::Core        *_engine;
 };
 
 }

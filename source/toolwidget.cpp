@@ -2,6 +2,7 @@
 #include "ui_toolwidget.h"
 #include <qdebug.h>
 #include <QPainter>
+#include <QFileDialog>
 
 namespace Editor
 {
@@ -20,6 +21,7 @@ ToolWidget::ToolWidget(QWidget *parent) :
     _slideAnimation->setEndValue(0);
 
     connect(_ui->switchButton, SIGNAL(pressed()), this, SLOT(switchVisibility()));
+    connect(_ui->buttonImport, SIGNAL(pressed()), this, SLOT(importModel()));
 }
 
 ToolWidget::~ToolWidget()
@@ -41,6 +43,13 @@ void    ToolWidget::switchVisibility()
         _ui->switchButton->setText("<");
     }
     _slideAnimation->start();
+}
+
+void    ToolWidget::importModel()
+{
+    QString path = QFileDialog::getOpenFileName(this, tr("Import"), "", tr("Model files (*.dae)"));
+    if (_engine && !path.isEmpty())
+        _engine->load(path.toStdString());
 }
 
 void    ToolWidget::paintEvent(QPaintEvent *e)

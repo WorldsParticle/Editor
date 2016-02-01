@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _centralLayout.addWidget(&_toolWidget, 0);
     dockGlWindow();
 
-    //_engine.load("./resources/scenes/altair/altair.dae");
+    _toolWidget.setEngine(&_engine);
 
     show();
     _glWindow.run(&_engine);
