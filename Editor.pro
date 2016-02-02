@@ -30,7 +30,7 @@ CONFIG += c++14
 #unix: INCLUDEPATH += -I/usr/local/include/
 
 LIBS += -L$$OUT_PWD/../Engine/build/release/ -lEngine
-INCLUDEPATH += -I$$PWD/../Engine/include/
+INCLUDEPATH += $$PWD/../Engine/include/
 
 
 RESOURCES += \
