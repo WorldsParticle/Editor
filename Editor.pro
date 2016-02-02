@@ -25,10 +25,13 @@ FORMS    += 	interface/mainwindow.ui \
                 interface/toolwidget.ui
 
 CONFIG += c++14
-#QMAKE_CXXFLAGS += -std=c++14
 
-unix: LIBS += -L/usr/local/lib/ -lEngine
-unix: INCLUDEPATH += -I/usr/local/include/
+#unix: LIBS += -L/usr/local/lib/ -lEngine
+#unix: INCLUDEPATH += -I/usr/local/include/
+
+LIBS += -L$$OUT_PWD/../Engine/build/release/ -lEngine
+INCLUDEPATH += -I$$PWD/../Engine/include/
+
 
 RESOURCES += \
     ress.qrc
