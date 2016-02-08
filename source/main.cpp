@@ -1,6 +1,5 @@
 #include "include/mainwindow.hpp"
 #include <QApplication>
-#include <bullet/btBulletCollisionCommon.h>
 
 int main(int argc, char *argv[])
 {

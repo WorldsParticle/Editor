@@ -5,9 +5,10 @@
 #include <QPaintEvent>
 #include <QDockWidget>
 #include <QHBoxLayout>
+#include <Engine/Core.hpp>
+
 #include "openglwindow.hpp"
 #include "toolwidget.hpp"
-#include <Engine/Core.hpp>
 
 namespace Ui {
 class MainWindow;
