@@ -1,6 +1,90 @@
 #include "include/bulletworld.h"
 
-BulletWorld::BulletWorld()
+BulletWorld::BulletWorld() :
+    _world(NULL),
+    _dispatcher(NULL),
+    _collisionConfig(NULL),
+    _broadphase(NULL),
+    _solver(NULL),
+    _quad(NULL),
+    _rigidBodies()
+{
+    _collisionConfig = new btDefaultCollisionConfiguration();
+    _dispatcher = new btCollisionDispatcher(_collisionConfig);
+    _broadphase = new btDbvtBroadphase();
+    _solver = new btSequentialImpulseConstraintSolver();
+    _solver = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfig);
+
+    _world->setGravity(btVector3(0, -10, 0));
+}
+
+BulletWorld::~BulletWorld()
 {
 
+}
+
+btRigidBody *BulletWorld::addPlan(float size, float x, float y, float z, float mass)
+{
+    btTransform     t;
+    t.setIdentity();
+    t.setOrigin(btVector3(0, 0, 0));
+    btStaticPlaneShape   *plan = new btStaticPlaneShape(btVector3(x, y, z), size);
+
+    btMotionState   *motion = new btDefaultMotionState(t);
+    btRigidBody     *body = new btRigidBody(mass, motion, plan);
+    _world->addRigidBody(body);
+    _rigidBodies.push_back(body);
+    return body;
+}
+
+btRigidBody *BulletWorld::addSphere(float rad, float x, float y, float z, float mass)
+{
+    btTransform     t;
+    t.setIdentity();
+    t.setOrigin(btVector3(x, y, z));
+    btSphereShape   *sphere = new btSphereShape(rad);
+
+    //btVector3       inertia(0, 0, 0);                   //
+    //if (mass)                                           // Pas sûr de l'utilitée de cette partie
+    //    sphere->calculateLocalInertia(mass, inertia);   //
+
+    btMotionState   *motion = new btDefaultMotionState(t);
+    btRigidBody     *body = new btRigidBody(mass, motion, sphere);
+    _world->addRigidBody(body);
+    _rigidBodies.push_back(body);
+    return body;
+}
+
+void        BulletWorld::renderSphere(btRigidBody *sphere)
+{
+    glColor3f(1, 0, 0); // red
+    float r = ((btSphereShape*)sphere->getCollisionShape())->getRadius();
+    btTransform t;
+    sphere->getMotionState()->getWorldTransform(t);
+    float m[16];
+    t.getOpenGLMatrix(m);
+
+    glPushMatrix();
+    glMultMatrixf(m);
+    gluSphere(quad, r, 20, 20);
+    glPopMatrix();
+}
+
+void        BulletWorld::renderPlan(btRigidBody *plan)
+{
+    glColor3f(0.8, 0.8, 0.8); // gris clair
+    btTransform t;
+    plan->getMotionState()->getWorldTransform(t);
+    float m[16];
+    t.getOpenGLMatrix(m);
+
+    glPushMatrix();
+    glMultMatrixf(mat);
+    glBegin(GL_QUADS);
+    glVertex3f(-1000, 0, 1000);
+    glVertex3f(-1000, 0, -1000);
+    glVertex3f(1000, 0, -1000);
+    glVertex3f(1000, 0, 1000);
+    glEnd();
+    glPopMatrix();
 }
