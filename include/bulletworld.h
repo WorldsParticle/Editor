@@ -3,7 +3,7 @@
 
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <bullet/btBulletDynamicsCommon.h>
+#include <btBulletDynamicsCommon.h>
 #include <QVector>
 
 ///
@@ -15,6 +15,10 @@ class BulletWorld
 public:
     BulletWorld();
     ~BulletWorld();
+
+    void    init();
+    void    update();
+    void    render();
 
     btRigidBody *addPlan(float size, float x, float y, float z, float mass); // origine {0|0|0}
     btRigidBody *addSphere(float rad, float x, float y, float z, float mass);

@@ -9,18 +9,55 @@ BulletWorld::BulletWorld() :
     _quad(NULL),
     _rigidBodies()
 {
-    _collisionConfig = new btDefaultCollisionConfiguration();
-    _dispatcher = new btCollisionDispatcher(_collisionConfig);
-    _broadphase = new btDbvtBroadphase();
-    _solver = new btSequentialImpulseConstraintSolver();
-    _solver = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfig);
-
-    _world->setGravity(btVector3(0, -10, 0));
+    init();
 }
 
 BulletWorld::~BulletWorld()
 {
+    foreach (btRigidBody *b, _rigidBodies)
+    {
+        _world->removeCollisionObject(b);
+        btMotionState* motionState=b->getMotionState();
+        btCollisionShape* shape=b->getCollisionShape();
+        delete b;
+        delete shape;
+        delete motionState;
+    }
+    delete _dispatcher;
+    delete _collisionConfig;
+    delete _solver;
+    delete _broadphase;
+    delete _world;
+    gluDeleteQuadric(_quad);
+}
 
+void    BulletWorld::init()
+{
+    _quad = gluNewQuadric();
+
+    _collisionConfig = new btDefaultCollisionConfiguration();
+    _dispatcher = new btCollisionDispatcher(_collisionConfig);
+    _broadphase = new btDbvtBroadphase();
+    _solver = new btSequentialImpulseConstraintSolver();
+    _world = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfig);
+
+    _world->setGravity(btVector3(0, -10, 0));
+}
+
+void    BulletWorld::update()
+{
+    _world->stepSimulation(1/60.);
+}
+
+void    BulletWorld::render()
+{
+    foreach (btRigidBody *b, _rigidBodies)
+    {
+        if(b->getCollisionShape()->getShapeType()==STATIC_PLANE_PROXYTYPE)
+            renderPlan(b);
+        else if(b->getCollisionShape()->getShapeType()==SPHERE_SHAPE_PROXYTYPE)
+            renderSphere(b);
+    }
 }
 
 btRigidBody *BulletWorld::addPlan(float size, float x, float y, float z, float mass)
@@ -66,7 +103,7 @@ void        BulletWorld::renderSphere(btRigidBody *sphere)
 
     glPushMatrix();
     glMultMatrixf(m);
-    gluSphere(quad, r, 20, 20);
+    gluSphere(_quad, r, 20, 20);
     glPopMatrix();
 }
 
@@ -79,7 +116,7 @@ void        BulletWorld::renderPlan(btRigidBody *plan)
     t.getOpenGLMatrix(m);
 
     glPushMatrix();
-    glMultMatrixf(mat);
+    glMultMatrixf(m);
     glBegin(GL_QUADS);
     glVertex3f(-1000, 0, 1000);
     glVertex3f(-1000, 0, -1000);

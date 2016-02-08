@@ -7,6 +7,8 @@
 #include    <QTime>
 #include    <Engine/Core.hpp>
 
+#include "bulletworld.h"
+
 namespace Editor
 {
 
@@ -83,6 +85,9 @@ private:
     /// \brief _mouseTracking is used for handle if the mouse should be hide and centered (fps style)
     ///
     bool           _mouseTracking;
+
+    //temporaire, test de bullet
+    BulletWorld     _world;
 };
 
 }

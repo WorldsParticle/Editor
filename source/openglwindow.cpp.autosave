@@ -59,7 +59,7 @@ void    OpenGLWindow::run(Engine::Core *engine)
         _world.update();
         _context.makeCurrent(this);
         _engine->render();
-        _world.display();
+        _world.render();
         _context.swapBuffers(this);
         _context.doneCurrent();
 
