@@ -47,9 +47,11 @@ void    ToolWidget::switchVisibility()
 
 void    ToolWidget::importModel()
 {
-    QString path = QFileDialog::getOpenFileName(this, tr("Import"), "", tr("Model files (*.dae)"));
+    QString path = QFileDialog::getOpenFileName(this, tr("Import"), "", tr("Model files (*)"));
     if (_engine && !path.isEmpty())
-        _engine->load(path.toStdString());
+    {
+         _engine->load(path.toStdString());
+    }
 }
 
 void    ToolWidget::paintEvent(QPaintEvent *e)

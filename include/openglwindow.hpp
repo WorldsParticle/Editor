@@ -52,6 +52,12 @@ protected:
     virtual void    mousePressEvent(QMouseEvent *event);
 
     ///
+    /// \brief mouseReleaseEvent override, for passing events to the engine
+    /// \param event
+    ///
+    virtual void    mouseReleaseEvent(QMouseEvent *event);
+
+    ///
     /// \brief keyReleaseEvent override, for passing events to the engine
     /// \param e
     ///
