@@ -57,7 +57,7 @@ void    OpenGLWindow::run(Engine::Core *engine)
     if (!engine)
         return;
     _engine = engine;
-    _engine->load("/home/eroween/Documents/worldparticles/Engine/resources/models/cow.off");
+
     while (isVisible())
     {
         _engine->update();
@@ -141,11 +141,11 @@ void    OpenGLWindow::mousePressEvent(QMouseEvent *event)
         QCursor::setPos(glob);
         _mouseTracking = true;
     }
-//    else if (event->button() == Qt::RightButton)
-//    {
-//        setCursor(Qt::ArrowCursor);
-//        _mouseTracking = false;
-//    }
+    //    else if (event->button() == Qt::RightButton)
+    //    {
+    //        setCursor(Qt::ArrowCursor);
+    //        _mouseTracking = false;
+    //    }
 }
 
 void    OpenGLWindow::mouseReleaseEvent(QMouseEvent *event)
