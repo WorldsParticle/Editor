@@ -15,11 +15,12 @@ typedef std::pair<int, int> Point;
 class Center;
 class Corner;
 class Edge;
+class HalfEdge;
+class Site;
 
 ///
-/// \brief The Center class (zone)
-/// Represent the face of the polygon, the shape of the area
-/// and the biome itself
+/// \brief The Center class (face)
+/// Represent the aera shape (polygonal), and the zone biome
 ///
 class Center
 {
@@ -47,7 +48,7 @@ public:
 };
 
 ///
-/// \brief The Corner class
+/// \brief The Corner class (vertex)
 /// represent the vertices of zones
 ///
 class Corner
@@ -100,12 +101,25 @@ public:
 
 ///
 /// \brief The halfEdge class
+/// see the wikipedia link for more details
 ///
-class halfEdge
+class HalfEdge
 {
+    Edge        *_edge;
+    Center      *_center;
 
+    Corner      *_origin;
+    Corner      *_destination;
+
+    HalfEdge    *_prev;
+    HalfEdge    *_next;
+    HalfEdge    *_twin;
 };
 
+
+///
+/// \brief The Site struct
+/// not sure yet of the way to implement this one
 struct Site
 {
     Point	coord;
