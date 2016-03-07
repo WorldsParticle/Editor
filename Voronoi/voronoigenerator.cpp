@@ -11,7 +11,8 @@ VoronoiGenerator::VoronoiGenerator() :
     _points(),
     _centers(),
     _corners(),
-    _edges()
+    _edges(),
+    _events()
 {
 }
 
@@ -50,8 +51,13 @@ void    VoronoiGenerator::fortuneAlgo()
         centerLookup[p] = c;
     }
 
-    // To do
-    // straight line, wave line, queue, parabole
+    while (!_events.empty())
+    {
+        Event e = _events.front();
+        // Handle event (two type)
+        // add next events
+        _events.pop_front();
+    }
 }
 
 void    VoronoiGenerator::reset()

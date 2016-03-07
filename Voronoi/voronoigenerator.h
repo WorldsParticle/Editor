@@ -2,6 +2,17 @@
 #define VORONOIGENERATOR_H
 
 #include "graph.h"
+#include <list>
+
+class Event // should make an union
+{
+    enum Type
+    {
+        POINT = 0,
+        INTERSECTION
+    };
+    void    *data;
+};
 
 ///
 /// \brief The VoronoiGenerator class
@@ -38,6 +49,11 @@ private:
     std::vector<Center *>   _centers;
     std::vector<Corner *>   _corners;
     std::vector<Edge *>     _edges;
+
+    ///
+    /// \brief _events potential future events wich can modifie the beach line
+    /// (another point or parabola intersection)
+    std::list<Event>        _events;
 };
 
 #endif // VORONOIGENERATOR_H
