@@ -1,17 +1,34 @@
+//
+// http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/
+// https://en.wikipedia.org/wiki/Fortune%27s_algorithm
+// https://fr.wikipedia.org/wiki/Triangulation_de_Delaunay
+// https://en.wikipedia.org/wiki/Voronoi_diagram
+// https://github.com/nodename/as3delaunay/blob/master/src/com/nodename/Delaunay/Voronoi.as
+//
+
+
 #ifndef VORONOIGENERATOR_H
 #define VORONOIGENERATOR_H
 
 #include "graph.h"
 #include <list>
+#include <map>
 
-class Event // should make an union
+class QueuedEvent // Replace with site
 {
+
+public:
+
     enum Type
     {
-        POINT = 0,
-        INTERSECTION
+        POINT = 0,      // Site
+        INTERSECTION    // Vertex
     };
-    void    *data;
+
+    explicit QueuedEvent(Point p, Type t = POINT);
+
+    Point   _point;
+    Type    _type;
 };
 
 ///
@@ -39,6 +56,8 @@ private:
     void    generateRandomPoints();
     void    fortuneAlgo();
 
+    QueuedEvent    *popNextEvent();
+
     void    reset();
 
     int                     _cellNumber;
@@ -51,9 +70,9 @@ private:
     std::vector<Edge *>     _edges;
 
     ///
-    /// \brief _events potential future events wich can modifie the beach line
+    /// \brief _events potential future events wich can modify the beach line
     /// (another point or parabola intersection)
-    std::list<Event>        _events;
+    std::multimap<int, QueuedEvent *>   _events;
 };
 
 #endif // VORONOIGENERATOR_H

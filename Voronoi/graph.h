@@ -1,3 +1,10 @@
+//
+// https://en.wikipedia.org/wiki/Polygon_mesh
+// https://en.wikipedia.org/wiki/Doubly_connected_edge_list
+// https://github.com/amitp/mapgen2/tree/master/graph
+// http://www.skynet.ie/~sos/masters/VoronoiDiagramGenerator.h
+//
+
 #ifndef GRAPH_H
 #define GRAPH_H
 
@@ -10,7 +17,9 @@ class Corner;
 class Edge;
 
 ///
-/// \brief The Center class (used as a structure)
+/// \brief The Center class (zone)
+/// Represent the face of the polygon, the shape of the area
+/// and the biome itself
 ///
 class Center
 {
@@ -38,7 +47,8 @@ public:
 };
 
 ///
-/// \brief The Corner class (used as a structure)
+/// \brief The Corner class
+/// represent the vertices of zones
 ///
 class Corner
 {
@@ -69,7 +79,8 @@ public:
 };
 
 ///
-/// \brief The Edge class (used as a structure)
+/// \brief The Edge class
+/// represent line between corners which cut zones
 ///
 class Edge
 {
@@ -86,4 +97,20 @@ public:
     Point   _midpoint;  // halfway between v0, v1
     int     _river;     // Volume of water, not necessary right now
 };
+
+///
+/// \brief The halfEdge class
+///
+class halfEdge
+{
+
+};
+
+struct Site
+{
+    Point	coord;
+    int		sitenbr;
+    int		refcnt;
+};
+
 #endif // GRAPH_H

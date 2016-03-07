@@ -4,6 +4,13 @@
 
 #include <QDebug>
 
+QueuedEvent::QueuedEvent(Point p, Type t) :
+    _point(p),
+    _type(t)
+{
+
+}
+
 VoronoiGenerator::VoronoiGenerator() :
     _cellNumber(0),
     _xMax(0),
@@ -49,15 +56,26 @@ void    VoronoiGenerator::fortuneAlgo()
         c->_point = p;
         _centers.push_back(c);
         centerLookup[p] = c;
+
+        _events.insert(std::pair<int, QueuedEvent *>
+                       (p.first, new QueuedEvent(p)));
     }
 
     while (!_events.empty())
     {
-        Event e = _events.front();
+        QueuedEvent    *site = popNextEvent();
+        qDebug() << site->_point.first << "|" << site->_point.second;
         // Handle event (two type)
         // add next events
-        _events.pop_front();
     }
+}
+
+QueuedEvent    *VoronoiGenerator::popNextEvent()
+{
+    std::map<int, QueuedEvent*>::iterator it = _events.begin();
+    QueuedEvent    *s = (*it).second;
+    _events.erase(it);
+    return s;
 }
 
 void    VoronoiGenerator::reset()
