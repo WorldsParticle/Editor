@@ -14,7 +14,12 @@
 #include <list>
 #include <map>
 
-class QueuedEvent // Replace with site
+///
+/// \brief The QueuedEvent class
+/// represent an event (next point in x coordinate or intersection of three circles)
+/// \todo Replace with Site when sure of implementation
+///
+class QueuedEvent
 {
 
 public:
@@ -45,7 +50,7 @@ public:
 
     inline const std::vector<Point> &points()
     { return _points; }
-    inline std::vector<Center *>    &centers()
+    inline std::vector<Face *>    &centers()
     { return _centers; }
     inline std::vector<Corner *>    &corners()
     { return _corners; }
@@ -65,7 +70,7 @@ private:
     int                     _yMax;
 
     std::vector<Point>      _points;  // only during construction
-    std::vector<Center *>   _centers;
+    std::vector<Face *>   _centers;
     std::vector<Corner *>   _corners;
     std::vector<Edge *>     _edges;
 

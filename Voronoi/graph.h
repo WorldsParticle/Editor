@@ -11,23 +11,23 @@
 #include <vector>
 #include <string>
 
-typedef std::pair<int, int> Point;
-class Center;
-class Corner;
-class Edge;
-class HalfEdge;
-class Site;
+typedef std::pair<int, int> Point; // should change to real class
+class   Face;
+class   Corner;
+class   Edge;
+class   HalfEdge;
+class   Site;
 
 ///
-/// \brief The Center class (face)
+/// \brief The Face class
 /// Represent the aera shape (polygonal), and the zone biome
 ///
-class Center
+class Face
 {
 
 public:
 
-    explicit Center();
+    explicit Face();
 
     static int  _indexMax;  // change this
     const int   _index;
@@ -42,7 +42,7 @@ public:
 
     std::string _biome;     // biome type (see article)
 
-    std::vector<Center *>   _neighbors;
+    std::vector<Face *>     _neighbors;
     std::vector<Edge *>     _borders;
     std::vector<Corner *>   _corners;
 };
@@ -69,9 +69,9 @@ public:
     float   _elevation; // 0.0-1.0
     float   _moisture;  // 0.0-1.0
 
-    std::vector<Center *>   _touches;
-    std::vector<Edge *>     _protrudes;
-    std::vector<Corner *>   _adjacent;
+    std::vector<Face *>     _faces; // touching faces
+    std::vector<Edge *>     _edges; // touching edges
+    std::vector<Corner *>   _adjacent; // adjacent corners
 
     int     _river;     // 0 if no river, or volume of water in river
     Corner  *_downslope; // pointer to adjacent corner most downhill
@@ -93,20 +93,21 @@ public:
     static int  _indexMax;  // change this
     const int   _index;
 
-    Center  *_d0, *_d1;   // Delaunay edge
-    Corner  *_v0, *_v1;   // Voronoi edge
-    Point   _midpoint;  // halfway between v0, v1
-    int     _river;     // Volume of water, not necessary right now
+    Face        *_d0, *_d1;   // Delaunay edge
+    Corner      *_v0, *_v1;   // Voronoi edge
+    Point       _midpoint;  // halfway between v0, v1
+    int         _river;     // Volume of water, not necessary right now
 };
 
 ///
 /// \brief The halfEdge class
-/// see the wikipedia link for more details
+/// see the wikipedia link for more details (doubly connected edge list)
+/// \todo index as the other ?
 ///
 class HalfEdge
 {
     Edge        *_edge;
-    Center      *_center;
+    Face        *_center;
 
     Corner      *_origin;
     Corner      *_destination;
@@ -120,6 +121,8 @@ class HalfEdge
 ///
 /// \brief The Site struct
 /// not sure yet of the way to implement this one
+/// \todo index as the other ?
+///
 struct Site
 {
     Point	coord;

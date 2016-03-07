@@ -1,7 +1,7 @@
 #include "graph.h"
 
-int Center::_indexMax = 0;
-Center::Center() :
+int Face::_indexMax = 0;
+Face::Face() :
     _index(_indexMax),
     _neighbors(),
     _borders(),
