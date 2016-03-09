@@ -65,9 +65,30 @@ void    VoronoiGenerator::fortuneAlgo()
     {
         QueuedEvent    *site = popNextEvent();
         qDebug() << site->_point.first << "|" << site->_point.second;
-        // Handle event (two type)
-        // add next events
+        if (site->_type == QueuedEvent::POINT)
+            addParabola(site->_point);
+        else
+            removeParabloa();
     }
+
+    LloydRelaxation();
+}
+
+void    VoronoiGenerator::LloydRelaxation()
+{
+
+}
+
+void    VoronoiGenerator::addParabola(Point p)
+{
+    // add parabola to beachline
+    // check new circle (intersections) events
+}
+
+void    VoronoiGenerator::removeParabloa()
+{
+    // remove parabola
+    // check new circles events
 }
 
 QueuedEvent    *VoronoiGenerator::popNextEvent()

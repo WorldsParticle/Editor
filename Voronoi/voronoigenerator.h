@@ -26,8 +26,8 @@ public:
 
     enum Type
     {
-        POINT = 0,      // Site
-        INTERSECTION    // Vertex
+        POINT = 0,      // Site, add parabola
+        INTERSECTION    // Vertex, remove parabola
     };
 
     explicit QueuedEvent(Point p, Type t = POINT);
@@ -60,6 +60,10 @@ public:
 private:
     void    generateRandomPoints();
     void    fortuneAlgo();
+    void    LloydRelaxation();
+
+    void    addParabola(Point p);
+    void    removeParabloa(); // should pass Parabola as argument when implemented
 
     QueuedEvent    *popNextEvent();
 
