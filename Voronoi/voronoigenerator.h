@@ -54,7 +54,7 @@ public:
     { return _centers; }
     inline std::vector<Corner *>    &corners()
     { return _corners; }
-    inline std::vector<DoubleEdge *>      &edges()
+    inline std::vector<CrossedEdge *>      &edges()
     { return _edges; }
 
 private:
@@ -72,7 +72,7 @@ private:
     std::vector<Point>      _points;  // only during construction
     std::vector<Face *>   _centers;
     std::vector<Corner *>   _corners;
-    std::vector<DoubleEdge *>     _edges;
+    std::vector<CrossedEdge *>     _edges;
 
     ///
     /// \brief _events potential future events wich can modify the beach line

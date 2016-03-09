@@ -17,8 +17,8 @@ Corner::Corner() :
     ++_indexMax;
 }
 
-int DoubleEdge::_indexMax = 0;
-DoubleEdge::DoubleEdge() :
+int CrossedEdge::_indexMax = 0;
+CrossedEdge::CrossedEdge() :
     _index(_indexMax)
 {
     ++_indexMax;
