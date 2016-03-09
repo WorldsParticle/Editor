@@ -14,7 +14,7 @@
 typedef std::pair<int, int> Point; // should change to real class
 class   Face;
 class   Corner;
-class   DoubleEdge;
+class   CrossedEdge;
 class   HalfEdge;
 class   Site;
 
@@ -44,7 +44,7 @@ public:
     std::string _biome;     // biome type (see article)
 
     std::vector<Face *>     _neighbors;
-    std::vector<DoubleEdge *>     _borders;
+    std::vector<CrossedEdge *>     _borders;
     std::vector<Corner *>   _corners;
 };
 
@@ -72,7 +72,7 @@ public:
     float   _moisture;  // 0.0-1.0
 
     std::vector<Face *>     _faces; // touching faces
-    std::vector<DoubleEdge *>     _edges; // touching edges
+    std::vector<CrossedEdge *>     _edges; // touching edges
     std::vector<Corner *>   _adjacent; // adjacent corners
 
     int     _river;     // 0 if no river, or volume of water in river
@@ -82,17 +82,17 @@ public:
 };
 
 ///
-/// \brief The DoubleEdge class
+/// \brief The CrossedEdge class
 /// represent both edge of Voronoi and Delaunay graph
 /// allowing to connect them together
 /// it is the cross point you can see between black and white segment in http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/voronoi-and-delaunay.png
 ///
-class DoubleEdge
+class CrossedEdge
 {
 
 public:
 
-    explicit DoubleEdge();
+    explicit CrossedEdge();
 
     static int  _indexMax;  // change this
     const int   _index;
@@ -110,11 +110,11 @@ public:
 ///
 class HalfEdge
 {
-    DoubleEdge  *_edge; //change that quickly
+    CrossedEdge *_edge; // here represent the Voronoi one
     Face        *_center;
 
-    Corner      *_origin;
-    Corner      *_destination;
+    Corner      *_origin;       // maybe use _edge.v0 instead
+    Corner      *_destination;  // maybe use _edge.v1 instead
 
     HalfEdge    *_prev;
     HalfEdge    *_next;

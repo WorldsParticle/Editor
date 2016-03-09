@@ -88,7 +88,7 @@ void    VoronoiGenerator::reset()
         it != _corners.end(); ++it)
         delete (*it);
 
-    for(std::vector<Edge *>::iterator it = _edges.begin();
+    for(std::vector<DoubleEdge *>::iterator it = _edges.begin();
         it != _edges.end(); ++it)
         delete (*it);
 
@@ -99,5 +99,5 @@ void    VoronoiGenerator::reset()
 
     Face::_indexMax = 0;
     Corner::_indexMax = 0;
-    Edge::_indexMax = 0;
+    DoubleEdge::_indexMax = 0;
 }
