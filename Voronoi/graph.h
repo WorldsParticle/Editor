@@ -4,6 +4,9 @@
 // https://github.com/amitp/mapgen2/tree/master/graph
 // http://www.skynet.ie/~sos/masters/VoronoiDiagramGenerator.h
 //
+// Keep in mind that Face are corners of Delaunay cells, and center of Voronoi's
+// Same for Corner : they are corners of Voronoi's, and centroid of Delaunay's
+//
 
 #ifndef GRAPH_H
 #define GRAPH_H
@@ -71,9 +74,9 @@ public:
     float   _elevation; // 0.0-1.0
     float   _moisture;  // 0.0-1.0
 
-    std::vector<Face *>     _faces; // touching faces
-    std::vector<CrossedEdge *>     _edges; // touching edges
-    std::vector<Corner *>   _adjacent; // adjacent corners
+    std::vector<Face *>         _faces; // touching faces
+    std::vector<CrossedEdge *>  _edges; // touching edges
+    std::vector<Corner *>       _adjacent; // adjacent corners
 
     int     _river;     // 0 if no river, or volume of water in river
     Corner  *_downslope; // pointer to adjacent corner most downhill
@@ -113,8 +116,8 @@ class HalfEdge
     CrossedEdge *_edge; // here represent the Voronoi one
     Face        *_center;
 
-    Corner      *_origin;       // maybe use _edge.v0 instead
-    Corner      *_destination;  // maybe use _edge.v1 instead
+    Corner      *_origin;       // maybe use _edge.v0/v1 instead, if able to keep track of direction
+    Corner      *_destination;  // maybe use _edge.v1/v0 instead, if able to keep track of direction
 
     HalfEdge    *_prev;
     HalfEdge    *_next;
