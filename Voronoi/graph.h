@@ -14,13 +14,14 @@
 typedef std::pair<int, int> Point; // should change to real class
 class   Face;
 class   Corner;
-class   Edge;
+class   DoubleEdge;
 class   HalfEdge;
 class   Site;
 
 ///
 /// \brief The Face class
-/// Represent the aera shape (polygonal), and the zone biome
+/// Represent the Delaunay triangulation
+/// This is the zone as itself
 ///
 class Face
 {
@@ -43,13 +44,14 @@ public:
     std::string _biome;     // biome type (see article)
 
     std::vector<Face *>     _neighbors;
-    std::vector<Edge *>     _borders;
+    std::vector<DoubleEdge *>     _borders;
     std::vector<Corner *>   _corners;
 };
 
 ///
 /// \brief The Corner class (vertex)
 /// represent the vertices of zones
+/// contains the shape of Voronoi polygons
 ///
 class Corner
 {
@@ -70,7 +72,7 @@ public:
     float   _moisture;  // 0.0-1.0
 
     std::vector<Face *>     _faces; // touching faces
-    std::vector<Edge *>     _edges; // touching edges
+    std::vector<DoubleEdge *>     _edges; // touching edges
     std::vector<Corner *>   _adjacent; // adjacent corners
 
     int     _river;     // 0 if no river, or volume of water in river
@@ -80,22 +82,24 @@ public:
 };
 
 ///
-/// \brief The Edge class
-/// represent line between corners which cut zones
+/// \brief The DoubleEdge class
+/// represent both edge of Voronoi and Delaunay graph
+/// allowing to connect them together
+/// it is the cross point you can see between black and white segment in http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/voronoi-and-delaunay.png
 ///
-class Edge
+class DoubleEdge
 {
 
 public:
 
-    explicit Edge();
+    explicit DoubleEdge();
 
     static int  _indexMax;  // change this
     const int   _index;
 
     Face        *_d0, *_d1;   // Delaunay edge
     Corner      *_v0, *_v1;   // Voronoi edge
-    Point       _midpoint;  // halfway between v0, v1
+    Point       _midpoint;  // cross point, halfway between v0 and v1
     int         _river;     // Volume of water, not necessary right now
 };
 
@@ -106,7 +110,7 @@ public:
 ///
 class HalfEdge
 {
-    Edge        *_edge;
+    DoubleEdge  *_edge; //change that quickly
     Face        *_center;
 
     Corner      *_origin;
