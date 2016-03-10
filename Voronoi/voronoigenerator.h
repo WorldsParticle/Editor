@@ -31,13 +31,13 @@ public:
         INTERSECTION    // Vertex, remove parabola
     };
 
-    explicit QedEvent(double ny, Type t) : type(t), y(ny), parabola(NULL), site(NULL) {}
+    explicit QedEvent(double ny, Type t) : type(t), y(ny), arch(NULL), site(NULL) {}
 
     Type        type;
 
     double      y;
-    Parabola    *parabola; // if interesection
-    Site        *site;     // if point
+    Parabola    *arch; // if interesection
+    Site        *site; // if point
 
 };
 
@@ -65,8 +65,12 @@ private:
     void    fortuneAlgo();
     void    LloydRelaxation();
 
-    void    addParabola(Site *s);
-    void    removeParabloa(QedEvent *e); // should pass Parabola as argument when implemented
+    void    addParabola(Site *site);
+    void    removeParabola(QedEvent *e); // should pass Parabola as argument when implemented
+
+    // to review
+    double       getXofEdge(Parabola *p, double y); // return current x position of an intersection point of left and right parabolas
+    Parabola    *getParabolaByX(double nx); // return  Parabola under nx position in the current beachline
 
     QedEvent    *popNextEvent();
 

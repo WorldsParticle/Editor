@@ -14,6 +14,7 @@ class QedEvent;
 ///
 /// \brief The Parabola class
 /// keep in mind that sweepline is going down (horizontal beachline)
+/// todo : change right/left to prev/next ?
 class Parabola
 {
 public:
@@ -29,7 +30,7 @@ public:
     bool		isLeaf;
     Site        *site;
     CrossedEdge *edge;
-    QedEvent *cEvent;
+    QedEvent    *cEvent;
     Parabola    *parent;
 
     /*
@@ -50,7 +51,7 @@ public:
     Parabola    *right() { return _right; }
 
     /*
-        Some useful tree operations
+        Some useful tree operations  // why static ?
 
         GetLeft			: returns the closest left leave of the tree
         GetRight		: returns the closest right leafe of the tree

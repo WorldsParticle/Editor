@@ -107,7 +107,7 @@ public:
     static int  indexMax;  // change this
     const int   index;
 
-    Site        *d0, *d1;   // Delaunay edge
+    Site        *d0, *d1;   // Delaunay edge (during computing, d0 will be used as left, d1 as right)
     Corner      *v0, *v1;   // Voronoi edge
     Point       midpoint;  // cross point, halfway between v0 and v1
     int         river;     // Volume of water, not necessary right now
