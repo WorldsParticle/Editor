@@ -47,7 +47,7 @@ void    VoronoiGenerator::generateRandomSites()
 
         QedEvent *e = new QedEvent(s->point.x, QedEvent::POINT);
         e->site = s,
-        _events.insert(std::pair<int, QedEvent *> (e->x, e));
+        _events.insert(std::pair<double, QedEvent *> (e->x, e));
     }
 }
 
@@ -99,7 +99,7 @@ void    VoronoiGenerator::removeParabloa(QedEvent *e)
 
 QedEvent    *VoronoiGenerator::popNextEvent()
 {
-    std::map<int, QedEvent*>::iterator it = _events.begin();
+    std::map<double, QedEvent*>::iterator it = _events.begin();
     QedEvent    *s = (*it).second;
     _events.erase(it);
     return s;
@@ -119,7 +119,7 @@ void    VoronoiGenerator::reset()
          it != _edges.end(); ++it)
         delete (*it);
 
-    for (std::multimap<int, QedEvent *>::iterator it = _events.begin();
+    for (std::multimap<double, QedEvent *>::iterator it = _events.begin();
          it != _events.end(); ++it)
         delete (*it).second;
 

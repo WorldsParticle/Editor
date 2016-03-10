@@ -84,7 +84,7 @@ private:
     /// \brief _events potential future events wich can modify the beach line
     /// (another point or parabola intersection)
     ///
-    std::multimap<int, QedEvent *>   _events;
+    std::multimap<double, QedEvent *>   _events;
 
     int                     _sweepLine;
     Parabola                *_rootParabola;
