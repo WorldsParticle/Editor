@@ -31,11 +31,11 @@ public:
         INTERSECTION    // Vertex, remove parabola
     };
 
-    explicit QedEvent(double nx, Type t) : type(t), x(nx), parabola(NULL), site(NULL) {}
+    explicit QedEvent(double ny, Type t) : type(t), y(ny), parabola(NULL), site(NULL) {}
 
     Type        type;
 
-    double      x;
+    double      y;
     Parabola    *parabola; // if interesection
     Site        *site;     // if point
 
@@ -86,8 +86,8 @@ private:
     ///
     std::multimap<double, QedEvent *>   _events;
 
-    int                     _sweepLine;
-    Parabola                *_rootParabola;
+    int                     _sweepLine;     // sweep line going down
+    Parabola                *_root;         // root parabola containing the beach line
 };
 
 #endif // VORONOIGENERATOR_H

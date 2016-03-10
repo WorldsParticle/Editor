@@ -15,7 +15,7 @@ VoronoiGenerator::VoronoiGenerator() :
     _edges(),
     _events(),
     _sweepLine(0),
-    _rootParabola(NULL)
+    _root(NULL)
 {
 }
 
@@ -45,9 +45,9 @@ void    VoronoiGenerator::generateRandomSites()
         s->point.y = DRAND(0, _yMax);
         _sites.push_back(s);
 
-        QedEvent *e = new QedEvent(s->point.x, QedEvent::POINT);
+        QedEvent *e = new QedEvent(s->point.y, QedEvent::POINT);
         e->site = s,
-        _events.insert(std::pair<double, QedEvent *> (e->x, e));
+        _events.insert(std::pair<double, QedEvent *> (e->y, e));
     }
 }
 
@@ -63,9 +63,9 @@ void    VoronoiGenerator::fortuneAlgo()
     while (!_events.empty())
     {
         QedEvent *event = popNextEvent();
-        _sweepLine = event->x;
+        _sweepLine = event->y;
 
-        qDebug() << event->x;
+        qDebug() << event->y;
 
         if (event->type == QedEvent::POINT)
             addParabola(event->site);
@@ -83,10 +83,22 @@ void    VoronoiGenerator::LloydRelaxation()
 
 void    VoronoiGenerator::addParabola(Site *s)
 {
-    if (!_rootParabola)
+    if (!_root)
     {
-        _rootParabola = new Parabola(s);
+        _root = new Parabola(s);
         return;
+    }
+
+    if (_root->isLeaf && _root->site->point.y - s->point.y < 1) // < 1 ?? why not 0 ?
+    {
+        // Creating an intersection
+        Site    *rs = _root->site;
+        _root->isLeaf = false;
+        _root->setLeft(new Parabola(rs));
+        _root->setRight(new Parabola(s));
+
+        //CrossedEdge *e = new CrossedEdge();
+        //todo
     }
 
 }

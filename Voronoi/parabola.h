@@ -13,7 +13,7 @@ class QedEvent;
 
 ///
 /// \brief The Parabola class
-/// keep in mind that we use horizontal parabola
+/// keep in mind that sweepline is going down (horizontal beachline)
 class Parabola
 {
 public:
