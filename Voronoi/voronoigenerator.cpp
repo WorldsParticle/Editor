@@ -4,12 +4,7 @@
 
 #include <QDebug>
 
-QueuedEvent::QueuedEvent(Point p, Type t) :
-    point(p),
-    type(t)
-{
-
-}
+#define DRAND(min, max) (min) + ((double)std::rand() / RAND_MAX) * ((max) - (min))
 
 VoronoiGenerator::VoronoiGenerator() :
     _cellNumber(0),
@@ -19,7 +14,8 @@ VoronoiGenerator::VoronoiGenerator() :
     _corners(),
     _edges(),
     _events(),
-    _sweepLine(0)
+    _sweepLine(0),
+    _rootParabola(NULL)
 {
 }
 
@@ -45,12 +41,13 @@ void    VoronoiGenerator::generateRandomSites()
     for (int i = 0; i < _cellNumber; ++i)
     {
         Site    *s = new Site();
-        s->point.first = std::rand() % _xMax + 1;
-        s->point.second = std::rand() % _yMax + 1;
+        s->point.x = DRAND(0, _xMax);
+        s->point.y = DRAND(0, _yMax);
         _sites.push_back(s);
 
-        _events.insert(std::pair<int, QueuedEvent *>
-                       (s->point.first, new QueuedEvent(s->point)));
+        QedEvent *e = new QedEvent(s->point.x, QedEvent::POINT);
+        e->site = s,
+        _events.insert(std::pair<int, QedEvent *> (e->x, e));
     }
 }
 
@@ -65,13 +62,13 @@ void    VoronoiGenerator::fortuneAlgo()
 
     while (!_events.empty())
     {
-        QueuedEvent *event = popNextEvent();
-        _sweepLine = event->point.first;
+        QedEvent *event = popNextEvent();
+        _sweepLine = event->x;
 
-        qDebug() << event->point.first << "|" << event->point.second;
+        qDebug() << event->x;
 
-        if (event->type == QueuedEvent::POINT)
-            addParabola(event->point);
+        if (event->type == QedEvent::POINT)
+            addParabola(event->site);
         else
             removeParabloa(event);
     }
@@ -84,22 +81,26 @@ void    VoronoiGenerator::LloydRelaxation()
 
 }
 
-void    VoronoiGenerator::addParabola(Point p)
+void    VoronoiGenerator::addParabola(Site *s)
 {
-    // add parabola to beachline
-    // check new circle (intersections) events
+    if (!_rootParabola)
+    {
+        _rootParabola = new Parabola(s);
+        return;
+    }
+
 }
 
-void    VoronoiGenerator::removeParabloa(QueuedEvent *e)
+void    VoronoiGenerator::removeParabloa(QedEvent *e)
 {
     // remove parabola
     // check new circles events
 }
 
-QueuedEvent    *VoronoiGenerator::popNextEvent()
+QedEvent    *VoronoiGenerator::popNextEvent()
 {
-    std::map<int, QueuedEvent*>::iterator it = _events.begin();
-    QueuedEvent    *s = (*it).second;
+    std::map<int, QedEvent*>::iterator it = _events.begin();
+    QedEvent    *s = (*it).second;
     _events.erase(it);
     return s;
 }
@@ -118,7 +119,7 @@ void    VoronoiGenerator::reset()
          it != _edges.end(); ++it)
         delete (*it);
 
-    for (std::multimap<int, QueuedEvent *>::iterator it = _events.begin();
+    for (std::multimap<int, QedEvent *>::iterator it = _events.begin();
          it != _events.end(); ++it)
         delete (*it).second;
 
@@ -128,6 +129,6 @@ void    VoronoiGenerator::reset()
     _events.clear();
 
     Site::indexMax = 0;
-    Corner::_indexMax = 0;
+    Corner::indexMax = 0;
     CrossedEdge::indexMax = 0;
 }

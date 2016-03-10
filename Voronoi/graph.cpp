@@ -3,6 +3,7 @@
 int Site::indexMax = 0;
 Site::Site() :
     index(indexMax),
+    point(0, 0),
     neighbors(),
     borders(),
     corners()
@@ -10,16 +11,18 @@ Site::Site() :
     ++indexMax;
 }
 
-int Corner::_indexMax = 0;
+int Corner::indexMax = 0;
 Corner::Corner() :
-    _index(_indexMax)
+    index(indexMax),
+    point(0, 0)
 {
-    ++_indexMax;
+    ++indexMax;
 }
 
 int CrossedEdge::indexMax = 0;
 CrossedEdge::CrossedEdge() :
-    index(indexMax)
+    index(indexMax),
+    midpoint(0, 0)
 {
     ++indexMax;
 }

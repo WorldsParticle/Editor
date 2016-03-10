@@ -14,11 +14,19 @@
 #include <vector>
 #include <string>
 
-typedef std::pair<int, int> Point; // should change to real class
 class   Site;
 class   Corner;
 class   CrossedEdge;
 class   HalfEdge;
+
+class   Point
+{
+public:
+    explicit Point(double nx, double ny) : x(nx), y(ny) {}
+
+    double  x;
+    double  y;
+};
 
 ///
 /// \brief The Site class
@@ -62,8 +70,8 @@ public:
 
     explicit Corner();
 
-    static int  _indexMax;  // change this
-    const int   _index;
+    static int  indexMax;  // change this
+    const int   index;
 
     Point   point;     // location
     bool    ocean;     // ocean

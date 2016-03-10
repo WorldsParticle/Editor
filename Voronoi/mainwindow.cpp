@@ -27,6 +27,6 @@ void    MainWindow::generate()
 
     _scene.clear();
     for (const auto &s : _generator.sites())
-        _scene.addEllipse(s->point.first, s->point.second, 5, 5,
+        _scene.addEllipse(s->point.x, s->point.y, 5, 5,
                           QPen(), QBrush(Qt::SolidPattern));
 }

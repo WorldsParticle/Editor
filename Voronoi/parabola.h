@@ -9,7 +9,7 @@
 
 #include "graph.h"
 
-class QueuedEvent;
+class QedEvent;
 
 ///
 /// \brief The Parabola class
@@ -29,7 +29,7 @@ public:
     bool		isLeaf;
     Site        *site;
     CrossedEdge *edge;
-    QueuedEvent *cEvent;
+    QedEvent *cEvent;
     Parabola    *parent;
 
     /*

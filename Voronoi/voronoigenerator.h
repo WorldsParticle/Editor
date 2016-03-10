@@ -11,6 +11,7 @@
 #define VORONOIGENERATOR_H
 
 #include "graph.h"
+#include "parabola.h"
 #include <list>
 #include <map>
 
@@ -19,7 +20,7 @@
 /// represent an event (next point in x coordinate or intersection of three circles)
 /// \todo Replace with Site when sure of implementation
 ///
-class QueuedEvent
+class QedEvent
 {
 
 public:
@@ -30,10 +31,14 @@ public:
         INTERSECTION    // Vertex, remove parabola
     };
 
-    explicit QueuedEvent(Point p, Type t = POINT);
+    explicit QedEvent(double nx, Type t) : type(t), x(nx), parabola(NULL), site(NULL) {}
 
-    Point   point;
-    Type    type;
+    Type        type;
+
+    double      x;
+    Parabola    *parabola; // if interesection
+    Site        *site;     // if point
+
 };
 
 ///
@@ -60,10 +65,10 @@ private:
     void    fortuneAlgo();
     void    LloydRelaxation();
 
-    void    addParabola(Point p);
-    void    removeParabloa(QueuedEvent *e); // should pass Parabola as argument when implemented
+    void    addParabola(Site *s);
+    void    removeParabloa(QedEvent *e); // should pass Parabola as argument when implemented
 
-    QueuedEvent    *popNextEvent();
+    QedEvent    *popNextEvent();
 
     void    reset();
 
@@ -78,9 +83,11 @@ private:
     ///
     /// \brief _events potential future events wich can modify the beach line
     /// (another point or parabola intersection)
-    std::multimap<int, QueuedEvent *>   _events;
+    ///
+    std::multimap<int, QedEvent *>   _events;
 
     int                     _sweepLine;
+    Parabola                *_rootParabola;
 };
 
 #endif // VORONOIGENERATOR_H
