@@ -26,7 +26,7 @@ void    MainWindow::generate()
                       _ui->spinYMax->value());
 
     _scene.clear();
-    for (const auto &p : _generator.points())
-        _scene.addEllipse(p.first, p.second, 5, 5,
+    for (const auto &s : _generator.sites())
+        _scene.addEllipse(s->point.first, s->point.second, 5, 5,
                           QPen(), QBrush(Qt::SolidPattern));
 }

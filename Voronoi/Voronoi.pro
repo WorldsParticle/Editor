@@ -17,10 +17,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     voronoigenerator.cpp \
-    graph.cpp
+    graph.cpp \
+    parabola.cpp
 
 HEADERS  += mainwindow.h \
     voronoigenerator.h \
-    graph.h
+    graph.h \
+    parabola.h
 
 FORMS    += mainwindow.ui

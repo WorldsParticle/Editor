@@ -15,40 +15,39 @@
 #include <string>
 
 typedef std::pair<int, int> Point; // should change to real class
-class   Face;
+class   Site;
 class   Corner;
 class   CrossedEdge;
 class   HalfEdge;
-class   Site;
 
 ///
-/// \brief The Face class
+/// \brief The Site class
 /// Represent the Delaunay triangulation
-/// This is the zone as itself
+/// This is the zone as itself, the face of the polygon
 ///
-class Face
+class Site
 {
 
 public:
 
-    explicit Face();
+    explicit Site();
 
-    static int  _indexMax;  // change this
-    const int   _index;
+    static int  indexMax;  // change this
+    const int   index;
 
-    Point       _point;     // location
-    bool        _water;     // lake or ocean
-    bool        _ocean;     // ocean
-    bool        _coast;     // land polygon touching an ocean
-    bool        _border;    // at the edge of the map
-    float       _elevation; // 0.0-1.0
-    float       _moisture;  // 0.0-1.0
+    Point       point;     // location
+    bool        water;     // lake or ocean
+    bool        ocean;     // ocean
+    bool        coast;     // land polygon touching an ocean
+    bool        border;    // at the edge of the map
+    float       elevation; // 0.0-1.0
+    float       moisture;  // 0.0-1.0
 
-    std::string _biome;     // biome type (see article)
+    std::string biome;     // biome type (see article)
 
-    std::vector<Face *>     _neighbors;
-    std::vector<CrossedEdge *>     _borders;
-    std::vector<Corner *>   _corners;
+    std::vector<Site *>         neighbors;
+    std::vector<CrossedEdge *>  borders;
+    std::vector<Corner *>       corners;
 };
 
 ///
@@ -66,22 +65,22 @@ public:
     static int  _indexMax;  // change this
     const int   _index;
 
-    Point   _point;     // location
-    bool    _ocean;     // ocean
-    bool    _water;     // lake or ocean
-    bool    _coast;     // touches ocean and land polygons
-    bool    _border;    // at the edge of the map
-    float   _elevation; // 0.0-1.0
-    float   _moisture;  // 0.0-1.0
+    Point   point;     // location
+    bool    ocean;     // ocean
+    bool    water;     // lake or ocean
+    bool    coast;     // touches ocean and land polygons
+    bool    border;    // at the edge of the map
+    float   elevation; // 0.0-1.0
+    float   moisture;  // 0.0-1.0
 
-    std::vector<Face *>         _faces; // touching faces
-    std::vector<CrossedEdge *>  _edges; // touching edges
-    std::vector<Corner *>       _adjacent; // adjacent corners
+    std::vector<Site *>         faces; // touching faces
+    std::vector<CrossedEdge *>  edges; // touching edges
+    std::vector<Corner *>       adjacent; // adjacent corners
 
-    int     _river;     // 0 if no river, or volume of water in river
-    Corner  *_downslope; // pointer to adjacent corner most downhill
-    Corner  *_watershed; // pointer to coastal corner, or null
-    int     _watershedSize;
+    int     river;     // 0 if no river, or volume of water in river
+    Corner  *downslope; // pointer to adjacent corner most downhill
+    Corner  *watershed; // pointer to coastal corner, or null
+    int     watershedSize;
 };
 
 ///
@@ -97,13 +96,13 @@ public:
 
     explicit CrossedEdge();
 
-    static int  _indexMax;  // change this
-    const int   _index;
+    static int  indexMax;  // change this
+    const int   index;
 
-    Face        *_d0, *_d1;   // Delaunay edge
-    Corner      *_v0, *_v1;   // Voronoi edge
-    Point       _midpoint;  // cross point, halfway between v0 and v1
-    int         _river;     // Volume of water, not necessary right now
+    Site        *d0, *d1;   // Delaunay edge
+    Corner      *v0, *v1;   // Voronoi edge
+    Point       midpoint;  // cross point, halfway between v0 and v1
+    int         river;     // Volume of water, not necessary right now
 };
 
 ///
@@ -113,28 +112,15 @@ public:
 ///
 class HalfEdge
 {
-    CrossedEdge *_edge; // here represent the Voronoi one
-    Face        *_center;
+    CrossedEdge *edge; // here represent the Voronoi one
+    Site        *center;
 
-    Corner      *_origin;       // maybe use _edge.v0/v1 instead, if able to keep track of direction
-    Corner      *_destination;  // maybe use _edge.v1/v0 instead, if able to keep track of direction
+    Corner      *origin;       // maybe use _edge.v0/v1 instead, if able to keep track of direction
+    Corner      *destination;  // maybe use _edge.v1/v0 instead, if able to keep track of direction
 
-    HalfEdge    *_prev;
-    HalfEdge    *_next;
-    HalfEdge    *_twin;
-};
-
-
-///
-/// \brief The Site struct
-/// not sure yet of the way to implement this one
-/// \todo index as the other ?
-///
-struct Site
-{
-    Point	coord;
-    int		sitenbr;
-    int		refcnt;
+    HalfEdge    *prev;
+    HalfEdge    *next;
+    HalfEdge    *twin;
 };
 
 #endif // GRAPH_H

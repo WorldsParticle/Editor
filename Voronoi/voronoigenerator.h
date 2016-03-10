@@ -32,8 +32,8 @@ public:
 
     explicit QueuedEvent(Point p, Type t = POINT);
 
-    Point   _point;
-    Type    _type;
+    Point   point;
+    Type    type;
 };
 
 ///
@@ -48,22 +48,20 @@ public:
 
     void    launch(int number, int xMax, int yMax);
 
-    inline const std::vector<Point> &points()
-    { return _points; }
-    inline std::vector<Face *>    &centers()
-    { return _centers; }
+    inline std::vector<Site *>    &sites()
+    { return _sites; }
     inline std::vector<Corner *>    &corners()
     { return _corners; }
     inline std::vector<CrossedEdge *>      &edges()
     { return _edges; }
 
 private:
-    void    generateRandomPoints();
+    void    generateRandomSites();
     void    fortuneAlgo();
     void    LloydRelaxation();
 
     void    addParabola(Point p);
-    void    removeParabloa(); // should pass Parabola as argument when implemented
+    void    removeParabloa(QueuedEvent *e); // should pass Parabola as argument when implemented
 
     QueuedEvent    *popNextEvent();
 
@@ -73,15 +71,16 @@ private:
     int                     _xMax;
     int                     _yMax;
 
-    std::vector<Point>      _points;  // only during construction
-    std::vector<Face *>   _centers;
+    std::vector<Site *>     _sites;
     std::vector<Corner *>   _corners;
-    std::vector<CrossedEdge *>     _edges;
+    std::vector<CrossedEdge *>  _edges;
 
     ///
     /// \brief _events potential future events wich can modify the beach line
     /// (another point or parabola intersection)
     std::multimap<int, QueuedEvent *>   _events;
+
+    int                     _sweepLine;
 };
 
 #endif // VORONOIGENERATOR_H

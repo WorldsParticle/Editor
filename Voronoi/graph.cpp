@@ -1,13 +1,13 @@
 #include "graph.h"
 
-int Face::_indexMax = 0;
-Face::Face() :
-    _index(_indexMax),
-    _neighbors(),
-    _borders(),
-    _corners()
+int Site::indexMax = 0;
+Site::Site() :
+    index(indexMax),
+    neighbors(),
+    borders(),
+    corners()
 {
-    ++_indexMax;
+    ++indexMax;
 }
 
 int Corner::_indexMax = 0;
@@ -17,9 +17,9 @@ Corner::Corner() :
     ++_indexMax;
 }
 
-int CrossedEdge::_indexMax = 0;
+int CrossedEdge::indexMax = 0;
 CrossedEdge::CrossedEdge() :
-    _index(_indexMax)
+    index(indexMax)
 {
-    ++_indexMax;
+    ++indexMax;
 }
