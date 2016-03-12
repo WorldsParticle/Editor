@@ -22,8 +22,8 @@ public:
     /*
         isLeaf		: flag whether the node is Leaf or internal node
         site		: pointer to the focus point of parabola (when it is parabola)
-        edge		: pointer to the edge (when it is an edge)
-        cEvent		: pointer to the event, when the arch disappears (circle event)
+        corner		: pointer to the corner
+        cEvent		: pointer to the event, when the arch disappears (circle event) // rework this
         parent		: pointer to the parent node in tree
     */
 

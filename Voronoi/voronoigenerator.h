@@ -5,6 +5,7 @@
 // https://en.wikipedia.org/wiki/Voronoi_diagram
 // https://github.com/nodename/as3delaunay/blob/master/src/com/nodename/Delaunay/Voronoi.as
 //
+// TODO : choisir la gestion des semi edges temporaires (pas halfedge)
 
 
 #ifndef VORONOIGENERATOR_H
@@ -71,6 +72,27 @@ private:
     // to review
     double       getXofEdge(Parabola *p, double y); // return current x position of an intersection point of left and right parabolas
     Parabola    *getParabolaByX(double nx); // return  Parabola under nx position in the current beachline
+
+    ///
+    /// \brief getY will retrieve the intersecting y value between a site parabola and an x value
+    /// \param s is the site
+    /// \param x is the x value
+    /// \return
+    ///
+    double      getY(Site *s, double x);
+
+    ///
+    /// \brief checkCircle find if the current parabola will close soon
+    /// \param p
+    ///
+    void        checkCircle(Parabola *b);
+
+    ///
+    /// \brief getEdgeIntersection compute the point where two edge will collide.
+    /// \param a
+    /// \param b
+    ///
+    Point *getEdgeIntersection(CrossedEdge *a, CrossedEdge *b); // à refaire en plus propre
 
     QedEvent    *popNextEvent();
 
