@@ -4,8 +4,13 @@
     Constructors
 */
 
-Parabola::Parabola()
+int Parabola::indexMax = 0;
+
+Parabola::Parabola() :
+    index(indexMax)
 {
+    ++indexMax;
+
     site	= 0;
     isLeaf	= false;
     cEvent	= 0;
@@ -16,8 +21,11 @@ Parabola::Parabola()
     _right = NULL;
 }
 
-Parabola::Parabola(Site * s)
+Parabola::Parabola(Site * s) :
+    index(indexMax)
 {
+    ++indexMax;
+
     site	= s;
     isLeaf	= true;
     cEvent	= 0;

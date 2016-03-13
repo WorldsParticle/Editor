@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QGraphicsItem>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     _ui(new Ui::MainWindow),
@@ -15,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    QList<QGraphicsItem *>  items = _scene.items();
+    foreach (QGraphicsItem *item, items)
+        delete item;
     _scene.clear();
     delete _ui;
 }
@@ -29,4 +34,8 @@ void    MainWindow::generate()
     for (const auto &s : _generator.sites())
         _scene.addEllipse(s->point.x, s->point.y, 5, 5,
                           QPen(), QBrush(Qt::SolidPattern));
+    for (const auto &e : _generator.edges())
+        _scene.addLine(e->d0->point.x, e->d0->point.y,
+                       e->d1->point.x, e->d1->point.y,
+                       QPen());
 }

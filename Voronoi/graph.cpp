@@ -1,9 +1,9 @@
 #include "graph.h"
 
 int Site::indexMax = 0;
-Site::Site() :
+Site::Site(double x, double y) :
     index(indexMax),
-    point(0, 0),
+    point(x, y),
     neighbors(),
     borders(),
     corners()

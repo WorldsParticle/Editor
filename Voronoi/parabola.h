@@ -19,6 +19,9 @@ class Parabola
 {
 public:
 
+    static int  indexMax;  // change this
+    const int   index;
+
     /*
         isLeaf		: flag whether the node is Leaf or internal node
         site		: pointer to the focus point of parabola (when it is parabola)
@@ -41,7 +44,7 @@ public:
     Parabola	(Site *s);
 
     inline friend std::ostream &operator<<(std::ostream &os, const Parabola &p)
-    { return os << "isLeaf[" << p.isLeaf << "] site.index[" << p.site->index << "]"; }
+    { return os << "isLeaf[" << p.isLeaf << "] index[" << p.index << "]"; }
 
     /*
         Access to the children (in tree).

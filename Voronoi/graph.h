@@ -39,7 +39,7 @@ class Site
 
 public:
 
-    explicit Site();
+    explicit Site(double x = 0, double y = 0);
 
     inline friend std::ostream &operator<<(std::ostream &os, const Site &s)
     { return os << "[" << s.index << "](" << s.point.x << ", " << s.point.y << ")"; }

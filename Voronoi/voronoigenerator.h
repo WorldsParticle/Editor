@@ -63,6 +63,7 @@ public:
 
 private:
     void    generateRandomSites();
+    void    generateTestSites();
     void    fortuneAlgo();
     void    LloydRelaxation();
 
@@ -113,7 +114,7 @@ private:
     ///
     std::multimap<double, QedEvent *>   _events;
 
-    int                     _sweepLine;     // sweep line going down
+    double                  _sweepLine;     // sweep line going down
     Parabola                *_root;         // root parabola containing the beach line
 };
 
