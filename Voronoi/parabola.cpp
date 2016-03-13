@@ -11,6 +11,8 @@ Parabola::Parabola()
     cEvent	= 0;
     edge	= 0;
     parent	= 0;
+
+    _left = NULL;
 }
 
 Parabola::Parabola(Site * s)
@@ -20,6 +22,8 @@ Parabola::Parabola(Site * s)
     cEvent	= 0;
     edge	= 0;
     parent	= 0;
+
+    _right = NULL;
 }
 
 /*

@@ -45,10 +45,13 @@ void    VoronoiGenerator::generateRandomSites()
         s->point.y = DRAND(0, _yMax);
         _sites.push_back(s);
 
+        std::cout << *s;
+
         QedEvent *e = new QedEvent(s->point.y, QedEvent::POINT);
         e->site = s,
                 _events.insert(std::pair<double, QedEvent *> (e->y, e));
     }
+    std::cout << std::endl;
 }
 
 void    VoronoiGenerator::fortuneAlgo()
@@ -62,18 +65,15 @@ void    VoronoiGenerator::fortuneAlgo()
 
     while (!_events.empty())
     {
-        std::cout << "halto\n";
         QedEvent *event = popNextEvent();
         _sweepLine = event->y;
 
-        std::cout << event->y << std::endl;
-        std::cout << event->site << std::endl;
+        std::cout << "=====\nevent type : " << event->type << "; y = " << event->y << std::endl;
 
         if (event->type == QedEvent::POINT)
             addParabola(event->site);
         else
             removeParabola(event);
-        std::cout << "halor\n";
     }
 
     LloydRelaxation();
@@ -86,7 +86,7 @@ void    VoronoiGenerator::LloydRelaxation()
 
 void    VoronoiGenerator::addParabola(Site *site)
 {
-    std::cout << "Adding parabola\n";
+    std::cout << "---\naddParabola(" << *site << std::endl;
     if (!_root)
     {
         _root = new Parabola(site);
@@ -130,13 +130,14 @@ void    VoronoiGenerator::addParabola(Site *site)
     topParabola->edge = edge;
     topParabola->isLeaf = false;
 
-    Parabola    *p0 = new Parabola(topParabola->site);
-    Parabola    *p1 = new Parabola(site);
-    Parabola    *p2 = new Parabola(topParabola->site);
+
+    Parabola    *p0 = new Parabola(topParabola->site); // Gauche
+    Parabola    *p1 = new Parabola(site);              // Nouvelle, celle qui coupe
+    Parabola    *p2 = new Parabola(topParabola->site); // Droite
+
     topParabola->setRight(p2);
     topParabola->setLeft(new Parabola());
     topParabola->left()->edge = edge;
-
     topParabola->left()->setLeft(p0);
     topParabola->left()->setRight(p1);
 
@@ -147,7 +148,7 @@ void    VoronoiGenerator::addParabola(Site *site)
 
 void    VoronoiGenerator::removeParabola(QedEvent *e)
 {
-    std::cout << "Removing parabola\n";
+    std::cout << "---\nRemoving parabola\n";
     Parabola    *p1 = e->arch;
 
     Parabola    *pLeft = Parabola::getLeftParent(p1);
@@ -253,17 +254,19 @@ double      VoronoiGenerator::getXofEdge(Parabola *parabola, double y)
 
 Parabola    *VoronoiGenerator::getParabolaByX(double nx)
 {
-    Parabola * p = _root;
+    Parabola *p = _root;
     double x = 0.0;
 
     while(!p->isLeaf)
     {
+        std::cout << p << std::endl;
         x = getXofEdge(p, _sweepLine);
         if (x > nx)
             p = p->left();
         else
             p = p->right();
     }
+    std::cout << "---\ngetParabolaByX(" << nx << ") : p.site = " << *p->site << std::endl;
     return p;
 }
 
@@ -274,19 +277,29 @@ double      VoronoiGenerator::getY(Site *s, double x)
     double b1 = -2 * s->point.x / dp;
     double c1 = _sweepLine + dp / 4 + s->point.x * s->point.x / dp;
 
-    return(a1*x*x + b1*x + c1);
+    double result = a1*x*x + b1*x + c1;
+
+    std::cout << "getY(" << *s << ", " << x << ") => " << result << std::endl;
+    return(result);
 }
 
 void        VoronoiGenerator::checkCircle(Parabola *b)
 {
+    std::cout << "---\ncheckCircle with par.site : " << *(b->site) << std::endl;
+    std::cout << "leftChild : " << b->left() << "; rightChild : " << b->right() << std::endl;
     Parabola    *leftParent = Parabola::getLeftParent(b);
     Parabola    *rightParent = Parabola::getLeftParent(b);
 
+    std::cout << "a" << std::endl;
     Parabola    *a = Parabola::getLeftChild(b);
+    std::cout << "a" << std::endl;
     Parabola    *c = Parabola::getRightChild(b);
 
+    std::cout << "a" << std::endl;
     if (!a || !c || a->site == c->site)
         return;
+
+    std::cout << "a" << std::endl;
 
     Point * s = 0;
     s = getEdgeIntersection(leftParent->edge, rightParent->edge);

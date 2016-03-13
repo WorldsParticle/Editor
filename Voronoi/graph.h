@@ -13,6 +13,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 class   Site;
 class   Corner;
@@ -39,6 +40,9 @@ class Site
 public:
 
     explicit Site();
+
+    inline friend std::ostream &operator<<(std::ostream &os, const Site &s)
+    { return os << "[" << s.index << "](" << s.point.x << ", " << s.point.y << ")"; }
 
     static int  indexMax;  // change this
     const int   index;

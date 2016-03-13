@@ -65,7 +65,7 @@
        <number>10000</number>
       </property>
       <property name="value">
-       <number>300</number>
+       <number>4</number>
       </property>
      </widget>
     </item>
@@ -96,7 +96,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
