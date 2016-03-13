@@ -91,6 +91,7 @@ private:
     /// \brief getEdgeIntersection compute the point where two edge will collide.
     /// \param a
     /// \param b
+    /// \todo  return bool a feed a reference
     ///
     Point *getEdgeIntersection(CrossedEdge *a, CrossedEdge *b); // à refaire en plus propre
 
