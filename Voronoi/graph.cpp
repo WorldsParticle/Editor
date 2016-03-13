@@ -22,7 +22,11 @@ Corner::Corner() :
 int CrossedEdge::indexMax = 0;
 CrossedEdge::CrossedEdge() :
     index(indexMax),
-    midpoint(0, 0)
+    midpoint(0, 0),
+    d0(NULL),
+    d1(NULL),
+    v0(NULL),
+    v1(NULL)
 {
     ++indexMax;
 }

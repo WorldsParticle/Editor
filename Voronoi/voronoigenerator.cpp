@@ -35,6 +35,8 @@ void    VoronoiGenerator::launch(int number, int xMax, int yMax)
     //generateRandomSites();
     generateTestSites();
     fortuneAlgo();
+
+    std::cout << "FINISH" << std::endl;
 }
 
 void    VoronoiGenerator::generateRandomSites()
@@ -107,7 +109,6 @@ void    VoronoiGenerator::fortuneAlgo()
         _sweepLine = event->y;
 
         std::cout << "=====\nevent type : " << event->type << "; y = " << event->y << std::endl;
-
         if (event->type == QedEvent::POINT)
             addParabola(event->site);
         else
@@ -185,7 +186,7 @@ void    VoronoiGenerator::addParabola(Site *site)
 
 void    VoronoiGenerator::removeParabola(QedEvent *e)
 {
-    std::cout << "---\nRemoving parabola\n";
+    std::cout << "---\nremoveParabola(" << *e->arch << ")" << std::endl;
     Parabola    *p1 = e->arch;
 
     Parabola    *pLeft = Parabola::getLeftParent(p1);
@@ -204,10 +205,13 @@ void    VoronoiGenerator::removeParabola(QedEvent *e)
     Corner  *corner = new Corner();
     _corners.push_back(corner);
 
-    corner->point.x = e->arch->site->point.x;           // à revoir
-    corner->point.y = getY(p1->site, e->site->point.x); // à revoir
+    std::cout << "pLeft : " << *pLeft << "pRight" << *pRight << std::endl;
+
+    corner->point.x = p1->corner->x;
+    corner->point.y = p1->corner->y;
     pLeft->edge->v1 = corner;
     pRight->edge->v0 = corner;
+    // todo rajouter site corner et corner site
 
     // TOUT CE QUI SUIT EST DU CTRL V, REFAIRE !!!!
     Parabola * higher;
@@ -215,12 +219,18 @@ void    VoronoiGenerator::removeParabola(QedEvent *e)
     while(par != _root)
     {
         par = par->parent;
+        std::cout << *par << std::endl;
         if(par == pLeft) higher = pLeft;
         if(par == pRight) higher = pRight;
     }
-    higher->edge = new CrossedEdge(/*p, p0->site, p2->site*/);
+
+    std::cout << *p0->site << "\n" << *p2->site << std::endl;
+    higher->edge = new CrossedEdge();
+    higher->edge->midpoint.x = corner->point.x;
+    higher->edge->midpoint.y = corner->point.y; // à verifier
     higher->edge->d0 = p0->site;
     higher->edge->d1 = p2->site;
+    higher->edge->v0 = corner;
     _edges.push_back(higher->edge);
 
     Parabola * gparent = p1->parent->parent;
@@ -238,6 +248,7 @@ void    VoronoiGenerator::removeParabola(QedEvent *e)
     delete p1->parent;
     delete p1;
 
+     std::cout << "test" << std::endl;
     checkCircle(p0);
     checkCircle(p2);
 }
@@ -324,9 +335,12 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
     Parabola    *leftParent = Parabola::getLeftParent(b);
     Parabola    *rightParent = Parabola::getRightParent(b);
 
-    Parabola    *a = Parabola::getLeftChild(b);
-    Parabola    *c = Parabola::getRightChild(b);
+    std::cout << "ttt" << std::endl;
 
+    Parabola    *a = Parabola::getLeftChild(leftParent);
+    Parabola    *c = Parabola::getRightChild(rightParent);
+
+     std::cout << "ttt" << std::endl;
     std::cout << "leftParent : ";
     if (leftParent) std::cout << *leftParent;
     else std::cout << "Nan";
@@ -349,14 +363,15 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
     if(!s)
         return;
 
-    double dx = a->site->point.x - s->x;
+    /*double dx = a->site->point.x - s->x;
     double dy = a->site->point.y - s->y;
 
     double d = sqrt( (dx * dx) + (dy * dy) );
 
-    if(s->y - d >= _sweepLine) { return;}
+    if(s->y - d >= _sweepLine) { return;}*/
 
-    QedEvent * e = new QedEvent(s->y - d, QedEvent::INTERSECTION);
+    QedEvent * e = new QedEvent(s->y /* - d*/, QedEvent::INTERSECTION);
+    b->corner = s;
     b->cEvent = e;
     e->arch = b;
 
@@ -367,30 +382,43 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
 Point       *VoronoiGenerator::getEdgeIntersection(CrossedEdge *a, CrossedEdge *b)
 {
     // d0 = top = left; d1 = bot = right
-    // f* | g* = coeff directeur de la droite contenant l'edge (y = f*x + g)
-    // a refaire absolument
+    // f* | g* = coeff directeur de la mediatrice d0/d1 (y = f*x + g)
+    // à bouger dans CrossedEdge
 
-    double fa = (a->d1->point.x - a->d0->point.x) /
+    // se rappeler pourquoi -
+    double fa = -(a->d1->point.x - a->d0->point.x) /
             (a->d1->point.y - a->d0->point.y);
-    double fb = (b->d1->point.x - b->d0->point.x) /
+    double fb = -(b->d1->point.x - b->d0->point.x) /
             (b->d1->point.y - b->d0->point.y);
 
     double ga = a->midpoint.y - fa * a->midpoint.x;
     double gb = b->midpoint.y - fb * b->midpoint.x;
 
+    std::cout << "Vor edge a {" << *a << "} : y = " << fa << "x + " << ga << std::endl;
+    std::cout << "Vor edge b {" << *b << "} : y = " << fb << "x + " << gb << std::endl;
+
     double dax = a->d1->point.y - a->d0->point.y;
     double dbx = b->d1->point.y - b->d0->point.y;
     double day = -(a->d1->point.x - a->d0->point.x);
-    double dby = -(b->d1->point.y - b->d0->point.y);
+    double dby = -(b->d1->point.x - b->d0->point.x);
+
+    //std::cout << dax << "|" << dbx << ", " << day << "|" << dby << std::endl;
 
     double x = (gb-ga) / (fa - fb);
     double y = fa * x + ga;
 
-    if((x - a->midpoint.x)/dax < 0) return 0;
-    if((y - a->midpoint.y)/day < 0) return 0;
+    //std::cout << "x:" << x << "; y:" << y << std::endl;
 
+    /*std::cout << "lol" << std::endl;
+    if((x - a->midpoint.x)/dax < 0) return 0;
+    std::cout << "lol" << std::endl;
+    if((y - a->midpoint.y)/day < 0) return 0;
+    std::cout << "lol" << std::endl;
     if((x - b->midpoint.x)/dbx < 0) return 0;
-    if((y - b->midpoint.y)/dby < 0) return 0;
+    std::cout << "lol" << std::endl;
+    if((y - b->midpoint.y)/dby < 0) return 0;*/
+
+    std::cout << "getEdgeIntersection result : " << x << "; " << y << std::endl;
 
     return new Point(x, y);
 }

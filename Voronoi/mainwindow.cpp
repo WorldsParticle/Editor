@@ -30,12 +30,19 @@ void    MainWindow::generate()
                       _ui->spinXMax->value(),
                       _ui->spinYMax->value());
 
+
     _scene.clear();
     for (const auto &s : _generator.sites())
         _scene.addEllipse(s->point.x, s->point.y, 5, 5,
                           QPen(), QBrush(Qt::SolidPattern));
     for (const auto &e : _generator.edges())
+    {
         _scene.addLine(e->d0->point.x, e->d0->point.y,
                        e->d1->point.x, e->d1->point.y,
                        QPen());
+        if (e->v0 && e->v1)
+            _scene.addLine(e->v0->point.x, e->v0->point.y,
+                           e->v1->point.x, e->v1->point.y,
+                           QPen(Qt::red));
+    }
 }

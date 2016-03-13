@@ -25,6 +25,9 @@ class   Point
 public:
     explicit Point(double nx, double ny) : x(nx), y(ny) {}
 
+    inline friend std::ostream &operator<<(std::ostream &os, const Point &p)
+    { return os << "(" << p.x << ", " << p.y << ")"; }
+
     double  x;
     double  y;
 };
@@ -100,6 +103,7 @@ public:
 /// represent both edge of Voronoi and Delaunay graph
 /// allowing to connect them together
 /// it is the cross point you can see between black and white segment in http://www-cs-students.stanford.edu/~amitp/game-programming/polygon-map-generation/voronoi-and-delaunay.png
+/// \todo mettre le coeff directeur des deux droites
 ///
 class CrossedEdge
 {
@@ -109,14 +113,14 @@ public:
     explicit CrossedEdge();
 
     inline friend std::ostream &operator<<(std::ostream &os, const CrossedEdge &e)
-    { return os << "[" << e.index << "](" << e.d0->index << ", " << e.d1->index << ")"; }
+    { return os << "[" << e.index << "](" << e.d0->index << ", " << e.d1->index << ") mid" << e.midpoint; }
 
     static int  indexMax;  // change this
     const int   index;
 
     Site        *d0, *d1;   // Delaunay edge (during computing, d0 will be used as left, d1 as right)
     Corner      *v0, *v1;   // Voronoi edge
-    Point       midpoint;  // cross point, halfway between v0 and v1
+    Point       midpoint;  // cross point, halfway between v0 and v1. todo stop using it in voronoi
     int         river;     // Volume of water, not necessary right now
 };
 

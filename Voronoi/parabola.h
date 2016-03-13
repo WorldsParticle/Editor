@@ -33,6 +33,7 @@ public:
     bool		isLeaf;
     Site        *site;
     CrossedEdge *edge;
+    Point       *corner;
     QedEvent    *cEvent;
     Parabola    *parent;
 
@@ -42,6 +43,7 @@ public:
 
     Parabola	();
     Parabola	(Site *s);
+    ~Parabola   ();
 
     inline friend std::ostream &operator<<(std::ostream &os, const Parabola &p)
     { return os << "isLeaf[" << p.isLeaf << "] index[" << p.index << "]"; }

@@ -15,7 +15,8 @@ Parabola::Parabola() :
     isLeaf	= false;
     cEvent	= 0;
     edge	= 0;
-    parent	= 0;
+    corner = 0;
+    parent	= NULL;
 
     _left = NULL;
     _right = NULL;
@@ -30,8 +31,20 @@ Parabola::Parabola(Site * s) :
     isLeaf	= true;
     cEvent	= 0;
     edge	= 0;
-    parent	= 0;
+    corner  = 0;
+    parent	= NULL;
 
+    _left = NULL;
+    _right = NULL;
+}
+
+Parabola::~Parabola()
+{
+    site = NULL;
+    cEvent = NULL;
+    edge = NULL;
+    delete corner;
+    parent = NULL;
     _left = NULL;
     _right = NULL;
 }
@@ -64,7 +77,7 @@ Parabola * Parabola::getLeftParent	(Parabola * p)
     return par;
 }
 
-Parabola * Parabola::getRightParent	(Parabola * p)
+Parabola * Parabola::getRightParent(Parabola * p)
 {
     Parabola * par		= p->parent;
     Parabola * pLast	= p;
@@ -76,7 +89,7 @@ Parabola * Parabola::getRightParent	(Parabola * p)
     return par;
 }
 
-Parabola * Parabola::getLeftChild		(Parabola * p)
+Parabola * Parabola::getLeftChild(Parabola * p)
 {
     if(!p) return 0;
     Parabola * par = p->left();
@@ -85,7 +98,7 @@ Parabola * Parabola::getLeftChild		(Parabola * p)
     return par;
 }
 
-Parabola * Parabola::getRightChild	(Parabola * p)
+Parabola * Parabola::getRightChild(Parabola * p)
 {
     if(!p) return 0;
     Parabola * par = p->right();
