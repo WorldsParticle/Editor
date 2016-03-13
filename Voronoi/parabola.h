@@ -40,6 +40,9 @@ public:
     Parabola	();
     Parabola	(Site *s);
 
+    inline friend std::ostream &operator<<(std::ostream &os, const Parabola &p)
+    { return os << "isLeaf[" << p.isLeaf << "] site.index[" << p.site->index << "]"; }
+
     /*
         Access to the children (in tree).
     */

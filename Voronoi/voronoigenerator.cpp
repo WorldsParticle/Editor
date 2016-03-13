@@ -130,7 +130,6 @@ void    VoronoiGenerator::addParabola(Site *site)
     topParabola->edge = edge;
     topParabola->isLeaf = false;
 
-
     Parabola    *p0 = new Parabola(topParabola->site); // Gauche
     Parabola    *p1 = new Parabola(site);              // Nouvelle, celle qui coupe
     Parabola    *p2 = new Parabola(topParabola->site); // Droite
@@ -205,13 +204,12 @@ void    VoronoiGenerator::removeParabola(QedEvent *e)
     checkCircle(p2);
 }
 
-double      VoronoiGenerator::getXofEdge(Parabola *parabola, double y)
+double      VoronoiGenerator::getXofEdge(CrossedEdge *edge, double y)
 {
-    Parabola    *pLeft = parabola->left();
-    Parabola    *pRight = parabola->right();
+    std::cout << "-\ngetXofEdge(" << *edge << ", " << y << ")" << std::endl;
 
-    Site        *sLeft = pLeft->site;
-    Site        *sRight = pRight->site;
+    Site        *sLeft = edge->d0;
+    Site        *sRight = edge->d1;
 
     // périmetre, enfin je crois
     double per;
@@ -254,19 +252,19 @@ double      VoronoiGenerator::getXofEdge(Parabola *parabola, double y)
 
 Parabola    *VoronoiGenerator::getParabolaByX(double nx)
 {
+    std::cout << "---\ngetParabolaByX(" << nx << ")" << std::endl;
     Parabola *p = _root;
     double x = 0.0;
 
     while(!p->isLeaf)
     {
-        std::cout << p << std::endl;
-        x = getXofEdge(p, _sweepLine);
+        x = getXofEdge(p->edge, _sweepLine);
         if (x > nx)
             p = p->left();
         else
             p = p->right();
     }
-    std::cout << "---\ngetParabolaByX(" << nx << ") : p.site = " << *p->site << std::endl;
+    std::cout << "parabola founded = " << *p << std::endl;
     return p;
 }
 
@@ -279,7 +277,7 @@ double      VoronoiGenerator::getY(Site *s, double x)
 
     double result = a1*x*x + b1*x + c1;
 
-    std::cout << "getY(" << *s << ", " << x << ") => " << result << std::endl;
+    std::cout << "-\ngetY(" << *s << ", " << x << ") => " << result << std::endl;
     return(result);
 }
 
@@ -290,16 +288,11 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
     Parabola    *leftParent = Parabola::getLeftParent(b);
     Parabola    *rightParent = Parabola::getLeftParent(b);
 
-    std::cout << "a" << std::endl;
     Parabola    *a = Parabola::getLeftChild(b);
-    std::cout << "a" << std::endl;
     Parabola    *c = Parabola::getRightChild(b);
 
-    std::cout << "a" << std::endl;
     if (!a || !c || a->site == c->site)
         return;
-
-    std::cout << "a" << std::endl;
 
     Point * s = 0;
     s = getEdgeIntersection(leftParent->edge, rightParent->edge);

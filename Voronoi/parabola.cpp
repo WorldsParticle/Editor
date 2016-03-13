@@ -13,6 +13,7 @@ Parabola::Parabola()
     parent	= 0;
 
     _left = NULL;
+    _right = NULL;
 }
 
 Parabola::Parabola(Site * s)
@@ -23,6 +24,7 @@ Parabola::Parabola(Site * s)
     edge	= 0;
     parent	= 0;
 
+    _left = NULL;
     _right = NULL;
 }
 
@@ -70,7 +72,8 @@ Parabola * Parabola::getLeftChild		(Parabola * p)
 {
     if(!p) return 0;
     Parabola * par = p->left();
-    while(!par->isLeaf) par = par->right();
+    while(par && !par->isLeaf)
+        par = par->right();
     return par;
 }
 
@@ -78,6 +81,7 @@ Parabola * Parabola::getRightChild	(Parabola * p)
 {
     if(!p) return 0;
     Parabola * par = p->right();
-    while(!par->isLeaf) par = par->left();
+    while(par && !par->isLeaf)
+        par = par->left();
     return par;
 }

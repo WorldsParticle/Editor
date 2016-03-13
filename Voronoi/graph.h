@@ -108,6 +108,9 @@ public:
 
     explicit CrossedEdge();
 
+    inline friend std::ostream &operator<<(std::ostream &os, const CrossedEdge &e)
+    { return os << "[" << e.index << "](" << e.d0->index << ", " << e.d1->index << ")"; }
+
     static int  indexMax;  // change this
     const int   index;
 

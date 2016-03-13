@@ -70,7 +70,7 @@ private:
     void    removeParabola(QedEvent *e); // should pass Parabola as argument when implemented
 
     // to review
-    double       getXofEdge(Parabola *p, double y); // return current x position of an intersection point of left and right parabolas
+    double       getXofEdge(CrossedEdge *edge, double y); // return current x position of an intersection point of left and right parabolas
     Parabola    *getParabolaByX(double nx); // return  Parabola under nx position in the current beachline
 
     ///
