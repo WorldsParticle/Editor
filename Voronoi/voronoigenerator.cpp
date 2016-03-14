@@ -316,16 +316,16 @@ double      VoronoiGenerator::getXofEdge(Parabola *p, double y)
 
     double result;
 
+    // REVERIFIER
     per = 2.0 * (sLeft->point.y - y);
-
     a1 = 1.0 / per;
     b1 = -2.0 * sLeft->point.x / per;
     c1 = y + per / 4 + sLeft->point.x * sLeft->point.x / per;
 
     per = 2.0 * (sRight->point.y - y);
     a2 = 1.0 / per;
-    b2 = -2.0 * sRight->point.y / per;
-    c2 = _sweepLine + per / 4 + sRight->point.y * sRight->point.y / per; // why _sweepline ?
+    b2 = -2.0 * sRight->point.x / per;
+    c2 = _sweepLine + per / 4 + sRight->point.x * sRight->point.x / per; // why _sweepline ?
 
     a = a1 - a2;
     b = b1 - b2;
@@ -365,6 +365,7 @@ Parabola    *VoronoiGenerator::getParabolaByX(double nx)
 
 double      VoronoiGenerator::getY(Site *s, double x)
 {
+    // Formule d'intersection, à reviser
     double dp = 2 * (s->point.y - _sweepLine);
     double a1 = 1 / dp;
     double b1 = -2 * s->point.x / dp;
@@ -431,7 +432,7 @@ Point       *VoronoiGenerator::getEdgeIntersection(Parabola *a, Parabola *b)
     // f* | g* = coeff directeur de la mediatrice d0/d1 (y = f*x + g)
     // à bouger dans CrossedEdge
 
-    // se rappeler pourquoi -
+    // se rappeler pourquoi -, et FACTORISER !!!
     double fa = -(a->edge->d1->point.x - a->edge->d0->point.x) /
             (a->edge->d1->point.y - a->edge->d0->point.y);
     double fb = -(b->edge->d1->point.x - b->edge->d0->point.x) /
