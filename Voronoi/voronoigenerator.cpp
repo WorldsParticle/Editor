@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 
 #define DRAND(min, max) (min) + ((double)std::rand() / RAND_MAX) * ((max) - (min))
 
@@ -14,6 +15,7 @@ VoronoiGenerator::VoronoiGenerator() :
     _corners(),
     _edges(),
     _events(),
+    _deleted(),
     _sweepLine(0),
     _root(NULL)
 {
@@ -49,13 +51,13 @@ void    VoronoiGenerator::generateRandomSites()
         s->point.x = DRAND(0, _xMax);
         s->point.y = DRAND(0, _yMax);
 
-        _sites.push_back(s);
+        _sites.insert(std::pair<int, Site*>(s->index, s));
 
         std::cout << *s;
 
         QedEvent *e = new QedEvent(s->point.y, QedEvent::POINT);
         e->site = s;
-        _events.insert(std::pair<double, QedEvent *> (e->y, e));
+        _events.push(e);
     }
     std::cout << std::endl;
 }
@@ -66,45 +68,71 @@ void    VoronoiGenerator::generateTestSites()
     QedEvent    *e;
 
     s = new Site(100, 50);
-    _sites.push_back(s);
+    _sites.insert(std::pair<int, Site*>(s->index, s));
     e = new QedEvent(s->point.y, QedEvent::POINT);
     e->site = s;
-    _events.insert(std::pair<double, QedEvent *> (e->y, e));
+    _events.push(e);
+
+    s = new Site(30, 80);
+    _sites.insert(std::pair<int, Site*>(s->index, s));
+    e = new QedEvent(s->point.y, QedEvent::POINT);
+    e->site = s;
+    _events.push(e);
 
     s = new Site(200, 100);
-    _sites.push_back(s);
+    _sites.insert(std::pair<int, Site*>(s->index, s));
     e = new QedEvent(s->point.y, QedEvent::POINT);
     e->site = s;
-    _events.insert(std::pair<double, QedEvent *> (e->y, e));
+    _events.push(e);
 
     s = new Site(120, 150);
-    _sites.push_back(s);
+    _sites.insert(std::pair<int, Site*>(s->index, s));
     e = new QedEvent(s->point.y, QedEvent::POINT);
     e->site = s;
-    _events.insert(std::pair<double, QedEvent *> (e->y, e));
+    _events.push(e);
 
     s = new Site(250, 200);
-    _sites.push_back(s);
+    _sites.insert(std::pair<int, Site*>(s->index, s));
     e = new QedEvent(s->point.y, QedEvent::POINT);
     e->site = s;
-    _events.insert(std::pair<double, QedEvent *> (e->y, e));
+    _events.push(e);
 
     s = new Site(50, 300);
-    _sites.push_back(s);
+    _sites.insert(std::pair<int, Site*>(s->index, s));
     e = new QedEvent(s->point.y, QedEvent::POINT);
     e->site = s;
-    _events.insert(std::pair<double, QedEvent *> (e->y, e));
+    _events.push(e);
 
+    s = new Site(400, 300);
+    _sites.insert(std::pair<int, Site*>(s->index, s));
+    e = new QedEvent(s->point.y, QedEvent::POINT);
+    e->site = s;
+    _events.push(e);
+
+    s = new Site(230, 400);
+    _sites.insert(std::pair<int, Site*>(s->index, s));
+    e = new QedEvent(s->point.y, QedEvent::POINT);
+    e->site = s;
+    _events.push(e);
 }
 
 void    VoronoiGenerator::fortuneAlgo()
 {
     while (!_events.empty())
     {
-        QedEvent *event = popNextEvent();
+        QedEvent *event = _events.top();
+        _events.pop();
+
         _sweepLine = event->y;
 
-        std::cout << "===================\nevent type : " << event->type << "; y = " << event->y << std::endl;
+        if(_deleted.find(event) != _deleted.end())
+        {
+            delete(event);
+            _deleted.erase(event);
+            continue;
+        }
+
+        std::cout << std::endl << "<event type : " << event->type << "; y = " << event->y << ">" << std::endl;
         if (event->type == QedEvent::POINT)
             addParabola(event->site);
         else
@@ -112,6 +140,8 @@ void    VoronoiGenerator::fortuneAlgo()
     }
 
     finishEdges(_root);
+    for (const auto &b: _sites.at(0)->borders)
+        std::cout << *b << std::endl;
 }
 
 void    VoronoiGenerator::LloydRelaxation()
@@ -149,8 +179,11 @@ void	VoronoiGenerator::finishEdges(Parabola * p)
         corner->point.x = (_yMax - g) / f;
     }
 
-    _corners.push_back(corner);
+    _corners.insert(std::pair<int, Corner*>(corner->index, corner));
     p->edge->v1 = corner;
+    corner->edges.push_back(p->edge);
+
+    std::cout << "corner : " << *corner << std::endl;
 
     finishEdges(p->left());
     finishEdges(p->right());
@@ -160,12 +193,8 @@ void	VoronoiGenerator::finishEdges(Parabola * p)
 
 void    VoronoiGenerator::addParabola(Site *site)
 {
-    std::cout << "---\naddParabola(" << *site << std::endl;
-    if (!_root)
-    {
-        _root = new Parabola(site);
-        return;
-    }
+    std::cout << "<===== addParabola(" << *site << ") =====>" << std::endl << std::endl;
+    if (!_root) { _root = new Parabola(site); return; }
 
     // Still not sure
     /*if (_root->isLeaf && _root->site->point.y - site->point.y < 1) // why second condition ?
@@ -184,10 +213,10 @@ void    VoronoiGenerator::addParabola(Site *site)
         return;
     }*/
 
-    Parabola    *topParabola = getParabolaByX(site->point.x); // get first parabola above the new site
+    Parabola    *topParabola = getParabolaAtX(site->point.x); // get first parabola above the new site
     if (topParabola->cEvent) // Event annulé car bouffé par une nouvelle parabole
     {
-        deleteEvent(topParabola->cEvent);
+        _deleted.insert(topParabola->cEvent);
         topParabola->cEvent = NULL;
     }
 
@@ -213,6 +242,9 @@ void    VoronoiGenerator::addParabola(Site *site)
 
     topParabola->isLeaf = false;
 
+    if (site->index == 3)
+        std::cout << "ATTENTION => " << *edge << std::endl;
+
     checkCircle(p0);
     checkCircle(p2);
 
@@ -220,7 +252,7 @@ void    VoronoiGenerator::addParabola(Site *site)
 
 void    VoronoiGenerator::removeParabola(QedEvent *e)
 {
-    std::cout << "---\nremoveParabola(" << *e->arch << ")" << std::endl;
+    std::cout << "<===== removeParabola(" << *e->arch << ") =====>" << std::endl << std::endl;
     Parabola    *p1 = e->arch;
 
     Parabola    *pLeft = Parabola::getLeftParent(p1);
@@ -233,22 +265,22 @@ void    VoronoiGenerator::removeParabola(QedEvent *e)
 
     if (p0->cEvent)
     {
-        deleteEvent(p0->cEvent);
+        _deleted.insert(p0->cEvent);
         p0->cEvent = NULL;
     }
     if (p2->cEvent)
     {
-        deleteEvent(p2->cEvent);
+        _deleted.insert(p2->cEvent);
         p2->cEvent = NULL;
     }
 
     Corner  *corner = new Corner();
-    _corners.push_back(corner);
+    _corners.insert(std::pair<int, Corner*>(corner->index, corner));
 
     std::cout << "pLeft : " << *pLeft << "pRight" << *pRight << std::endl;
 
-    corner->point.x = p1->corner->x;
-    corner->point.y = p1->corner->y;
+    corner->point.x = p1->corner.x;
+    corner->point.y = p1->corner.y;
 
     pLeft->edge->v1 = corner;
     pRight->edge->v0 = corner;
@@ -324,18 +356,8 @@ CrossedEdge    *VoronoiGenerator::createEdge(Site *d0, Site *d1, bool computeMid
         edge->midpoint.y = getY(d0, d1->point.x);
     }
 
-    _edges.push_back(edge);
+    _edges.insert(std::pair<int, CrossedEdge*>(edge->index, edge));
     return edge;
-}
-
-void        VoronoiGenerator::deleteEvent(QedEvent *e)
-{
-    std::multimap<double, QedEvent *>::iterator it = _events.find(e->y);
-    if (it != _events.end())
-    {
-        _events.erase(it);
-        delete e;
-    }
 }
 
 double      VoronoiGenerator::getXofEdge(Parabola *p, double y)
@@ -343,7 +365,7 @@ double      VoronoiGenerator::getXofEdge(Parabola *p, double y)
     Site        *sLeft = Parabola::getLeftChild(p)->site;
     Site        *sRight = Parabola::getRightChild(p)->site;
 
-    std::cout << "-\ngetXofEdge(" << *p << ", " << y << ")\n";
+    std::cout << "<- getXofEdge(" << *p << ", " << y << ") ->" << std::endl;
     std::cout << "fils gauche : " << *Parabola::getLeftChild(p) << "; fils droite : " << *Parabola::getRightChild(p) << std::endl;
     std::cout << "site fils gauche : " << *sLeft << "; site fils droite : " << *sRight << std::endl;
 
@@ -385,20 +407,19 @@ double      VoronoiGenerator::getXofEdge(Parabola *p, double y)
     else
         result = std::min(x1, x2);
 
-    std::cout << " x1 : " << x1 << " x2 : " << x2 << " result : " << result << std::endl;
+    std::cout << "x1 : " << x1 << "; x2 : " << x2 << "; result : " << result << std::endl;
     return result;
 }
 
-Parabola    *VoronoiGenerator::getParabolaByX(double nx)
+Parabola    *VoronoiGenerator::getParabolaAtX(double nx)
 {
-    std::cout << "---\ngetParabolaByX(" << nx << ")" << std::endl;
+    std::cout << "<--- getParabolaAtX(" << nx << ") --->" << std::endl;
     Parabola *p = _root;
     double x = 0.0;
 
     while(!p->isLeaf)
     {
         x = getXofEdge(p, _sweepLine);
-        std::cout << " left : " << *p->left() << "; right : " << *p->right() << std::endl;
         if (x > nx)
             p = p->left();
         else
@@ -418,13 +439,13 @@ double      VoronoiGenerator::getY(Site *s, double x)
 
     double result = a1*x*x + b1*x + c1;
 
-    std::cout << "-\ngetY(" << *s << ", " << x << ") : " << result << std::endl;
+    std::cout << "<- getY(" << *s << ", " << x << ") : " << result << " ->" << std::endl;
     return(result);
 }
 
 void        VoronoiGenerator::checkCircle(Parabola *b)
 {
-    std::cout << "---\ncheckCircle with parabola : " << *b << std::endl;
+    std::cout << "<--- checkCircle(" << *b << ") --->" << std::endl;
     Parabola    *leftParent = Parabola::getLeftParent(b);
     Parabola    *rightParent = Parabola::getRightParent(b);
 
@@ -448,12 +469,11 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
     if (!a || !c || a->site == c->site)
         return;
 
-    Point * s = 0;
-    s = getEdgeIntersection(leftParent, rightParent);
-    if(!s)
+    Point s(0, 0);
+    if (!getEdgeIntersection(leftParent, rightParent, s))
         return;
 
-    // Justifier
+    // REVOIR
     /*double dx = a->site->point.x - s->x;
     double dy = a->site->point.y - s->y;
 
@@ -461,18 +481,18 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
 
     if(s->y - d >= _sweepLine) { return;}*/
 
-    QedEvent * e = new QedEvent(s->y/* - d*/, QedEvent::INTERSECTION);
+    QedEvent * e = new QedEvent(s.y/* - d*/, QedEvent::INTERSECTION);
     b->corner = s;
     b->cEvent = e;
     e->arch = b;
 
     std::cout << "Added a circle event at y = " << e->y << std::endl;
-    _events.insert(std::pair<double, QedEvent *>(e->y, e));
+    _events.push(e);
 }
 
-Point       *VoronoiGenerator::getEdgeIntersection(Parabola *a, Parabola *b)
+bool VoronoiGenerator::getEdgeIntersection(Parabola *a, Parabola *b, Point &result)
 {
-    std::cout << "-\ngetEdgeIntersection(" << *a << ", " << *b << ")" << std::endl;
+    std::cout << "<- getEdgeIntersection(" << *a << ", " << *b << ") ->" << std::endl;
     // d0 = top = left; d1 = bot = right
     // f* | g* = coeff directeur de la mediatrice d0/d1 (y = f*x + g)
     // à bouger dans CrossedEdge
@@ -500,46 +520,34 @@ Point       *VoronoiGenerator::getEdgeIntersection(Parabola *a, Parabola *b)
     std::cout << "bmx :" << b->edge->midpoint.x << "; bmy :" << b->edge->midpoint.y;
     std::cout << "; bdx" << b->direction.x << "; bdy :" << b->direction.y << std::endl;
 
-    if((x - a->edge->midpoint.x)/a->direction.x < 0) return 0;
-    if((y - a->edge->midpoint.y)/a->direction.y < 0) return 0;
-    if((x - b->edge->midpoint.x)/b->direction.x < 0) return 0;
-    if((y - b->edge->midpoint.y)/b->direction.y < 0) return 0;
+    if((x - a->edge->midpoint.x)/a->direction.x < 0) return false;
+    if((y - a->edge->midpoint.y)/a->direction.y < 0) return false;
+    if((x - b->edge->midpoint.x)/b->direction.x < 0) return false;
+    if((y - b->edge->midpoint.y)/b->direction.y < 0) return false;
 
     std::cout << "result : " << x << "; " << y << std::endl;
-
-    return new Point(x, y);
-}
-
-QedEvent    *VoronoiGenerator::popNextEvent()
-{
-    std::map<double, QedEvent*>::iterator it = _events.begin();
-    QedEvent    *s = (*it).second;
-    _events.erase(it);
-    return s;
+    result.x = x;
+    result.y = y;
+    return true;
 }
 
 void    VoronoiGenerator::reset()
 {
-    for (std::vector<Site *>::iterator it = _sites.begin();
+    for (std::map<int, Site *>::iterator it = _sites.begin();
          it != _sites.end(); ++it)
-        delete (*it);
+        delete (*it).second;
 
-    for (std::vector<Corner *>::iterator it = _corners.begin();
+    for (std::map<int, Corner *>::iterator it = _corners.begin();
          it != _corners.end(); ++it)
-        delete (*it);
+        delete (*it).second;
 
-    for (std::vector<CrossedEdge *>::iterator it = _edges.begin();
+    for (std::map<int, CrossedEdge *>::iterator it = _edges.begin();
          it != _edges.end(); ++it)
-        delete (*it);
-
-    for (std::multimap<double, QedEvent *>::iterator it = _events.begin();
-         it != _events.end(); ++it)
         delete (*it).second;
 
     _sites.clear();
     _corners.clear();
     _edges.clear();
-    _events.clear();
 
     _root = NULL;
     Site::indexMax = 0;

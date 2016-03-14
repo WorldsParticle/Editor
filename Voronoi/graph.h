@@ -77,6 +77,9 @@ public:
 
     explicit Corner();
 
+    inline friend std::ostream &operator<<(std::ostream &os, const Corner &c)
+    { return os << "[" << c.index << "]" << c.point; }
+
     static int  indexMax;  // change this
     const int   index;
 
@@ -120,7 +123,7 @@ public:
 
     Site        *d0, *d1;   // Delaunay edge (during computing, d0 will be used as left, d1 as right)
     Corner      *v0, *v1;   // Voronoi edge
-    Point       midpoint;  // cross point, halfway between v0 and v1. todo stop using it in voronoi
+    Point       midpoint;  // cross point, halfway between v0 and v1. for now it's not, it's used as a voronoi semiedge simulation
     int         river;     // Volume of water, not necessary right now
 };
 

@@ -8,6 +8,7 @@ int Parabola::indexMax = 0;
 
 Parabola::Parabola() :
     index(indexMax),
+    corner(0, 0),
     direction(0, 0)
 {
     ++indexMax;
@@ -16,7 +17,6 @@ Parabola::Parabola() :
     isLeaf	= false;
     cEvent	= 0;
     edge	= 0;
-    corner = 0;
     parent	= NULL;
 
     _left = NULL;
@@ -25,6 +25,7 @@ Parabola::Parabola() :
 
 Parabola::Parabola(Site * s) :
     index(indexMax),
+    corner(0, 0),
     direction(0, 0)
 {
     ++indexMax;
@@ -33,7 +34,6 @@ Parabola::Parabola(Site * s) :
     isLeaf	= true;
     cEvent	= 0;
     edge	= 0;
-    corner  = 0;
     parent	= NULL;
 
     _left = NULL;
@@ -45,7 +45,6 @@ Parabola::~Parabola()
     site = NULL;
     cEvent = NULL;
     edge = NULL;
-    delete corner;
     parent = NULL;
     _left = NULL;
     _right = NULL;

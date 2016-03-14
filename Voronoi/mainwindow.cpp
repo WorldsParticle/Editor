@@ -40,23 +40,23 @@ void    MainWindow::generate()
                    QPen());
 
     for (const auto &s : _generator.sites())
-        _scene.addEllipse(s->point.x, s->point.y, 5, 5,
+        _scene.addEllipse(s.second->point.x, s.second->point.y, 5, 5,
                           QPen(), QBrush(Qt::SolidPattern));
     for (const auto &e : _generator.edges())
     {
-        _scene.addLine(e->d0->point.x, e->d0->point.y,
-                       e->d1->point.x, e->d1->point.y,
+        _scene.addLine(e.second->d0->point.x, e.second->d0->point.y,
+                       e.second->d1->point.x, e.second->d1->point.y,
                        QPen());
-        _scene.addEllipse(e->midpoint.x, e->midpoint.y, 3, 3,
+        _scene.addEllipse(e.second->midpoint.x, e.second->midpoint.y, 5, 5,
                           QPen(Qt::green), QBrush(Qt::SolidPattern));
-        if (e->v0 && e->v1)
-            _scene.addLine(e->v0->point.x, e->v0->point.y,
-                           e->v1->point.x, e->v1->point.y,
+        if (e.second->v0 && e.second->v1)
+            _scene.addLine(e.second->v0->point.x, e.second->v0->point.y,
+                           e.second->v1->point.x, e.second->v1->point.y,
                            QPen(Qt::red));
     }
     for (const auto &c : _generator.corners())
     {
-        _scene.addEllipse(c->point.x, c->point.y, 3, 3,
+        _scene.addEllipse(c.second->point.x, c.second->point.y, 5, 5,
                           QPen(Qt::red), QBrush(Qt::SolidPattern));
     }
 }

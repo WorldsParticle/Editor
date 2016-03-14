@@ -35,7 +35,7 @@ public:
 
     // when not leaf
     CrossedEdge *edge;
-    Point       *corner;
+    Point       corner;
     Point       direction;
 
     QedEvent    *cEvent;

@@ -15,6 +15,8 @@
 #include "parabola.h"
 #include <list>
 #include <map>
+#include <set>
+#include <queue>
 
 ///
 /// \brief The QueuedEvent class
@@ -40,6 +42,12 @@ public:
     Parabola    *arch; // if interesection
     Site        *site; // if point
 
+    // Doit y'avoir moyen rester sur une map ou un set simple, voir une liste
+    struct compareEvent : public std::binary_function<QedEvent *, QedEvent *, bool>
+    {
+        bool    operator()(const QedEvent *l, const QedEvent *r) const { return (l->y > r->y); }
+    };
+
 };
 
 ///
@@ -54,11 +62,11 @@ public:
 
     void    launch(int number, int xMax, int yMax);
 
-    inline std::vector<Site *>    &sites()
+    inline std::map<int, Site *>    &sites()
     { return _sites; }
-    inline std::vector<Corner *>    &corners()
+    inline std::map<int, Corner *>    &corners()
     { return _corners; }
-    inline std::vector<CrossedEdge *>      &edges()
+    inline std::map<int, CrossedEdge *>      &edges()
     { return _edges; }
 
 private:
@@ -73,11 +81,9 @@ private:
 
     CrossedEdge *createEdge(Site *d0, Site *d1, bool computeMidPoint = true);
 
-    void    deleteEvent(QedEvent *e);
-
     // to review
     double       getXofEdge(Parabola *p, double y); // return current x position of an intersection point of left and right parabolas
-    Parabola    *getParabolaByX(double nx); // return  Parabola under nx position in the current beachline
+    Parabola    *getParabolaAtX(double nx); // return leaf parabola at nx position in the current beachline
 
     ///
     /// \brief getY will retrieve the intersecting y value between a site parabola and an x value
@@ -99,9 +105,7 @@ private:
     /// \param b
     /// \todo  return bool a feed a reference
     ///
-    Point *getEdgeIntersection(Parabola *a, Parabola *b); // à refaire en plus propre
-
-    QedEvent    *popNextEvent();
+    bool    getEdgeIntersection(Parabola *a, Parabola *b, Point &result); // à refaire en plus propre
 
     void    reset();
 
@@ -109,15 +113,16 @@ private:
     double                  _xMax;
     double                  _yMax;
 
-    std::vector<Site *>     _sites;
-    std::vector<Corner *>   _corners;
-    std::vector<CrossedEdge *>  _edges;
+    std::map<int, Site *>     _sites;
+    std::map<int, Corner *>   _corners;
+    std::map<int, CrossedEdge *>  _edges;
 
     ///
     /// \brief _events potential future events wich can modify the beach line
     /// (another point or parabola intersection)
     ///
-    std::multimap<double, QedEvent *>   _events;
+    std::priority_queue<QedEvent *, std::vector<QedEvent *>, QedEvent::compareEvent>   _events;
+    std::set<QedEvent *>	_deleted; // comme je repasse sur une queue
 
     double                  _sweepLine;     // sweep line going down
     Parabola                *_root;         // root parabola containing the beach line
