@@ -14,7 +14,10 @@ Site::Site(double x, double y) :
 int Corner::indexMax = 0;
 Corner::Corner() :
     index(indexMax),
-    point(0, 0)
+    point(0, 0),
+    faces(),
+    edges(),
+    adjacent()
 {
     ++indexMax;
 }
@@ -22,11 +25,11 @@ Corner::Corner() :
 int CrossedEdge::indexMax = 0;
 CrossedEdge::CrossedEdge() :
     index(indexMax),
-    midpoint(0, 0),
     d0(NULL),
     d1(NULL),
     v0(NULL),
-    v1(NULL)
+    v1(NULL),
+    midpoint(0, 0)
 {
     ++indexMax;
 }

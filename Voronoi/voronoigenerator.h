@@ -66,9 +66,12 @@ private:
     void    generateTestSites();
     void    fortuneAlgo();
     void    LloydRelaxation();
+    void    finishEdges(Parabola *p);
 
     void    addParabola(Site *site);
     void    removeParabola(QedEvent *e); // should pass Parabola as argument when implemented
+
+    CrossedEdge *createEdge(Site *d0, Site *d1);
 
     void    deleteEvent(QedEvent *e);
 
