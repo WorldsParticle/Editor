@@ -7,7 +7,8 @@
 int Parabola::indexMax = 0;
 
 Parabola::Parabola() :
-    index(indexMax)
+    index(indexMax),
+    direction(0, 0)
 {
     ++indexMax;
 
@@ -23,7 +24,8 @@ Parabola::Parabola() :
 }
 
 Parabola::Parabola(Site * s) :
-    index(indexMax)
+    index(indexMax),
+    direction(0, 0)
 {
     ++indexMax;
 

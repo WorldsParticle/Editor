@@ -32,8 +32,12 @@ public:
 
     bool		isLeaf;
     Site        *site;
+
+    // when not leaf
     CrossedEdge *edge;
     Point       *corner;
+    Point       direction;
+
     QedEvent    *cEvent;
     Parabola    *parent;
 

@@ -45,4 +45,9 @@ void    MainWindow::generate()
                            e->v1->point.x, e->v1->point.y,
                            QPen(Qt::red));
     }
+    for (const auto &c : _generator.corners())
+    {
+        _scene.addEllipse(c->point.x, c->point.y, 3, 3,
+                          QPen(Qt::red), QBrush(Qt::SolidPattern));
+    }
 }

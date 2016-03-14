@@ -70,8 +70,10 @@ private:
     void    addParabola(Site *site);
     void    removeParabola(QedEvent *e); // should pass Parabola as argument when implemented
 
+    void    deleteEvent(QedEvent *e);
+
     // to review
-    double       getXofEdge(CrossedEdge *edge, double y); // return current x position of an intersection point of left and right parabolas
+    double       getXofEdge(Parabola *p, double y); // return current x position of an intersection point of left and right parabolas
     Parabola    *getParabolaByX(double nx); // return  Parabola under nx position in the current beachline
 
     ///
@@ -89,12 +91,12 @@ private:
     void        checkCircle(Parabola *b);
 
     ///
-    /// \brief getEdgeIntersection compute the point where two edge will collide.
+    /// \brief getEdgeIntersection compute the point where two parabola edge will collide.
     /// \param a
     /// \param b
     /// \todo  return bool a feed a reference
     ///
-    Point *getEdgeIntersection(CrossedEdge *a, CrossedEdge *b); // à refaire en plus propre
+    Point *getEdgeIntersection(Parabola *a, Parabola *b); // à refaire en plus propre
 
     QedEvent    *popNextEvent();
 
