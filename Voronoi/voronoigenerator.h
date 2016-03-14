@@ -71,7 +71,7 @@ private:
     void    addParabola(Site *site);
     void    removeParabola(QedEvent *e); // should pass Parabola as argument when implemented
 
-    CrossedEdge *createEdge(Site *d0, Site *d1);
+    CrossedEdge *createEdge(Site *d0, Site *d1, bool computeMidPoint = true);
 
     void    deleteEvent(QedEvent *e);
 
@@ -106,8 +106,8 @@ private:
     void    reset();
 
     int                     _cellNumber;
-    int                     _xMax;
-    int                     _yMax;
+    double                  _xMax;
+    double                  _yMax;
 
     std::vector<Site *>     _sites;
     std::vector<Corner *>   _corners;

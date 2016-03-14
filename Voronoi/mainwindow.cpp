@@ -36,6 +36,9 @@ void    MainWindow::generate()
         delete item;
     _scene.clear();
 
+    _scene.addRect(0, 0, _ui->spinXMax->value(), _ui->spinYMax->value(),
+                   QPen());
+
     for (const auto &s : _generator.sites())
         _scene.addEllipse(s->point.x, s->point.y, 5, 5,
                           QPen(), QBrush(Qt::SolidPattern));
