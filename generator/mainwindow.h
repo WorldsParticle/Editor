@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "voronoigenerator.h"
+#include "generator.h"
 #include <QGraphicsScene>
 
 namespace Ui {
@@ -22,7 +22,7 @@ public slots:
 
 private:
     Ui::MainWindow      *_ui;
-    VoronoiGenerator    _generator;
+    GEN::Generator      *_generator;
 
     QGraphicsScene      _scene;
 };

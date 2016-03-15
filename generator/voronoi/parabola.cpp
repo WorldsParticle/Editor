@@ -1,19 +1,16 @@
 #include "parabola.h"
 
-/*
-    Constructors
-*/
+namespace VOR
+{
 
 int Parabola::indexMax = 0;
 
 Parabola::Parabola() :
     index(indexMax),
-    corner(0, 0),
-    direction(0, 0)
+    site(0, 0)
 {
     ++indexMax;
 
-    site	= 0;
     isLeaf	= false;
     cEvent	= 0;
     edge	= 0;
@@ -23,14 +20,12 @@ Parabola::Parabola() :
     _right = NULL;
 }
 
-Parabola::Parabola(Site * s) :
+Parabola::Parabola(const Point &p) :
     index(indexMax),
-    corner(0, 0),
-    direction(0, 0)
+    site(p.x, p.y)
 {
     ++indexMax;
 
-    site	= s;
     isLeaf	= true;
     cEvent	= 0;
     edge	= 0;
@@ -42,7 +37,6 @@ Parabola::Parabola(Site * s) :
 
 Parabola::~Parabola()
 {
-    site = NULL;
     cEvent = NULL;
     edge = NULL;
     parent = NULL;
@@ -60,12 +54,12 @@ Parabola * Parabola::getLeft			(Parabola * p)
 }
 
 
-Parabola * Parabola::getRight			(Parabola * p)
+Parabola * Parabola::getRight(Parabola * p)
 {
     return getRightChild(getRightParent(p));
 }
 
-Parabola * Parabola::getLeftParent	(Parabola * p)
+Parabola * Parabola::getLeftParent(Parabola * p)
 {
     Parabola * par		= p->parent;
     Parabola * pLast	= p;
@@ -106,4 +100,6 @@ Parabola * Parabola::getRightChild(Parabola * p)
     while(par && !par->isLeaf)
         par = par->left();
     return par;
+}
+
 }

@@ -1,15 +1,13 @@
-//
-// https://drive.google.com/file/d/0B6oy2F9QV_YGcy1ibUN2R0poWmM/view -> VParabola.h
-// transformed for our need
-//
-
-
 #ifndef PARABOLA_H
 #define PARABOLA_H
 
-#include "graph.h"
+#include "../map/point.h"
 
-class QedEvent;
+namespace VOR
+{
+
+class Event;
+class Edge;
 
 ///
 /// \brief The Parabola class
@@ -31,14 +29,12 @@ public:
     */
 
     bool		isLeaf;
-    Site        *site;
+    Point       site;
 
     // when not leaf
-    CrossedEdge *edge;
-    Point       corner;
-    Point       direction;
+    Edge        *edge;
 
-    QedEvent    *cEvent;
+    Event    *cEvent;
     Parabola    *parent;
 
     /*
@@ -46,7 +42,7 @@ public:
     */
 
     Parabola	();
-    Parabola	(Site *s);
+    Parabola	(const Point &p);
     ~Parabola   ();
 
     inline friend std::ostream &operator<<(std::ostream &os, const Parabola &p)
@@ -85,5 +81,7 @@ private:
     Parabola * _left;
     Parabola * _right;
 };
+
+}
 
 #endif // PARABOLA_H

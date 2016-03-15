@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "voronoi/voronoigenerator.h"
+#include "map/map.h"
 
 #include <QGraphicsItem>
 
@@ -11,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     _ui->setupUi(this);
     _ui->graphicsView->setScene(&_scene);
+
+    _generator = new VOR::VoronoiGenerator();
 
     connect(_ui->buttonGenerate, SIGNAL(pressed()), this, SLOT(generate()));
 }
@@ -26,9 +30,9 @@ MainWindow::~MainWindow()
 
 void    MainWindow::generate()
 {
-    _generator.launch(_ui->spinNumber->value(),
-                      _ui->spinXMax->value(),
-                      _ui->spinYMax->value());
+    MAP::Map    *map = _generator->generate(_ui->spinXMax->value(),
+                                            _ui->spinYMax->value(),
+                                            _ui->spinNumber->value());
 
 
     QList<QGraphicsItem *>  items = _scene.items();
@@ -39,22 +43,22 @@ void    MainWindow::generate()
     _scene.addRect(0, 0, _ui->spinXMax->value(), _ui->spinYMax->value(),
                    QPen());
 
-    for (const auto &s : _generator.sites())
+    for (const auto &s : map->zones())
         _scene.addEllipse(s.second->point.x, s.second->point.y, 5, 5,
                           QPen(), QBrush(Qt::SolidPattern));
-    for (const auto &e : _generator.edges())
+    for (const auto &e : map->edges())
     {
-        _scene.addLine(e.second->d0->point.x, e.second->d0->point.y,
-                       e.second->d1->point.x, e.second->d1->point.y,
+        _scene.addLine(e.second->z0->point.x, e.second->z0->point.y,
+                       e.second->z1->point.x, e.second->z1->point.y,
                        QPen());
         _scene.addEllipse(e.second->midpoint.x, e.second->midpoint.y, 5, 5,
                           QPen(Qt::green), QBrush(Qt::SolidPattern));
-        if (e.second->v0 && e.second->v1)
-            _scene.addLine(e.second->v0->point.x, e.second->v0->point.y,
-                           e.second->v1->point.x, e.second->v1->point.y,
+        if (e.second->c0 && e.second->c1)
+            _scene.addLine(e.second->c0->point.x, e.second->c0->point.y,
+                           e.second->c1->point.x, e.second->c1->point.y,
                            QPen(Qt::red));
     }
-    for (const auto &c : _generator.corners())
+    for (const auto &c : map->corners())
     {
         _scene.addEllipse(c.second->point.x, c.second->point.y, 5, 5,
                           QPen(Qt::red), QBrush(Qt::SolidPattern));
