@@ -51,8 +51,6 @@ void    MainWindow::generate()
         /*_scene.addLine(e.second->z0->point.x, e.second->z0->point.y,
                        e.second->z1->point.x, e.second->z1->point.y,
                        QPen());*/
-        _scene.addEllipse(e.second->midpoint.x, e.second->midpoint.y, 5, 5,
-                          QPen(Qt::green), QBrush(Qt::SolidPattern));
         if (e.second->c0 && e.second->c1)
             _scene.addLine(e.second->c0->point.x, e.second->c0->point.y,
                            e.second->c1->point.x, e.second->c1->point.y,
@@ -61,7 +59,7 @@ void    MainWindow::generate()
     for (const auto &c : map->corners())
     {
         _scene.addEllipse(c.second->point.x, c.second->point.y, 5, 5,
-                          QPen(Qt::red), QBrush(Qt::SolidPattern));
+                          QPen(Qt::green), QBrush(Qt::SolidPattern));
     }
 
     _ui->graphicsView->scale(1, -1);
