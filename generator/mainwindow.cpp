@@ -45,7 +45,7 @@ void    MainWindow::generate()
 
     for (const auto &s : map->zones())
         _scene.addEllipse(s.second->point.x, s.second->point.y, 5, 5,
-                          s.second->coast ? QPen(Qt::cyan) : QPen(Qt::yellow), QBrush(Qt::SolidPattern));
+                         QPen(), QBrush(Qt::SolidPattern));
     for (const auto &e : map->edges())
     {
         /*_scene.addLine(e.second->z0->point.x, e.second->z0->point.y,
