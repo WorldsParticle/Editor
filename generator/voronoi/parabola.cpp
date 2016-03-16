@@ -7,7 +7,7 @@ int Parabola::indexMax = 0;
 
 Parabola::Parabola() :
     index(indexMax),
-    site(0, 0)
+    site(NULL)
 {
     ++indexMax;
 
@@ -20,9 +20,9 @@ Parabola::Parabola() :
     _right = NULL;
 }
 
-Parabola::Parabola(const Point &p) :
+Parabola::Parabola(MAP::Zone *p) :
     index(indexMax),
-    site(p.x, p.y)
+    site(p)
 {
     ++indexMax;
 
@@ -37,6 +37,7 @@ Parabola::Parabola(const Point &p) :
 
 Parabola::~Parabola()
 {
+    site = NULL;
     cEvent = NULL;
     edge = NULL;
     parent = NULL;

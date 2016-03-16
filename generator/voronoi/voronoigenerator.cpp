@@ -5,6 +5,8 @@
 #include <math.h>
 #include <algorithm>
 
+#include "../map/map.h"
+
 #include "parabola.h"
 #include "edge.h"
 
@@ -38,46 +40,53 @@ void    VoronoiGenerator::run()
     fortuneAlgo();
     LloydRelaxation(); // en gros equilibrer les point et relancer fortune
 
+    for (const auto &e: _tempEdges)
+    {
+        MAP::CrossedEdge    *edge = new MAP::CrossedEdge();
+        edge->z0 = e->left;
+        edge->z1 = e->right;
+        _map->edges().insert(std::pair<int, MAP::CrossedEdge *>(edge->index, edge));
+
+        // A CHANGER / REMOVE APRES - DANS FINISHEDGE
+        MAP::Corner *c0 = new MAP::Corner();
+        MAP::Corner *c1 = new MAP::Corner();
+        c0->point.x = e->start.x;
+        c0->point.y = e->start.y;
+        c1->point.x = e->end.x;
+        c1->point.y = e->end.y;
+
+        edge->c0 = c0;
+        edge->c1 = c1;
+        _map->corners().insert(std::pair<int, MAP::Corner *>(c0->index, c0));
+        _map->corners().insert(std::pair<int, MAP::Corner *>(c1->index, c1));
+    }
+
     std::cout << "Done" << std::endl;
+}
+
+void    VoronoiGenerator::addSite(double x, double y)
+{
+    MAP::Zone   *site = new MAP::Zone(x, y);
+    _events.push(new Event(site));
+    _map->zones().insert(std::pair<int, MAP::Zone *>(site->index, site));
 }
 
 void    VoronoiGenerator::generateRandomSites()
 {
     for (unsigned int i = 0; i < _zoneNumber; ++i)
-    {
-        // mettre la gestion des sites;
-        Event *e = new Event(Point(DRAND(0, _xMax), DRAND(0, _yMax)), Event::POINT);
-        _events.push(e);
-    }
+        addSite(DRAND(0, _xMax), DRAND(0, _yMax));
 }
 
 void    VoronoiGenerator::generateTestSites()
 {
-    Event    *e;
-
-    e = new Event(Point(100, 50), Event::POINT);
-    _events.push(e);
-
-    e = new Event(Point(30, 80), Event::POINT);
-    _events.push(e);
-
-    e = new Event(Point(200, 100), Event::POINT);
-    _events.push(e);
-
-    e = new Event(Point(120, 150), Event::POINT);
-    _events.push(e);
-
-    e = new Event(Point(250, 200), Event::POINT);
-    _events.push(e);
-
-    e = new Event(Point(50, 300), Event::POINT);
-    _events.push(e);
-
-    e = new Event(Point(400, 300), Event::POINT);
-    _events.push(e);
-
-    e = new Event(Point(230, 400), Event::POINT);
-    _events.push(e);
+    addSite(100, 50);
+    addSite(30, 80);
+    addSite(200, 100);
+    addSite(120, 150);
+    addSite(250, 200);
+    addSite(50, 300);
+    addSite(400, 300);
+    addSite(230, 400);
 }
 
 void    VoronoiGenerator::fortuneAlgo()
@@ -98,7 +107,7 @@ void    VoronoiGenerator::fortuneAlgo()
 
         std::cout << std::endl << "<event type : " << event->type << "; y = " << event->y << ">" << std::endl;
         if (event->type == Event::POINT)
-            addParabola(event->point);
+            addParabola(event->site);
         else
             removeParabola(event);
     }
@@ -128,6 +137,7 @@ void	VoronoiGenerator::finishEdge(Parabola * p)
     else
         mx = std::min(0.0, p->edge->start.x - 10);
 
+
     p->edge->end.x = mx;
     p->edge->end.y = mx * p->edge->f + p->edge->g;
 
@@ -137,29 +147,30 @@ void	VoronoiGenerator::finishEdge(Parabola * p)
 }
 
 
-void    VoronoiGenerator::addParabola(const Point &site)
+void    VoronoiGenerator::addParabola(MAP::Zone *site)
 {
-    std::cout << "<===== addParabola(" << site << ") =====>" << std::endl << std::endl;
+    std::cout << "<===== addParabola(" << *site << ") =====>" << std::endl << std::endl;
     if (!_root) { _root = new Parabola(site); return; }
 
-    // Still not sure
-    /*if (_root->isLeaf && _root->site->point.y - site->point.y < 1) // why second condition ?
+    // Nop
+    /*if (_root->isLeaf && _root->site->point.y - site->point.y < 1)
     {
         _root->isLeaf = false;
         _root->setLeft(new Parabola(_root->site));
         _root->setRight(new Parabola(site));
+        Point   s((site->point.x + _root->site->point.x) / 2, _yMax);
 
         if (site->point.x  > _root->site->point.x)
-            _root->edge = createEdge(_root->site, site);
+            _root->edge = new Edge(s, _root->site, site);
         else
-            _root->edge = createEdge(site, _root->site);
+            _root->edge = new Edge(s, site, _root->site);
 
-        // Add midpoint
+        _tempEdges.push_back(_root->edge);
 
         return;
     }*/
 
-    Parabola    *topParabola = getParabolaAtX(site.x); // get first parabola above the new site
+    Parabola    *topParabola = getParabolaAtX(site->point.x); // get first parabola above the new site
     if (topParabola->cEvent) // Event annulé car bouffé par une nouvelle parabole
     {
         _deleted.insert(topParabola->cEvent);
@@ -167,8 +178,8 @@ void    VoronoiGenerator::addParabola(const Point &site)
     }
 
     Point   start(0, 0);
-    start.x = site.x;
-    start.y = getY(topParabola->site, site.x);
+    start.x = site->point.x;
+    start.y = getY(topParabola->site->point, site->point.x);
 
     Edge    *el = new Edge(start, topParabola->site, site);
     Edge    *er = new Edge(start, site, topParabola->site);
@@ -217,8 +228,8 @@ void    VoronoiGenerator::removeParabola(Event *e)
     }
 
     Point   p(0, 0);
-    p.x = e->point.x;
-    p.y = getY(p1->site, e->point.x);
+    p.x = e->intersect.x;
+    p.y = getY(p1->site->point, e->intersect.x); // revoir
 
     pLeft->edge->end.x = p.x;
     pLeft->edge->end.y = p.y;
@@ -262,8 +273,8 @@ void    VoronoiGenerator::removeParabola(Event *e)
 
 double      VoronoiGenerator::getXofEdge(Parabola *p, double y)
 {
-    const Point &sLeft = Parabola::getLeftChild(p)->site;
-    const Point &sRight = Parabola::getRightChild(p)->site;
+    const Point &sLeft = Parabola::getLeftChild(p)->site->point;
+    const Point &sRight = Parabola::getRightChild(p)->site->point;
 
     std::cout << "<- getXofEdge(" << *p << ", " << y << ") ->" << std::endl;
     std::cout << "fils gauche : " << *Parabola::getLeftChild(p) << "; fils droite : " << *Parabola::getRightChild(p) << std::endl;
@@ -357,10 +368,10 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
     if (rightParent) std::cout << *rightParent;
     else std::cout << "Nan";
     std::cout << std::endl << "leftChild site : ";
-    if (a) std::cout << a->site;
+    if (a) std::cout << *a->site;
     else std::cout << "Nan";
     std::cout << "; rightChild site : ";
-    if (c) std::cout << c->site;
+    if (c) std::cout << *c->site;
     else std::cout << "Nan";
     std::cout << std::endl;
 
@@ -371,35 +382,38 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
     if (!getEdgeIntersection(leftParent->edge, rightParent->edge, s))
         return;
 
-    // REVOIR
-    /*double dx = a->site->point.x - s->x;
-    double dy = a->site->point.y - s->y;
-
+    // Trouver la future distance de la sweepline quand intersection
+    double dx = a->site->point.x - s.x;
+    double dy = a->site->point.y - s.y;
     double d = sqrt( (dx * dx) + (dy * dy) );
+    if(s.y - d >= _sweepLine)
+        return;
+    s.y = s.y - d;
 
-    if(s->y - d >= _sweepLine) { return;}*/
+    Event *e = new Event(b, s);
 
-    Event * e = new Event(s/* - d*/, Event::INTERSECTION);
     b->cEvent = e;
-    e->arch = b;
 
-    std::cout << "Added a circle event at y = " << e->y << std::endl;
+    std::cout << "Added a circle event at x = " << e->intersect.x << " y = " << e->y << std::endl;
     _events.push(e);
 }
 
 bool VoronoiGenerator::getEdgeIntersection(Edge *a, Edge *b, Point &result)
 {
-    std::cout << "<- getEdgeIntersection(" << *a << ", " << *b << ") ->" << std::endl;
+    std::cout << "<- getEdgeIntersection ->" << std::endl;
+    std::cout << *a << std::endl << *b << std::endl;
 
     double x = (b->g - a->g) / (a->f - b->f);
     double y = a->f * x + a->g;
+
+    std::cout << "result : " << x << "; " << y << std::endl;
 
     if((x - a->start.x)/a->direction.x < 0) return false;
     if((y - a->start.y)/a->direction.y < 0) return false;
     if((x - b->start.x)/b->direction.x < 0) return false;
     if((y - b->start.y)/b->direction.y < 0) return false;
 
-    std::cout << "result : " << x << "; " << y << std::endl;
+    std::cout << "Validated !" << std::endl;
     result.x = x;
     result.y = y;
     return true;

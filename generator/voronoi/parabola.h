@@ -3,6 +3,11 @@
 
 #include "../map/point.h"
 
+namespace MAP
+{
+    class Zone;
+}
+
 namespace VOR
 {
 
@@ -29,7 +34,7 @@ public:
     */
 
     bool		isLeaf;
-    Point       site;
+    MAP::Zone   *site;
 
     // when not leaf
     Edge        *edge;
@@ -42,7 +47,7 @@ public:
     */
 
     Parabola	();
-    Parabola	(const Point &p);
+    Parabola	(MAP::Zone *p);
     ~Parabola   ();
 
     inline friend std::ostream &operator<<(std::ostream &os, const Parabola &p)

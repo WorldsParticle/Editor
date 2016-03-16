@@ -9,6 +9,11 @@
 #include <queue>
 #include <set>
 
+namespace MAP
+{
+    class Zone;
+}
+
 namespace VOR
 {
 
@@ -28,13 +33,14 @@ public:
     virtual void run();
 
 private:
+    void    addSite(double x, double y);
     void    generateRandomSites();
     void    generateTestSites();
     void    fortuneAlgo();
     void    LloydRelaxation();
     void    finishEdge(Parabola *p);
 
-    void    addParabola(const Point &site);
+    void    addParabola(MAP::Zone *site);
     void    removeParabola(Event *e); // should pass Parabola as argument when implemented
 
     // to review

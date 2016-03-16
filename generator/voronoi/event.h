@@ -2,6 +2,7 @@
 #define EVENT_H
 
 #include "../map/point.h"
+#include "../map/zone.h"
 
 namespace VOR
 
@@ -25,18 +26,31 @@ public:
         INTERSECTION    // Vertex, remove parabola
     };
 
-    explicit Event(const Point &p, Type t) : type(t), arch(NULL), point(p.x, p.y), y(p.y) {}
+    explicit Event(MAP::Zone *p) :
+        type(POINT),
+        intersect(0, 0),
+        arch(NULL),
+        site(p),
+        y(p->point.y) {}
+
+    explicit Event(Parabola *a, const Point &p) :
+        type(INTERSECTION),
+        intersect(p.x, p.y),
+        arch(a),
+        site(NULL),
+        y(p.y) {}
 
     Type        type;
 
+    Point       intersect; // if intersection
     Parabola    *arch; // if interesection
-    Point       point; // if point
+    MAP::Zone   *site; // if point
     double      y;
 
     // Doit y'avoir moyen rester sur une map ou un set simple, voir une liste
     struct compareEvent : public std::binary_function<Event *, Event *, bool>
     {
-        bool    operator()(const Event *l, const Event *r) const { return (l->y > r->y); }
+        bool    operator()(const Event *l, const Event *r) const { return (l->y < r->y); }
     };
 
 };

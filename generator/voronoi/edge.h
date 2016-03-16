@@ -2,6 +2,7 @@
 #define EDGE_H
 
 #include "../map/point.h"
+#include "../map/zone.h"
 
 namespace VOR
 {
@@ -23,11 +24,11 @@ class Edge  // should find a way to not use it
 {
 public:
 
-    Point	start;
-    Point	end;
-    Point	direction;
-    Point	left; // change to Site
-    Point	right; // change to Site
+    Point       start;
+    Point       end;
+    Point       direction;
+    MAP::Zone   *left;
+    MAP::Zone	*right;
 
     double		f;
     double		g;
@@ -42,23 +43,23 @@ public:
         r		: pointer to right place
     */
 
-    Edge(const Point &s, const Point &l, const Point &r) :
+    Edge(const Point &s, MAP::Zone *l, MAP::Zone *r) :
         start(s.x, s.y),
         end(0, 0),
         direction(0, 0),
-        left(l.x, l.y),
-        right(r.x, r.y)
+        left(l),
+        right(r)
     {
         neighbour	= NULL;
 
-        f = (r.x - l.x) / (l.y -r.y) ;
+        f = (r->point.x - l->point.x) / (l->point.y - r->point.y) ;
         g = s.y - f * s.x ;
-        direction.x = r.y - l.y;
-        direction.y = -(r.x - l.x);
+        direction.x =  (r->point.y - l->point.y); // revoir
+        direction.y =  -(r->point.x - l->point.x); // revoir
     }
 
     inline friend std::ostream &operator<<(std::ostream &os, const Edge &e)
-    { return os << "s" << e.start << "d" << e.direction; }
+    { return os << "[" << e.left->index << "|" << e.right->index << "]s" << e.start << "d" << e.direction; }
 };
 
 }
