@@ -32,10 +32,13 @@ void    VoronoiGenerator::run()
 {
     _root = NULL;
     Parabola::indexMax = 0;
+    for(std::vector<Edge *>::iterator it = _tempEdges.begin(); it != _tempEdges.end(); ++it)
+        delete (*it);
+    _tempEdges.clear();
 
 
-    //generateRandomSites();
-    generateTestSites();
+    generateRandomSites();
+    //generateTestSites();
 
     fortuneAlgo();
     LloydRelaxation(); // en gros equilibrer les point et relancer fortune
@@ -79,14 +82,14 @@ void    VoronoiGenerator::generateRandomSites()
 
 void    VoronoiGenerator::generateTestSites()
 {
-    addSite(100, 50);
-    addSite(30, 80);
-    addSite(200, 100);
-    addSite(120, 150);
-    addSite(250, 200);
-    addSite(50, 300);
-    addSite(400, 300);
     addSite(230, 400);
+    addSite(400, 300);
+    addSite(50, 300);
+    addSite(250, 200);
+    addSite(120, 150);
+    addSite(200, 100);
+    addSite(30, 80);
+    addSite(100, 50);
 }
 
 void    VoronoiGenerator::fortuneAlgo()
@@ -140,6 +143,17 @@ void	VoronoiGenerator::finishEdge(Parabola * p)
 
     p->edge->end.x = mx;
     p->edge->end.y = mx * p->edge->f + p->edge->g;
+
+    if (p->edge->end.y < 0)
+    {
+        p->edge->end.y = 0;
+        p->edge->end.x = -p->edge->g / p->edge->f;
+    }
+    else if (p->edge->end.y > _yMax)
+    {
+        p->edge->end.y = _yMax;
+        p->edge->end.x = (_yMax - p->edge->g) / p->edge->f;
+    }
 
     finishEdge(p->left());
     finishEdge(p->right());
@@ -229,7 +243,7 @@ void    VoronoiGenerator::removeParabola(Event *e)
 
     Point   p(0, 0);
     p.x = e->intersect.x;
-    p.y = getY(p1->site->point, e->intersect.x); // revoir
+    p.y = getY(p1->site->point, e->intersect.x); //
 
     pLeft->edge->end.x = p.x;
     pLeft->edge->end.y = p.y;

@@ -16,12 +16,12 @@ public:
 
     MAP::Map    *generate(double xMax, double yMax, unsigned int zoneNumber);
 
-    virtual void    run() = 0;
-
     inline MAP::Map *map() const
     { return _map; }
 
 protected:
+    virtual void    run() = 0;
+
     MAP::Map    *_map;
 
     unsigned int    _zoneNumber;

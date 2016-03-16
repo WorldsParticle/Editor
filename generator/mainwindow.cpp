@@ -65,4 +65,6 @@ void    MainWindow::generate()
     }
 
     _ui->graphicsView->scale(1, -1);
+
+    delete map;
 }
