@@ -26,9 +26,9 @@ public:
     inline double xMax()
     { return _xMax; }
     inline double yMax()
-    { return _xMax; }
+    { return _yMax; }
     inline unsigned int zoneNumber()
-    { return _xMax; }
+    { return _zoneNumber; }
 
 private:
 
