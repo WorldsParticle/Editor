@@ -50,7 +50,24 @@ public:
     // Doit y'avoir moyen rester sur une map ou un set simple, voir une liste
     struct compareEvent : public std::binary_function<Event *, Event *, bool>
     {
-        bool    operator()(const Event *l, const Event *r) const { return (l->y < r->y); }
+        bool    operator()(const Event *l, const Event *r) const
+        {
+            if (l->y == r->y) // A refaire
+            {
+                double xl, xr;
+                if (l->type == POINT)
+                    xl = l->site->point.x;
+                else
+                    xl = l->intersect.x;
+                if (r->type == POINT)
+                    xr = l->site->point.x;
+                else
+                    xr = l->intersect.x;
+                return (xl > xr);
+            }
+            else
+            return (l->y < r->y);
+        }
     };
 
 };

@@ -24,11 +24,11 @@ class Edge;
 /// \brief The VoronoiGenerator class
 /// Based on the design found in https://github.com/amitp/mapgen2
 ///
-class VoronoiGenerator : public GEN::Generator
+class Voronoi : public GEN::GenerationStep
 {
 public:
-    VoronoiGenerator();
-    ~VoronoiGenerator();
+    Voronoi();
+    ~Voronoi();
 
     virtual void run();
 

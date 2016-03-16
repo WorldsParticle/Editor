@@ -16,7 +16,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-        voronoi/voronoigenerator.cpp \
         voronoi/parabola.cpp \
     voronoi/edge.cpp \
     voronoi/event.cpp \
@@ -26,10 +25,11 @@ SOURCES += main.cpp\
     map/corner.cpp \
     map/map.cpp \
     map/point.cpp \
-    map/halfedge.cpp
+    map/halfedge.cpp \
+    generationstep.cpp \
+    voronoi/voronoi.cpp
 
 HEADERS  += mainwindow.h \
-    voronoi/voronoigenerator.h \
     voronoi/parabola.h \
     voronoi/edge.h \
     voronoi/event.h \
@@ -39,6 +39,8 @@ HEADERS  += mainwindow.h \
     map/corner.h \
     map/map.h \
     map/point.h \
-    map/halfedge.h
+    map/halfedge.h \
+    generationstep.h \
+    voronoi/voronoi.h
 
 FORMS    += mainwindow.ui

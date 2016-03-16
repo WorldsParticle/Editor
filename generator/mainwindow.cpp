@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "voronoi/voronoigenerator.h"
+#include "generator.h"
 #include "map/map.h"
 
 #include <QGraphicsItem>
@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _ui->setupUi(this);
     _ui->graphicsView->setScene(&_scene);
 
-    _generator = new VOR::VoronoiGenerator();
+    _generator = new GEN::Generator();
 
     connect(_ui->buttonGenerate, SIGNAL(pressed()), this, SLOT(generate()));
 }

@@ -3,10 +3,13 @@
 namespace MAP
 {
 
-Map::Map() :
+Map::Map(unsigned int xMax, unsigned int yMax, unsigned int zoneNumber) :
     _zones(),
     _corners(),
-    _edges()
+    _edges(),
+    _xMax(xMax),
+    _yMax(yMax),
+    _zoneNumber(zoneNumber)
 {
 
 }

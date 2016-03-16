@@ -1,4 +1,4 @@
-#include "voronoigenerator.h"
+#include "voronoi.h"
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
@@ -15,20 +15,21 @@
 namespace VOR
 {
 
-VoronoiGenerator::VoronoiGenerator() :
+Voronoi::Voronoi() :
     _tempEdges(),
     _events(),
     _deleted(),
     _sweepLine(0),
     _root(NULL)
 {
+    _step = FILL;
 }
 
-VoronoiGenerator::~VoronoiGenerator()
+Voronoi::~Voronoi()
 {
 }
 
-void    VoronoiGenerator::run()
+void    Voronoi::run()
 {
     _root = NULL;
     Parabola::indexMax = 0;
@@ -67,32 +68,32 @@ void    VoronoiGenerator::run()
     std::cout << "Done" << std::endl;
 }
 
-void    VoronoiGenerator::addSite(double x, double y)
+void    Voronoi::addSite(double x, double y)
 {
     MAP::Zone   *site = new MAP::Zone(x, y);
     _events.push(new Event(site));
     _map->zones().insert(std::pair<int, MAP::Zone *>(site->index, site));
 }
 
-void    VoronoiGenerator::generateRandomSites()
+void    Voronoi::generateRandomSites()
 {
-    for (unsigned int i = 0; i < _zoneNumber; ++i)
-        addSite(DRAND(0, _xMax), DRAND(0, _yMax));
+    for (unsigned int i = 0; i < _map->zoneNumber(); ++i)
+        addSite(DRAND(0, _map->xMax()), DRAND(0, _map->yMax()));
 }
 
-void    VoronoiGenerator::generateTestSites()
+void    Voronoi::generateTestSites()
 {
-    addSite(230, 400);
-    addSite(400, 300);
-    addSite(50, 300);
     addSite(250, 200);
+    addSite(50, 300);
+    addSite(400, 300);
+    addSite(230, 400);
     addSite(120, 150);
     addSite(200, 100);
     addSite(30, 80);
     addSite(100, 50);
 }
 
-void    VoronoiGenerator::fortuneAlgo()
+void    Voronoi::fortuneAlgo()
 {
     while (!_events.empty())
     {
@@ -126,17 +127,17 @@ void    VoronoiGenerator::fortuneAlgo()
     }
 }
 
-void    VoronoiGenerator::LloydRelaxation()
+void    Voronoi::LloydRelaxation()
 {
 
 }
 
-void	VoronoiGenerator::finishEdge(Parabola * p)
+void	Voronoi::finishEdge(Parabola * p)
 {
     if(p->isLeaf) {delete p; return;}
     double mx;
     if(p->edge->direction.x > 0.0)
-        mx = std::max(_xMax, p->edge->start.x + 10 );
+        mx = std::max(_map->xMax(), p->edge->start.x + 10 );
     else
         mx = std::min(0.0, p->edge->start.x - 10);
 
@@ -149,10 +150,10 @@ void	VoronoiGenerator::finishEdge(Parabola * p)
         p->edge->end.y = 0;
         p->edge->end.x = -p->edge->g / p->edge->f;
     }
-    else if (p->edge->end.y > _yMax)
+    else if (p->edge->end.y > _map->yMax())
     {
-        p->edge->end.y = _yMax;
-        p->edge->end.x = (_yMax - p->edge->g) / p->edge->f;
+        p->edge->end.y = _map->yMax();
+        p->edge->end.x = (_map->yMax() - p->edge->g) / p->edge->f;
     }
 
     finishEdge(p->left());
@@ -161,7 +162,7 @@ void	VoronoiGenerator::finishEdge(Parabola * p)
 }
 
 
-void    VoronoiGenerator::addParabola(MAP::Zone *site)
+void    Voronoi::addParabola(MAP::Zone *site)
 {
     std::cout << "<===== addParabola(" << *site << ") =====>" << std::endl << std::endl;
     if (!_root) { _root = new Parabola(site); return; }
@@ -217,7 +218,7 @@ void    VoronoiGenerator::addParabola(MAP::Zone *site)
 
 }
 
-void    VoronoiGenerator::removeParabola(Event *e)
+void    Voronoi::removeParabola(Event *e)
 {
     std::cout << "<===== removeParabola(" << *e->arch << ") =====>" << std::endl << std::endl;
     Parabola    *p1 = e->arch;
@@ -285,7 +286,7 @@ void    VoronoiGenerator::removeParabola(Event *e)
     checkCircle(p2);
 }
 
-double      VoronoiGenerator::getXofEdge(Parabola *p, double y)
+double      Voronoi::getXofEdge(Parabola *p, double y)
 {
     const Point &sLeft = Parabola::getLeftChild(p)->site->point;
     const Point &sRight = Parabola::getRightChild(p)->site->point;
@@ -334,7 +335,7 @@ double      VoronoiGenerator::getXofEdge(Parabola *p, double y)
     return result;
 }
 
-Parabola    *VoronoiGenerator::getParabolaAtX(double nx)
+Parabola    *Voronoi::getParabolaAtX(double nx)
 {
     std::cout << "<--- getParabolaAtX(" << nx << ") --->" << std::endl;
     Parabola *p = _root;
@@ -352,7 +353,7 @@ Parabola    *VoronoiGenerator::getParabolaAtX(double nx)
     return p;
 }
 
-double      VoronoiGenerator::getY(const Point &s, double x)
+double      Voronoi::getY(const Point &s, double x)
 {
     // Formule d'intersection, à reviser
     double dp = 2 * (s.y - _sweepLine);
@@ -366,7 +367,7 @@ double      VoronoiGenerator::getY(const Point &s, double x)
     return(result);
 }
 
-void        VoronoiGenerator::checkCircle(Parabola *b)
+void        Voronoi::checkCircle(Parabola *b)
 {
     std::cout << std::endl << "<--- checkCircle(" << *b << ") --->" << std::endl;
     Parabola    *leftParent = Parabola::getLeftParent(b);
@@ -412,7 +413,7 @@ void        VoronoiGenerator::checkCircle(Parabola *b)
     _events.push(e);
 }
 
-bool VoronoiGenerator::getEdgeIntersection(Edge *a, Edge *b, Point &result)
+bool Voronoi::getEdgeIntersection(Edge *a, Edge *b, Point &result)
 {
     std::cout << "<- getEdgeIntersection ->" << std::endl;
     std::cout << *a << std::endl << *b << std::endl;
