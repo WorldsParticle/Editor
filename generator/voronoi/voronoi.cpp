@@ -37,7 +37,6 @@ void    Voronoi::run()
         delete (*it);
     _tempEdges.clear();
 
-
     generateRandomSites();
     //generateTestSites();
 
@@ -49,6 +48,12 @@ void    Voronoi::run()
         MAP::CrossedEdge    *edge = new MAP::CrossedEdge();
         edge->z0 = e->left;
         edge->z1 = e->right;
+        e->left->neighbors.push_back(e->right);
+        e->right->neighbors.push_back(e->left);
+        e->left->borders.push_back(edge);
+        e->right->borders.push_back(edge);
+
+
         _map->edges().insert(std::pair<int, MAP::CrossedEdge *>(edge->index, edge));
 
         // A CHANGER / REMOVE APRES - DANS FINISHEDGE
@@ -61,6 +66,9 @@ void    Voronoi::run()
 
         edge->c0 = c0;
         edge->c1 = c1;
+        e->left->corners.push_back(c0);
+        e->right->corners.push_back(c1);
+
         _map->corners().insert(std::pair<int, MAP::Corner *>(c0->index, c0));
         _map->corners().insert(std::pair<int, MAP::Corner *>(c1->index, c1));
     }
