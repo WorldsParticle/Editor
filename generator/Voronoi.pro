@@ -26,8 +26,14 @@ SOURCES += main.cpp\
     map/map.cpp \
     map/point.cpp \
     map/halfedge.cpp \
+    noise/simplexnoise.cpp \
     generationstep.cpp \
-    voronoi/voronoi.cpp
+    voronoi/voronoi.cpp \
+    elevator.cpp \
+    shaper.cpp \
+    riveror.cpp \
+    moistor.cpp \
+    biomizator.cpp
 
 HEADERS  += mainwindow.h \
     voronoi/parabola.h \
@@ -40,7 +46,13 @@ HEADERS  += mainwindow.h \
     map/map.h \
     map/point.h \
     map/halfedge.h \
+    noise/simplexnoise.h \
     generationstep.h \
-    voronoi/voronoi.h
+    voronoi/voronoi.h \
+    elevator.h \
+    shaper.h \
+    riveror.h \
+    moistor.h \
+    biomizator.h
 
 FORMS    += mainwindow.ui

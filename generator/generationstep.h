@@ -13,7 +13,10 @@ public:
     {
         FILL = 0,
         SHAPE,
-        ELEVATE
+        ELEVATE,
+        MOISTING,
+        RIVERING,
+        BIOMIZATING
     };
 
     GenerationStep() : _map(NULL) {}

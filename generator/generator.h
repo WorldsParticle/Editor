@@ -24,6 +24,9 @@ protected:
     GenerationStep  *_fillStep;
     GenerationStep  *_shapeStep;
     GenerationStep  *_elevateStep;
+    GenerationStep  *_riverStep;
+    GenerationStep  *_moistureStep;
+    GenerationStep  *_biomeStep;
 };
 
 }
