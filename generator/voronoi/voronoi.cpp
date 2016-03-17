@@ -38,40 +38,12 @@ void    Voronoi::run()
     _tempEdges.clear();
 
     generateRandomSites();
-    //generateTestSites();
+    generateTestSites();
 
     fortuneAlgo();
     LloydRelaxation(); // en gros equilibrer les point et relancer fortune
 
-    for (const auto &e: _tempEdges)
-    {
-        MAP::CrossedEdge    *edge = new MAP::CrossedEdge();
-        edge->z0 = e->left;
-        edge->z1 = e->right;
-        e->left->neighbors.push_back(e->right);
-        e->right->neighbors.push_back(e->left);
-        e->left->borders.push_back(edge);
-        e->right->borders.push_back(edge);
-
-
-        _map->edges().insert(std::pair<int, MAP::CrossedEdge *>(edge->index, edge));
-
-        // A CHANGER / REMOVE APRES - DANS FINISHEDGE
-        MAP::Corner *c0 = new MAP::Corner();
-        MAP::Corner *c1 = new MAP::Corner();
-        c0->point.x = e->start.x;
-        c0->point.y = e->start.y;
-        c1->point.x = e->end.x;
-        c1->point.y = e->end.y;
-
-        edge->c0 = c0;
-        edge->c1 = c1;
-        e->left->corners.push_back(c0);
-        e->right->corners.push_back(c1);
-
-        _map->corners().insert(std::pair<int, MAP::Corner *>(c0->index, c0));
-        _map->corners().insert(std::pair<int, MAP::Corner *>(c1->index, c1));
-    }
+    computeFinalMap();
 
     std::cout << "Done" << std::endl;
 }
@@ -91,10 +63,10 @@ void    Voronoi::generateRandomSites()
 
 void    Voronoi::generateTestSites()
 {
-    addSite(250, 200);
-    addSite(50, 300);
-    addSite(400, 300);
     addSite(230, 400);
+    addSite(400, 300);
+    addSite(50, 300);
+    addSite(250, 200);
     addSite(120, 150);
     addSite(200, 100);
     addSite(30, 80);
@@ -167,6 +139,74 @@ void	Voronoi::finishEdge(Parabola * p)
     finishEdge(p->left());
     finishEdge(p->right());
     delete p;
+}
+
+void        Voronoi::computeFinalMap()
+{
+    for (const auto &e: _tempEdges)
+    {
+        MAP::CrossedEdge    *edge = new MAP::CrossedEdge();
+        MAP::Corner *c0;
+        MAP::Corner *c1;
+
+        e->left->neighbors.push_back(e->right);
+        e->right->neighbors.push_back(e->left);
+
+        edge->z0 = e->left;
+        edge->z1 = e->right;
+        e->left->borders.push_back(edge);
+        e->right->borders.push_back(edge);
+
+        if (!(c0 = checkCorner(e->left, e->start)))
+        {
+            if (!(c0 = checkCorner(e->right, e->start)))
+            {
+                c0 = new MAP::Corner();
+                _map->corners().insert(std::pair<int, MAP::Corner *>(c0->index, c0));
+
+                c0->point.x = e->start.x;
+                c0->point.y = e->start.y;
+                e->right->corners.push_back(c0);
+                c0->faces.push_back(e->right);
+            }
+            e->left->corners.push_back(c0);
+            c0->faces.push_back(e->left);
+        }
+
+        if (!(c1 = checkCorner(e->left, e->end)))
+        {
+            if (!(c1 = checkCorner(e->right, e->end)))
+            {
+                c1 = new MAP::Corner();
+                _map->corners().insert(std::pair<int, MAP::Corner *>(c1->index, c1));
+
+                c1->point.x = e->end.x;
+                c1->point.y = e->end.y;
+                e->right->corners.push_back(c1);
+                c1->faces.push_back(e->right);
+            }
+            e->left->corners.push_back(c1);
+            c1->faces.push_back(e->left);
+        }
+
+
+        edge->c0 = c0;
+        edge->c1 = c1;
+        c0->edges.push_back(edge);
+        c1->edges.push_back(edge);
+        c0->adjacent.push_back(c1);
+        c1->adjacent.push_back(c0);
+
+        _map->edges().insert(std::pair<int, MAP::CrossedEdge *>(edge->index, edge));
+    }
+}
+
+MAP::Corner *Voronoi::checkCorner(MAP::Zone *z, Point &p)
+{
+    for (std::vector<MAP::Corner *>::iterator it = z->corners.begin(); it != z->corners.end(); ++it)
+        if ((*it)->point.x == p.x && (*it)->point.y == p.y)
+            return (*it);
+    return NULL;
 }
 
 

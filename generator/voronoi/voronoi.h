@@ -40,6 +40,9 @@ private:
     void    LloydRelaxation();
     void    finishEdge(Parabola *p);
 
+    void        computeFinalMap();
+    MAP::Corner *checkCorner(MAP::Zone *z, Point &p);
+
     void    addParabola(MAP::Zone *site);
     void    removeParabola(Event *e); // should pass Parabola as argument when implemented
 

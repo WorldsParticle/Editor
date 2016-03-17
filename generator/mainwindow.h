@@ -21,6 +21,9 @@ public slots:
     void generate();
 
 private:
+    void    addSceneItems(MAP::Map *map);
+    void    addZonePolygons(MAP::Map *map);
+
     Ui::MainWindow      *_ui;
     GEN::Generator      *_generator;
 

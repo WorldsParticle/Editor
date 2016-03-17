@@ -66,7 +66,7 @@ public:
                 return (xl > xr);
             }
             else
-            return (l->y < r->y);
+                return (l->y < r->y);
         }
     };
 
