@@ -38,7 +38,7 @@ void    Voronoi::run()
     _tempEdges.clear();
 
     generateRandomSites();
-    generateTestSites();
+    //generateTestSites();
 
     fortuneAlgo();
     LloydRelaxation(); // en gros equilibrer les point et relancer fortune
@@ -125,6 +125,7 @@ void	Voronoi::finishEdge(Parabola * p)
 
     p->edge->end.x = mx;
     p->edge->end.y = mx * p->edge->f + p->edge->g;
+
 
     finishEdge(p->left());
     finishEdge(p->right());
