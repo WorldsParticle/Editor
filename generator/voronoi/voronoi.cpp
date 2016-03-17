@@ -115,6 +115,7 @@ void    Voronoi::LloydRelaxation()
 void	Voronoi::finishEdge(Parabola * p)
 {
     if(p->isLeaf) {delete p; return;}
+
     double mx;
     if(p->edge->direction.x > 0.0)
         mx = std::max(_map->xMax(), p->edge->start.x + 10 );
@@ -124,17 +125,6 @@ void	Voronoi::finishEdge(Parabola * p)
 
     p->edge->end.x = mx;
     p->edge->end.y = mx * p->edge->f + p->edge->g;
-
-    if (p->edge->end.y < 0)
-    {
-        p->edge->end.y = 0;
-        p->edge->end.x = -p->edge->g / p->edge->f;
-    }
-    else if (p->edge->end.y > _map->yMax())
-    {
-        p->edge->end.y = _map->yMax();
-        p->edge->end.x = (_map->yMax() - p->edge->g) / p->edge->f;
-    }
 
     finishEdge(p->left());
     finishEdge(p->right());
