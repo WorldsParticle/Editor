@@ -9,8 +9,7 @@ Map::Map(unsigned int xMax, unsigned int yMax, unsigned int zoneNumber) :
     _edges(),
     _xMax(xMax),
     _yMax(yMax),
-    _zoneNumber(zoneNumber),
-    _zoneLookUp()
+    _zoneNumber(zoneNumber)
 {
 
 }

@@ -1,8 +1,9 @@
-#ifndef HeightMap_H
-#define HeightMap_H
+#ifndef HEIGHTMAP_H
+#define HEIGHTMAP_H
 
 #include "map/heightpoint.h"
 #include "generator.h"
+#include "zonelookup.h"
 
 namespace MAP {
 
@@ -13,19 +14,22 @@ namespace MAP {
 class HeightMap
 {
 public:
-    HeightMap(int size);
+    HeightMap(int width, int height);
     ~HeightMap();
 
-    void    assignHeight(const MAP::Map & m);
+    void    init(MAP::Map & m);
+    void    paint();
 
 private:
 
-    int _size;
+    int _width;
+    int _height;
 
     std::vector<HeightPoint> _points;
+    ZoneLookUp      _zoneLookUp;
 
 };
 
 }
 
-#endif // HeightMap_H
+#endif // HEIGHTMAP_H

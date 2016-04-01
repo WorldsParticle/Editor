@@ -5,13 +5,17 @@ namespace MAP
 {
 
 
-ZoneLookUp::ZoneLookUp()
+ZoneLookUp::ZoneLookUp() : _pc2kd(NULL), _tree(NULL)
 {
 
 }
 
 ZoneLookUp::~ZoneLookUp()
 {
+if (_pc2kd)
+   delete(_pc2kd);
+if (_tree)
+   delete(_tree);
 }
 
 void    ZoneLookUp::createCloud(MAP::Map & m)

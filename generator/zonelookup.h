@@ -1,9 +1,9 @@
-#ifndef zonelookup_H
-#define zonelookup_H
+#ifndef ZONELOOKUP_H
+#define ZONELOOKUP_H
 
 #include <vector>
 #include "map/point.h"
-#include "nanoflann.h"
+#include "tools/nanoflann.h"
 
 namespace MAP {
 
@@ -98,4 +98,4 @@ private:
 
 }
 
-#endif // zonelookup_H
+#endif // ZONELOOKUP_H

@@ -26,7 +26,7 @@ SOURCES += main.cpp\
     map/map.cpp \
     map/point.cpp \
     map/halfedge.cpp \
-    noise/simplexnoise.cpp \
+    tools/simplexnoise.cpp \
     generationstep.cpp \
     voronoi/voronoi.cpp \
     elevator.cpp \
@@ -49,7 +49,9 @@ HEADERS  += mainwindow.h \
     map/point.h \
     map/halfedge.h \
     map/heightpoint.h \
-    noise/simplexnoise.h \
+    tools/simplexnoise.h \
+    tools/nanoflann.h \
+    tools/bitmap_image.h \
     generationstep.h \
     voronoi/voronoi.h \
     elevator.h \
@@ -58,7 +60,6 @@ HEADERS  += mainwindow.h \
     moistor.h \
     biomizator.h \
     heightmap.h \
-    zonelookup.h \
-    nanoflann.h
+    zonelookup.h
 
 FORMS    += mainwindow.ui

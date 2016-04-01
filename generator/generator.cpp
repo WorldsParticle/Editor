@@ -7,6 +7,7 @@
 #include "riveror.h"
 #include "moistor.h"
 #include "biomizator.h"
+#include "heightmap.h"
 
 namespace GEN
 {
@@ -41,6 +42,10 @@ MAP::Map    *Generator::generate(double xMax, double yMax, unsigned int zoneNumb
 
     _riverStep = new RIV::Riveror();
     _riverStep->generate(_map);
+
+    MAP::HeightMap h(xMax, yMax);
+    h.init(*_map);
+    h.paint();
 
     _moistureStep = new MOI::Moistor();
     //_moistureStep->generate(_map);

@@ -7,7 +7,7 @@
 
 #include "map/map.h"
 #include "shaper.h"
-#include "noise/simplexnoise.h"
+#include "tools/simplexnoise.h"
 
 namespace SHA
 {
@@ -37,14 +37,14 @@ void        Shaper::assignCornerLandPerlin(int seed)
         double xMax = _map->xMax();
         double yMax = _map->yMax();
 
-
         // assign corner.border if a corner is out of the map's bounding box
         if (p.x <= 0 || p.y <= 0 || p.x >= xMax || p.y >= yMax)
             corner.second->border = true;
         else
             corner.second->border = false;
 
-
+if (p.y > 500)
+    std::cout << p.x << " " << p.y << std::endl;
         // put all corners inside for normalization, simplistic but doesn't affect outcome
         if (p.x > xMax)
             p.x = xMax;
@@ -88,6 +88,8 @@ void        Shaper::assignOceanCostAndLand()
         {
             if (corner->border)
             {
+               if (corner->point.y > 500)
+                   std::cout << "->>" << corner->point.y << std::endl;
                zone.second->border = true;
                zone.second->ocean = true;
                corner->water = true;

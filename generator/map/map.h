@@ -6,7 +6,6 @@
 #include "zone.h"
 #include "corner.h"
 #include "crossededge.h"
-#include "zonelookup.h"
 
 namespace MAP
 {
@@ -40,8 +39,6 @@ private:
     double    _xMax;
     double    _yMax;
     unsigned int    _zoneNumber;
-
-    MAP::ZoneLookUp      _zoneLookUp;
 };
 
 }
