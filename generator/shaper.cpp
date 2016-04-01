@@ -44,6 +44,7 @@ void        Shaper::assignCornerLandPerlin(int seed)
         else
             corner.second->border = false;
 
+
         // put all corners inside for normalization, simplistic but doesn't affect outcome
         if (p.x > xMax)
             p.x = xMax;

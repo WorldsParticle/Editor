@@ -33,7 +33,9 @@ SOURCES += main.cpp\
     shaper.cpp \
     riveror.cpp \
     moistor.cpp \
-    biomizator.cpp
+    biomizator.cpp \
+    heightmap.cpp \
+    zonelookup.cpp
 
 HEADERS  += mainwindow.h \
     voronoi/parabola.h \
@@ -46,6 +48,7 @@ HEADERS  += mainwindow.h \
     map/map.h \
     map/point.h \
     map/halfedge.h \
+    map/heightpoint.h \
     noise/simplexnoise.h \
     generationstep.h \
     voronoi/voronoi.h \
@@ -53,6 +56,9 @@ HEADERS  += mainwindow.h \
     shaper.h \
     riveror.h \
     moistor.h \
-    biomizator.h
+    biomizator.h \
+    heightmap.h \
+    zonelookup.h \
+    nanoflann.h
 
 FORMS    += mainwindow.ui

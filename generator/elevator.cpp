@@ -32,11 +32,13 @@ void    Elevator::run()
 void        Elevator::assignCornerElevation()
 {
     std::queue<MAP::Corner *>   q;
-
+int a = 0;
     for (auto & corner : _map->corners())
     {
+
         if (corner.second->border)
         {
+            ++a;
             corner.second->elevation = 0.0;
             q.push(corner.second);
         }
@@ -85,12 +87,11 @@ void        Elevator::redistributeElevation()
     {
        float y, x;
 
-       y = i / (corners.size() - 1);
-       x = sqrt(scaleFactor) - sqrt(scaleFactor * (1-y));
+       y = (float)i / (float)(corners.size() - 1);
+       x = sqrt(scaleFactor) - sqrt(scaleFactor * (1.0-y));
        if (x > 1.0)
            x = 1.0;
        corners[i]->elevation = x;
-
     }
 
 }

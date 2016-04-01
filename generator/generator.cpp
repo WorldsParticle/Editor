@@ -37,10 +37,10 @@ MAP::Map    *Generator::generate(double xMax, double yMax, unsigned int zoneNumb
     _shapeStep->generate(_map);
 
     _elevateStep = new ELE::Elevator();
-    //_elevateStep->generate(_map);
+    _elevateStep->generate(_map);
 
     _riverStep = new RIV::Riveror();
-    //_riverStep->generate(_map);
+    _riverStep->generate(_map);
 
     _moistureStep = new MOI::Moistor();
     //_moistureStep->generate(_map);
