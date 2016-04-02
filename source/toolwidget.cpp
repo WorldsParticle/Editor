@@ -23,6 +23,7 @@ ToolWidget::ToolWidget(QWidget *parent) :
 
     connect(_ui->switchButton, SIGNAL(pressed()), this, SLOT(switchVisibility()));
     connect(_ui->buttonImport, SIGNAL(pressed()), this, SLOT(importModel()));
+    connect(_ui->buttonGenerator, SIGNAL(pressed()), this, SLOT(launchGenerator()));
 }
 
 ToolWidget::~ToolWidget()
