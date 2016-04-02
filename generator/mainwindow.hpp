@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "generator.hpp"
+#include "include/generator.hpp"
 #include <QGraphicsScene>
 
 namespace Ui {

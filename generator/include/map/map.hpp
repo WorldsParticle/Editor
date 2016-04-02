@@ -16,6 +16,8 @@ public:
     Map(unsigned int xMax = 0, unsigned int yMax = 0, unsigned int zoneNumber = 0);
     ~Map();
 
+    Zone    *findZone(const Point *p); // ugly and slow
+
     inline std::map<int, Zone *>        &zones()
     { return _zones; }
     inline std::map<int, Corner *>      &corners()

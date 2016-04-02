@@ -34,7 +34,7 @@ public:
     */
 
     bool		isLeaf;
-    MAP::Zone   *site;
+    Point       *site;
 
     // when not leaf
     Edge        *edge;
@@ -47,7 +47,7 @@ public:
     */
 
     Parabola	();
-    Parabola	(MAP::Zone *p);
+    Parabola	(Point *p);
     ~Parabola   ();
 
     inline friend std::ostream &operator<<(std::ostream &os, const Parabola &p)

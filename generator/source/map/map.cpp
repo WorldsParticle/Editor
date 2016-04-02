@@ -1,4 +1,4 @@
-#include "map/map.hpp"
+#include "include/map/map.hpp"
 
 namespace MAP
 {
@@ -26,6 +26,18 @@ Map::~Map()
     _zones.clear();
     _corners.clear();
     _edges.clear();
+}
+
+Zone   *Map::findZone(const Point *p)
+{
+    if (!p)
+        return NULL;
+
+    for(std::map<int, Zone *>::iterator it = _zones.begin(); it != _zones.end(); ++it)
+        if ((*it).second->point == *p)
+            return (*it).second;
+
+    return NULL;
 }
 
 }

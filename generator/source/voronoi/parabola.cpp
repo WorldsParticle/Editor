@@ -1,4 +1,4 @@
-#include "parabola.hpp"
+#include "include/voronoi/parabola.hpp"
 
 namespace VOR
 {
@@ -20,7 +20,7 @@ Parabola::Parabola() :
     _right = NULL;
 }
 
-Parabola::Parabola(MAP::Zone *p) :
+Parabola::Parabola(Point *p) :
     index(indexMax),
     site(p)
 {

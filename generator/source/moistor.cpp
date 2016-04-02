@@ -1,4 +1,4 @@
-#include "moistor.hpp"
+#include "include/moistor.hpp"
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <queue>
 
-#include "map/map.hpp"
+#include "include/map/map.hpp"
 
 namespace MOI
 {
