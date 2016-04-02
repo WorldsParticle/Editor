@@ -37,29 +37,29 @@ SOURCES += main.cpp\
     heightmap.cpp \
     zonelookup.cpp
 
-HEADERS  += mainwindow.h \
-    voronoi/parabola.h \
-    voronoi/edge.h \
-    voronoi/event.h \
-    generator.h \
-    map/crossededge.h \
-    map/zone.h \
-    map/corner.h \
-    map/map.h \
-    map/point.h \
-    map/halfedge.h \
-    map/heightpoint.h \
-    tools/simplexnoise.h \
-    tools/nanoflann.h \
-    tools/bitmap_image.h \
-    generationstep.h \
-    voronoi/voronoi.h \
-    elevator.h \
-    shaper.h \
-    riveror.h \
-    moistor.h \
-    biomizator.h \
-    heightmap.h \
-    zonelookup.h
+HEADERS  += mainwindow.hpp \
+    voronoi/parabola.hpp \
+    voronoi/edge.hpp \
+    voronoi/event.hpp \
+    generator.hpp \
+    map/crossededge.hpp \
+    map/zone.hpp \
+    map/corner.hpp \
+    map/map.hpp \
+    map/point.hpp \
+    map/halfedge.hpp \
+    map/heightpoint.hpp \
+    tools/simplexnoise.hpp \
+    tools/nanoflann.hpp \
+    tools/bitmap_image.hpp \
+    generationstep.hpp \
+    voronoi/voronoi.hpp \
+    elevator.hpp \
+    shaper.hpp \
+    riveror.hpp \
+    moistor.hpp \
+    biomizator.hpp \
+    heightmap.hpp \
+    zonelookup.hpp
 
 FORMS    += mainwindow.ui

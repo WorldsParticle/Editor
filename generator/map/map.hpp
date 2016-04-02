@@ -2,10 +2,10 @@
 #define MAP_H
 
 #include <map>
-#include "point.h"
-#include "zone.h"
-#include "corner.h"
-#include "crossededge.h"
+#include "point.hpp"
+#include "zone.hpp"
+#include "corner.hpp"
+#include "crossededge.hpp"
 
 namespace MAP
 {

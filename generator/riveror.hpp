@@ -1,8 +1,8 @@
 #ifndef RIVEROR_H
 #define RIVEROR_H
 
-#include "generator.h"
-#include "map/map.h"
+#include "generator.hpp"
+#include "map/map.hpp"
 
 namespace RIV {
 

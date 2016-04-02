@@ -1,7 +1,7 @@
 #ifndef ELEVATOR_H
 #define ELEVATOR_H
 
-#include "generator.h"
+#include "generator.hpp"
 
 namespace ELE {
 

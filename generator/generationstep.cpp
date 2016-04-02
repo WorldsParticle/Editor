@@ -1,4 +1,4 @@
-#include "generationstep.h"
+#include "generationstep.hpp"
 
 namespace GEN
 {

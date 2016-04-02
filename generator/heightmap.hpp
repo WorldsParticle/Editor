@@ -3,10 +3,10 @@
 
 #include <vector>
 #include <glm/glm.hpp>
-#include "map/heightpoint.h"
-#include "generator.h"
-#include "zonelookup.h"
-#include "tools/bitmap_image.h"
+#include "map/heightpoint.hpp"
+#include "generator.hpp"
+#include "zonelookup.hpp"
+#include "tools/bitmap_image.hpp"
 
 namespace MAP {
 

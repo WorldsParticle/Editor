@@ -1,5 +1,5 @@
-#include "map/map.h"
-#include "zonelookup.h"
+#include "map/map.hpp"
+#include "zonelookup.hpp"
 
 namespace MAP
 {

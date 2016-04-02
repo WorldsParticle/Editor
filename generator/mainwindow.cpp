@@ -1,7 +1,7 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 #include "ui_mainwindow.h"
-#include "generator.h"
-#include "map/map.h"
+#include "generator.hpp"
+#include "map/map.hpp"
 
 #include <QGraphicsItem>
 #include <QDebug>

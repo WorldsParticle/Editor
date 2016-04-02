@@ -1,8 +1,8 @@
 #ifndef CROSSEDEDGE_H
 #define CROSSEDEDGE_H
 
-#include "point.h"
-#include "zone.h"
+#include "point.hpp"
+#include "zone.hpp"
 
 namespace MAP
 {

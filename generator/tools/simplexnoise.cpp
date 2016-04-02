@@ -18,7 +18,7 @@
 
 #include <cmath>
 
-#include "simplexnoise.h"
+#include "simplexnoise.hpp"
 
 
 /* 2D, 3D and 4D Simplex Noise functions return 'random' values in (-1, 1).

@@ -1,7 +1,7 @@
 #ifndef SHAPER_H
 #define SHAPER_H
 
-#include "generator.h"
+#include "generator.hpp"
 
 namespace SHA {
 

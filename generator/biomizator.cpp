@@ -1,4 +1,4 @@
-#include "biomizator.h"
+#include "biomizator.hpp"
 #include <ctime>
 #include <cstdlib>
 #include <iostream>

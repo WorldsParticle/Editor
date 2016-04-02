@@ -2,7 +2,7 @@
 #define HEIGHTPOINT_H
 
 #include <iostream>
-#include "zone.h"
+#include "zone.hpp"
 
 class   HeightPoint
 {

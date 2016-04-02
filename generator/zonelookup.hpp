@@ -2,8 +2,8 @@
 #define ZONELOOKUP_H
 
 #include <vector>
-#include "map/point.h"
-#include "tools/nanoflann.h"
+#include "map/point.hpp"
+#include "tools/nanoflann.hpp"
 
 namespace MAP {
 

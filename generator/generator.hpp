@@ -1,7 +1,7 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
 
-#include "generationstep.h"
+#include "generationstep.hpp"
 #include <map>
 
 namespace MAP

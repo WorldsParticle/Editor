@@ -2,7 +2,7 @@
 #define ZONE_H
 
 #include <vector>
-#include "point.h"
+#include "point.hpp"
 
 namespace MAP
 {

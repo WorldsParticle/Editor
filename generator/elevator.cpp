@@ -1,4 +1,4 @@
-#include "elevator.h"
+#include "elevator.hpp"
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <queue>
 
-#include "map/map.h"
+#include "map/map.hpp"
 
 namespace ELE
 {

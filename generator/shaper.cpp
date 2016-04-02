@@ -5,9 +5,9 @@
 #include <algorithm>
 #include <queue>
 
-#include "map/map.h"
-#include "shaper.h"
-#include "tools/simplexnoise.h"
+#include "map/map.hpp"
+#include "shaper.hpp"
+#include "tools/simplexnoise.hpp"
 
 namespace SHA
 {

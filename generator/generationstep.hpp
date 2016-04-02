@@ -1,7 +1,7 @@
 #ifndef GENERATIONSTEP_H
 #define GENERATIONSTEP_H
 
-#include "map/map.h"
+#include "map/map.hpp"
 
 namespace GEN
 {

@@ -1,7 +1,7 @@
 #ifndef MOISTOR_H
 #define MOISTOR_H
 
-#include "generator.h"
+#include "generator.hpp"
 
 namespace MOI {
 

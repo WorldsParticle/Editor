@@ -1,4 +1,4 @@
-#include "parabola.h"
+#include "parabola.hpp"
 
 namespace VOR
 {
