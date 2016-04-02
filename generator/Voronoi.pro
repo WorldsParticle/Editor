@@ -16,50 +16,50 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-        voronoi/parabola.cpp \
-    voronoi/edge.cpp \
-    voronoi/event.cpp \
-    generator.cpp \
-    map/crossededge.cpp \
-    map/zone.cpp \
-    map/corner.cpp \
-    map/map.cpp \
-    map/point.cpp \
-    map/halfedge.cpp \
-    tools/simplexnoise.cpp \
-    generationstep.cpp \
-    voronoi/voronoi.cpp \
-    elevator.cpp \
-    shaper.cpp \
-    riveror.cpp \
-    moistor.cpp \
-    biomizator.cpp \
-    heightmap.cpp \
-    zonelookup.cpp
+        source/voronoi/parabola.cpp \
+    source/voronoi/edge.cpp \
+    source/voronoi/event.cpp \
+    source/generator.cpp \
+    source/map/crossededge.cpp \
+    source/map/zone.cpp \
+    source/map/corner.cpp \
+    source/map/map.cpp \
+    source/map/point.cpp \
+    source/map/halfedge.cpp \
+    source/tools/simplexnoise.cpp \
+    source/generationstep.cpp \
+    source/voronoi/voronoi.cpp \
+    source/elevator.cpp \
+    source/shaper.cpp \
+    source/riveror.cpp \
+    source/moistor.cpp \
+    source/biomizator.cpp \
+    source/heightmap.cpp \
+    source/zonelookup.cpp
 
 HEADERS  += mainwindow.hpp \
-    voronoi/parabola.hpp \
-    voronoi/edge.hpp \
-    voronoi/event.hpp \
-    generator.hpp \
-    map/crossededge.hpp \
-    map/zone.hpp \
-    map/corner.hpp \
-    map/map.hpp \
-    map/point.hpp \
-    map/halfedge.hpp \
-    map/heightpoint.hpp \
-    tools/simplexnoise.hpp \
-    tools/nanoflann.hpp \
-    tools/bitmap_image.hpp \
-    generationstep.hpp \
-    voronoi/voronoi.hpp \
-    elevator.hpp \
-    shaper.hpp \
-    riveror.hpp \
-    moistor.hpp \
-    biomizator.hpp \
-    heightmap.hpp \
-    zonelookup.hpp
+    include/voronoi/parabola.hpp \
+    include/voronoi/edge.hpp \
+    include/voronoi/event.hpp \
+    include/generator.hpp \
+    include/map/crossededge.hpp \
+    include/map/zone.hpp \
+    include/map/corner.hpp \
+    include/map/map.hpp \
+    include/map/point.hpp \
+    include/map/halfedge.hpp \
+    include/map/heightpoint.hpp \
+    include/tools/simplexnoise.hpp \
+    include/tools/nanoflann.hpp \
+    include/tools/bitmap_image.hpp \
+    include/generationstep.hpp \
+    include/voronoi/voronoi.hpp \
+    include/elevator.hpp \
+    include/shaper.hpp \
+    include/riveror.hpp \
+    include/moistor.hpp \
+    include/biomizator.hpp \
+    include/heightmap.hpp \
+    include/zonelookup.hpp
 
 FORMS    += mainwindow.ui
