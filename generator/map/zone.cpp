@@ -20,4 +20,12 @@ Zone::Zone(double x, double y) :
     ++indexMax;
 }
 
+bool    Zone::haveNeighbor(Zone *zone)
+{
+    for (const auto &z: neighbors)
+        if (z == zone)
+            return true;
+    return false;
+}
+
 }

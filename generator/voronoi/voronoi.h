@@ -33,7 +33,6 @@ public:
     virtual void run();
 
 private:
-    void    addSite(double x, double y);
     void    generateRandomSites();
     void    generateTestSites();
     void    fortuneAlgo();
@@ -73,6 +72,7 @@ private:
     bool    getEdgeIntersection(Edge *a, Edge *b, Point &result); // à refaire en plus propre
 
     std::vector<Edge *>         _tempEdges;
+    std::vector<MAP::Zone *>    _tempZones;
 
     ///
     /// \brief _events potential future events wich can modify the beach line

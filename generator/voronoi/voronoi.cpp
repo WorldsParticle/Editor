@@ -31,36 +31,37 @@ Voronoi::~Voronoi()
 
 void    Voronoi::run()
 {
-    _root = NULL;
-    Parabola::indexMax = 0;
-    for(std::vector<Edge *>::iterator it = _tempEdges.begin(); it != _tempEdges.end(); ++it)
-        delete (*it);
-    _tempEdges.clear();
-
     generateRandomSites();
     //generateTestSites();
 
+    std::cout << "[[[[[BEGIN FORTUNE]]]]]" << std::endl;
     fortuneAlgo();
+
+    /*
+    std::cout << "[[[[[END]]]]]" << std::endl;
     LloydRelaxation(); // en gros equilibrer les point et relancer fortune
+    std::cout << "[[[[[BEGIN FORTUNE]]]]]" << std::endl;
+    fortuneAlgo();*/
+    std::cout << "[[[[[END]]]]]" << std::endl;
+
+
 
     computeFinalMap();
 
     std::cout << "Done" << std::endl;
 }
 
-void    Voronoi::addSite(double x, double y)
-{
-    MAP::Zone   *site = new MAP::Zone(x, y);
-    _events.push(new Event(site));
-    _map->zones().insert(std::pair<int, MAP::Zone *>(site->index, site));
-}
-
 void    Voronoi::generateRandomSites()
 {
     for (unsigned int i = 0; i < _map->zoneNumber(); ++i)
-        addSite(DRAND(0, _map->xMax()), DRAND(0, _map->yMax()));
+    {
+        MAP::Zone *zone = new MAP::Zone(DRAND(0, _map->xMax()), DRAND(0, _map->yMax()));
+        _events.push(new Event(zone));
+        _tempZones.push_back(zone);
+    }
 }
 
+/* DEPRECATED
 void    Voronoi::generateTestSites()
 {
     addSite(230, 400);
@@ -71,10 +72,16 @@ void    Voronoi::generateTestSites()
     addSite(200, 100);
     addSite(30, 80);
     addSite(100, 50);
-}
+} */
 
 void    Voronoi::fortuneAlgo()
 {
+    _root = NULL;
+    Parabola::indexMax = 0;
+    for(std::vector<Edge *>::iterator it = _tempEdges.begin(); it != _tempEdges.end(); ++it)
+        delete (*it);
+    _tempEdges.clear();
+
     while (!_events.empty())
     {
         Event *event = _events.top();
@@ -107,9 +114,31 @@ void    Voronoi::fortuneAlgo()
     }
 }
 
-void    Voronoi::LloydRelaxation()
+void    Voronoi::LloydRelaxation() // NOT WORKING FOR NOW
 {
+    // filling neighbors temporarly.. ugly for now. will have to remove totally Zone from this algorythme
+    for (const auto &e: _tempEdges)
+    {
+        if (!e->left->haveNeighbor(e->right))
+            e->left->neighbors.push_back(e->right);
+        if (!e->right->haveNeighbor(e->left))
+            e->right->neighbors.push_back(e->left);
+    }
 
+    for (const auto &z: _tempZones)
+    {
+        z->point.x = 0;
+        z->point.y = 0;
+        for (const auto &n: z->neighbors)
+        {
+            z->point.x += n->point.x;
+            z->point.y += n->point.y;
+        }
+        z->point.x /= z->neighbors.size();
+        z->point.y /= z->neighbors.size();
+        z->neighbors.clear();
+        _events.push(new Event(z));
+    }
 }
 
 void	Voronoi::finishEdge(Parabola * p)
@@ -140,8 +169,16 @@ void        Voronoi::computeFinalMap()
         MAP::Corner *c0;
         MAP::Corner *c1;
 
-        e->left->neighbors.push_back(e->right);
-        e->right->neighbors.push_back(e->left);
+        // Ugly workaround
+        if (!_map->zones().count(e->left->index))
+            _map->zones().insert(std::pair<int, MAP::Zone *>(e->left->index, e->left));
+        if (!_map->zones().count(e->right->index))
+            _map->zones().insert(std::pair<int, MAP::Zone *>(e->right->index, e->right));
+
+        if (!e->left->haveNeighbor(e->right))
+            e->left->neighbors.push_back(e->right);
+        if (!e->right->haveNeighbor(e->left))
+            e->right->neighbors.push_back(e->left);
 
         edge->z0 = e->left;
         edge->z1 = e->right;

@@ -46,6 +46,8 @@ public:
     inline friend std::ostream &operator<<(std::ostream &os, const Zone &s)
     { return os << "[" << s.index << "](" << s.point.x << ", " << s.point.y << ")"; }
 
+    bool    haveNeighbor(Zone *zone);
+
     static int  indexMax;  // change this
     const int   index;
 
