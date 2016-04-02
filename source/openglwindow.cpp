@@ -57,6 +57,7 @@ void    OpenGLWindow::run(Engine::Core *engine)
     if (!engine)
         return;
     _engine = engine;
+    _engine->load("/home/thibaud/Bureau/EIP/Editor/ressources/scenes/altair/altair.dae");
 
     while (isVisible())
     {

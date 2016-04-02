@@ -3,6 +3,7 @@
 #include <qdebug.h>
 #include <QPainter>
 #include <QFileDialog>
+#include <iostream>
 
 namespace Editor
 {
@@ -52,6 +53,14 @@ void    ToolWidget::importModel()
     {
          _engine->load(path.toStdString());
     }
+}
+
+void    ToolWidget::launchGenerator()
+{
+    if (_engine)
+        _engine->generator().generate(_ui->spinXMax->value(),
+                                      _ui->spinYMax->value(),
+                                      _ui->spinZoneNumber->value());
 }
 
 void    ToolWidget::paintEvent(QPaintEvent *e)

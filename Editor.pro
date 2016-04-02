@@ -26,11 +26,11 @@ FORMS    += 	interface/mainwindow.ui \
 
 CONFIG += c++14
 
-#unix: LIBS += -L/usr/local/lib/ -lEngine
-#unix: I    NCLUDEPATH += -I/usr/local/include/
+unix: LIBS += -L/usr/local/lib/ -lEngine
+unix: INCLUDEPATH += -I/usr/local/include/
 
-LIBS += -L$$OUT_PWD/../Engine/cmake/ -lEngine
-INCLUDEPATH += $$PWD/../Engine/include/
+#LIBS += -L$$OUT_PWD/../Engine/cmake/ -lEngine
+#INCLUDEPATH += $$PWD/../Engine/include/
 
 
 RESOURCES += \

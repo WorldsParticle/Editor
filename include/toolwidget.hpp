@@ -47,6 +47,12 @@ public slots:
     ///
     void    importModel();
 
+    ///
+    /// \brief launchGenerator
+    ///
+    void    launchGenerator();
+
+
 protected:
     ///
     /// \brief paintEvent override, used for paint a transparent background
