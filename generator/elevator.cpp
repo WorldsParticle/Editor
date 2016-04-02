@@ -53,7 +53,7 @@ int a = 0;
 
         for (auto * adj : corner->adjacent)
         {
-            float newElevation = 0.01 + corner->elevation;
+            float newElevation = 0.00001 + corner->elevation;
             if (!corner->water && !adj->water)
             {
                 newElevation += 1;
@@ -80,7 +80,10 @@ void        Elevator::redistributeElevation()
     std::vector<MAP::Corner *> corners;
 
     for (const auto & corner : _map->corners())
-        corners.push_back(corner.second);
+    {
+        if (!corner.second->ocean)
+            corners.push_back(corner.second);
+    }
     std::sort(corners.begin(), corners.end(), sortByElevation());
 
     for (unsigned int i = 0; i < corners.size(); ++i)

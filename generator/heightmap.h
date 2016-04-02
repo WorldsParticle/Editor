@@ -4,6 +4,7 @@
 #include "map/heightpoint.h"
 #include "generator.h"
 #include "zonelookup.h"
+#include "tools/bitmap_image.h"
 
 namespace MAP {
 
@@ -18,7 +19,10 @@ public:
     ~HeightMap();
 
     void    init(MAP::Map & m);
-    void    paint();
+    void    paintByMoisture();
+    void    paintByHeight();
+    void    paintByLandType();
+    void    paintByBiome();
 
 private:
 
@@ -27,6 +31,7 @@ private:
 
     std::vector<HeightPoint> _points;
     ZoneLookUp      _zoneLookUp;
+    bitmap_image    image;
 
 };
 

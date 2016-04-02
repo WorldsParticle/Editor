@@ -18,6 +18,7 @@ public:
     virtual void run();
 
     void    assignCornerMoisture();
+    void    redistributeMoisture();
     void    assignPolygonMoisture();
 
 private:

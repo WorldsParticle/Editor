@@ -43,8 +43,6 @@ void        Shaper::assignCornerLandPerlin(int seed)
         else
             corner.second->border = false;
 
-if (p.y > 500)
-    std::cout << p.x << " " << p.y << std::endl;
         // put all corners inside for normalization, simplistic but doesn't affect outcome
         if (p.x > xMax)
             p.x = xMax;
@@ -88,8 +86,6 @@ void        Shaper::assignOceanCostAndLand()
         {
             if (corner->border)
             {
-               if (corner->point.y > 500)
-                   std::cout << "->>" << corner->point.y << std::endl;
                zone.second->border = true;
                zone.second->ocean = true;
                corner->water = true;

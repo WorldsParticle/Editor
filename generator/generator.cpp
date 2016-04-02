@@ -43,15 +43,21 @@ MAP::Map    *Generator::generate(double xMax, double yMax, unsigned int zoneNumb
     _riverStep = new RIV::Riveror();
     _riverStep->generate(_map);
 
-    MAP::HeightMap h(xMax, yMax);
-    h.init(*_map);
-    h.paint();
-
     _moistureStep = new MOI::Moistor();
-    //_moistureStep->generate(_map);
+    _moistureStep->generate(_map);
 
     _biomeStep = new BIO::Biomizator();
-    //_biomeStep->generate(_map);
+    _biomeStep->generate(_map);
+
+    MAP::HeightMap h(xMax, yMax);
+    std::cout << "making heightmap..." << std::endl;
+    h.init(*_map);
+    std::cout << "painting..." << std::endl;
+    h.paintByHeight();
+    h.paintByMoisture();
+    h.paintByLandType();
+    h.paintByBiome();
+std::cout << "painted..." << std::endl;
 
     return _map;
 }

@@ -23,6 +23,7 @@ Moistor::~Moistor()
 void    Moistor::run()
 {
     assignCornerMoisture();
+    redistributeMoisture();
     assignPolygonMoisture();
 }
 
@@ -42,6 +43,27 @@ void        Moistor::assignPolygonMoisture()
     }
 }
 
+struct sortByMoisture
+{
+  bool operator() (MAP::Corner const * L, MAP::Corner const * R) { return L->moisture < R->moisture; }
+};
+
+void        Moistor::redistributeMoisture()
+{
+    std::vector<MAP::Corner *> corners;
+
+    for (const auto & corner : _map->corners())
+    {
+        if (!corner.second->ocean && !corner.second->coast)
+            corners.push_back(corner.second);
+    }
+    std::sort(corners.begin(), corners.end(), sortByMoisture());
+    for (unsigned int i = 0; i < corners.size(); ++i)
+    {
+        corners[i]->moisture = (float)i / (corners.size() - 1);
+    }
+}
+
 void        Moistor::assignCornerMoisture()
 {
     std::queue<MAP::Corner *> q;
@@ -51,6 +73,7 @@ void        Moistor::assignCornerMoisture()
         auto * corner = c.second;
         if ((corner->water || corner->river > 0) && !corner->ocean)
         {
+                            std::cout << corner->river << std::endl;
             corner->moisture = corner->river > 0 ? std::min(3.0, (0.2 * corner->river)) : 1.0;
             q.push(corner);
         }
@@ -72,7 +95,7 @@ void        Moistor::assignCornerMoisture()
             newMoisture = corner->moisture * 0.9;
             if (newMoisture > adj->moisture)
             {
-                adj->moisture = newMoisture;
+                adj->moisture = newMoisture;;
                 q.push(adj);
             }
         }

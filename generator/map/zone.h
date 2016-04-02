@@ -57,7 +57,7 @@ public:
     float       elevation; // 0.0-1.0
     float       moisture;  // 0.0-1.0
 
-    std::string biome;     // biome type (see article)
+    MAP::Biome biome;     // biome type (see article)
 
     std::vector<Zone *>         neighbors;
     std::vector<CrossedEdge *>  borders;
