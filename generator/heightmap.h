@@ -1,6 +1,8 @@
 #ifndef HEIGHTMAP_H
 #define HEIGHTMAP_H
 
+#include <vector>
+#include <glm/glm.hpp>
 #include "map/heightpoint.h"
 #include "generator.h"
 #include "zonelookup.h"
@@ -24,14 +26,24 @@ public:
     void    paintByLandType();
     void    paintByBiome();
 
+    void    generateMesh();
+
+    std::vector<float> * getPoints();
+    std::vector<int>     * getIndices();
+    std::vector<float> * getNormals();
+
 private:
 
     int _width;
     int _height;
 
-    std::vector<HeightPoint> _points;
-    ZoneLookUp      _zoneLookUp;
-    bitmap_image    image;
+    std::vector<HeightPoint>    _points;
+    ZoneLookUp                  _zoneLookUp;
+    bitmap_image                image;
+
+    std::vector<float> * _vertices;
+    std::vector<int>   * _indices;
+    std::vector<float> * _normals;
 
 };
 
