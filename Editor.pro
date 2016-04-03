@@ -32,6 +32,12 @@ CONFIG += c++14
 LIBS += -L$$OUT_PWD/../Engine/cmake/ -lEngine
 INCLUDEPATH += $$PWD/../Engine/include/
 
+CONFIG += warn_off
+  QMAKE_CXXFLAGS_WARN_OFF =
+   QMAKE_CFLAGS_WARN_OFF =
+QMAKE_CXXFLAGS += -fPIC -Wctor-dtor-privacy -Wnoexcept -Wnon-virtual-dtor -Weffc++ -Wstrict-null-sentinel -Wold-style-cast -Woverloaded-virtual -Wno-pmf-conversions -Wsign-promo -Wdouble-promotion -Wmissing-include-dirs -Wswitch-default -Wfloat-equal -Wzero-as-null-pointer-constant -Wuseless-cast -Wconversion -Wlogical-op -Wmissing-declarations -Winline -Wshadow -Wall -Wextra
+
+
 
 RESOURCES += \
     ress.qrc
