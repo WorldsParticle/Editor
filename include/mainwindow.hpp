@@ -8,7 +8,6 @@
 #include <QGraphicsView>  // Will use a heritate class after
 #include <QGraphicsScene> // Same
 #include "openglwindow.hpp"
-#include "toolwidget.hpp"
 #include <Engine/Core.hpp>
 
 namespace Ui {
@@ -17,6 +16,8 @@ class MainWindow;
 
 namespace Editor
 {
+
+class ToolWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -33,6 +34,16 @@ public:
     /// \brief Destructor
     ///
     ~MainWindow();
+
+    ///
+    /// \brief engine getter
+    /// \return _engine
+    ///
+    inline Engine::Core     &engine()
+    { return _engine; }
+
+    inline QGraphicsScene   &mapScene()
+    { return _mapScene; }
 
 protected:
     ///
@@ -67,7 +78,7 @@ private:
     ///
     /// \brief _toolWidget is a widget which enable user to interact with the engine
     ///
-    ToolWidget      _toolWidget;
+    ToolWidget      *_toolWidget;
 
     ///
     /// \brief _glView is a widget used for docking the _glWindow

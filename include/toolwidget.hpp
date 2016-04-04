@@ -1,6 +1,7 @@
 #ifndef TOOLWIDGET_HPP
 #define TOOLWIDGET_HPP
 
+#include "mainwindow.hpp"
 #include <QWidget>
 #include <QPaintEvent>
 #include <QPropertyAnimation>
@@ -22,19 +23,12 @@ public:
     /// \brief ToolWidget default constructor
     /// \param parent is the top widget
     ///
-    explicit ToolWidget(QWidget *parent = 0);
+    explicit ToolWidget(MainWindow &mainwindow);
 
     ///
     /// \brief Destructor
     ///
     ~ToolWidget();
-
-    ///
-    /// \brief setEngine set the current engine
-    /// \param engine is the new one
-    ///
-    inline void    setEngine(Engine::Core *engine)
-    { _engine = engine; }
 
 public slots:
     ///
@@ -43,7 +37,7 @@ public slots:
     void    switchVisibility();
 
     ///
-    /// \brief importModel import a model to the scene. Maybe have to remove this methode in the mainWindow
+    /// \brief importModel import a model to the scene
     ///
     void    importModel();
 
@@ -63,6 +57,11 @@ protected:
 
 private:
     ///
+    /// \brief addMapTo2DScene will be removed in a custom graphicsScene class
+    /// \param map
+    ///
+    void    addMapTo2DScene(MAP::Map &map);
+    ///
     /// \brief _ui contain some ui elements which are defined in toolwidget.ui
     ///
     Ui::ToolWidget      *_ui;
@@ -72,10 +71,7 @@ private:
     ///
     QPropertyAnimation  *_slideAnimation;
 
-    ///
-    /// \brief _engine is the worldsparticle engine, where the magic happen
-    ///
-    Engine::Core        *_engine;
+    MainWindow          &_mainwindow;
 };
 
 }
