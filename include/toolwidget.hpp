@@ -60,7 +60,7 @@ private:
     /// \brief addMapTo2DScene will be removed in a custom graphicsScene class
     /// \param map
     ///
-    void    addMapTo2DScene(MAP::Map &map);
+    void    addMapTo2DScene(map::MapGraph &map);
     ///
     /// \brief _ui contain some ui elements which are defined in toolwidget.ui
     ///

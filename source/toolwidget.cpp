@@ -60,7 +60,7 @@ void    ToolWidget::importModel()
 
 void    ToolWidget::launchGenerator()
 {
-    MAP::Map  *map = _mainwindow.engine().generator().generate(_ui->spinXMax->value(),
+    map::MapGraph  *map = _mainwindow.engine().generator().generate(_ui->spinXMax->value(),
                                                                 _ui->spinYMax->value(),
                                                                 _ui->spinZoneNumber->value());
 
@@ -74,7 +74,7 @@ void    ToolWidget::paintEvent(QPaintEvent *e)
     QWidget::paintEvent(e);
 }
 
-void    ToolWidget::addMapTo2DScene(MAP::Map &map)
+void    ToolWidget::addMapTo2DScene(map::MapGraph &map)
 {
     // insert 2D item in the map scene for easy debug
     // The following is, i concede, awfully long and somehow missplaced (don't think of THAT stuff, you perv)
@@ -102,10 +102,10 @@ void    ToolWidget::addMapTo2DScene(MAP::Map &map)
     for (const auto &pair : map.zones())
     {
         QPolygonF        result;
-        MAP::Zone        *zone = pair.second;
-        MAP::CrossedEdge *between = zone->borders.front();
-        MAP::Corner      *from = between->c0;
-        MAP::Corner      *to = between->c1;
+        map::Zone        *zone = pair.second;
+        map::CrossedEdge *between = zone->borders.front();
+        map::Corner      *from = between->c0;
+        map::Corner      *to = between->c1;
 
         do
         {
@@ -116,7 +116,7 @@ void    ToolWidget::addMapTo2DScene(MAP::Map &map)
                 break;
             }
 
-            for (std::vector<MAP::CrossedEdge *>::iterator it = to->edges.begin(); it != to->edges.end(); ++it)
+            for (std::vector<map::CrossedEdge *>::iterator it = to->edges.begin(); it != to->edges.end(); ++it)
             {
                 if ((*it)->z0->index == zone->index || (*it)->z1->index == zone->index)
                 {
