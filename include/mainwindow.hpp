@@ -42,6 +42,10 @@ public:
     inline Engine::Core     &engine()
     { return _engine; }
 
+    ///
+    /// \brief _mapScene getter
+    /// \return _mapScene
+    ///
     inline QGraphicsScene   &mapScene()
     { return _mapScene; }
 
