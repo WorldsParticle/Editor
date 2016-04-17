@@ -5,8 +5,9 @@
 #include <QPaintEvent>
 #include <QDockWidget>
 #include <QHBoxLayout>
+#include <QGraphicsView>  // Will use a heritate class after
+#include <QGraphicsScene> // Same
 #include "openglwindow.hpp"
-#include "toolwidget.hpp"
 #include <Engine/Core.hpp>
 
 namespace Ui {
@@ -15,6 +16,8 @@ class MainWindow;
 
 namespace Editor
 {
+
+class ToolWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -31,6 +34,16 @@ public:
     /// \brief Destructor
     ///
     ~MainWindow();
+
+    ///
+    /// \brief engine getter
+    /// \return _engine
+    ///
+    inline Engine::Core     &engine()
+    { return _engine; }
+
+    inline QGraphicsScene   &mapScene()
+    { return _mapScene; }
 
 protected:
     ///
@@ -53,11 +66,6 @@ protected:
 
 private:
     ///
-    /// \brief dockGlWindow dock the _glWindow to the _centralLayout
-    ///
-    void            dockGlWindow();
-
-    ///
     /// \brief _ui contain some ui elements which are defined in mainwindow.ui
     ///
     Ui::MainWindow  *_ui;
@@ -70,12 +78,12 @@ private:
     ///
     /// \brief _toolWidget is a widget which enable user to interact with the engine
     ///
-    ToolWidget      _toolWidget;
+    ToolWidget      *_toolWidget;
 
     ///
-    /// \brief _docker is a widget used for docking the _glWindow
+    /// \brief _glView is a widget used for docking the _glWindow
     ///
-    QWidget         *_docker;
+    QWidget         *_glView;
 
     ///
     /// \brief _centralLayout is the main layout of the window, linked to the central widget, containing the _docker and _toolWidget.
@@ -87,6 +95,18 @@ private:
     /// It must be instaciated after the openglcontext (here _glwindow)
     ///
     Engine::Core   _engine;
+
+    ///
+    /// \brief _mapView is the widget which act as a view on the mapScene
+    /// Will use a custom class after
+    ///
+    QGraphicsView  *_mapView;
+
+    ///
+    /// \brief _mapScene is a simple scene containing graphics 2D map elements
+    /// Will use a custom class after
+    ///
+    QGraphicsScene _mapScene;
 };
 
 }

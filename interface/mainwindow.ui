@@ -41,7 +41,7 @@
     <property name="title">
      <string>Generation</string>
     </property>
-    <addaction name="actionLancer_la_generation"/>
+    <addaction name="actionGenerer"/>
     <addaction name="separator"/>
     <addaction name="actionConfigurer"/>
    </widget>
@@ -49,7 +49,6 @@
     <property name="title">
      <string>Exploration</string>
     </property>
-    <addaction name="actionExplorer"/>
     <addaction name="separator"/>
     <addaction name="actionConfigurer_2"/>
    </widget>
@@ -68,24 +67,38 @@
     </property>
     <addaction name="actionAide_en_ligne"/>
    </widget>
+   <widget class="QMenu" name="menuVue">
+    <property name="title">
+     <string>Vue</string>
+    </property>
+    <addaction name="actionZones"/>
+    <addaction name="actionExploration"/>
+   </widget>
    <addaction name="menuFichier"/>
    <addaction name="menuEdition"/>
    <addaction name="menuAide"/>
+   <addaction name="menuVue"/>
    <addaction name="menuAide_2"/>
    <addaction name="menuAide_3"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionNouveau_monde">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Nouveau</string>
    </property>
   </action>
   <action name="actionOuvrir_monde">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Ouvrir</string>
    </property>
   </action>
-  <action name="actionLancer_la_generation">
+  <action name="actionGenerer">
    <property name="text">
     <string>Générer</string>
    </property>
@@ -96,26 +109,41 @@
    </property>
   </action>
   <action name="actionMod_les">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Terrain</string>
    </property>
   </action>
   <action name="actionSkybox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Particules</string>
    </property>
   </action>
   <action name="actionTextures">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Modèles</string>
    </property>
   </action>
   <action name="actionParticules">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Skybox</string>
    </property>
   </action>
   <action name="actionEnregistrer_le_monde">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Enregistrer</string>
    </property>
@@ -126,23 +154,45 @@
    </property>
   </action>
   <action name="actionQuitter_2">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Quitter</string>
    </property>
   </action>
   <action name="actionConfigurer">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Configurer</string>
    </property>
   </action>
   <action name="actionConfigurer_2">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Configurer</string>
    </property>
   </action>
   <action name="actionAide_en_ligne">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>Aide en ligne</string>
+   </property>
+  </action>
+  <action name="actionZones">
+   <property name="text">
+    <string>Zones</string>
+   </property>
+  </action>
+  <action name="actionExploration">
+   <property name="text">
+    <string>Exploration</string>
    </property>
   </action>
  </widget>

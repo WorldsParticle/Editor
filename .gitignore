@@ -1,2 +1,4 @@
 build*
 *.user
+.gcc-flags.json
+.atom-build.json

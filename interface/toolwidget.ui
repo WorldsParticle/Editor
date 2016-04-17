@@ -32,6 +32,32 @@
    <property name="horizontalSpacing">
     <number>0</number>
    </property>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="switchButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Ignored" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>&lt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>549</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item row="0" column="0" rowspan="2">
     <widget class="QTabWidget" name="tabWidget">
      <property name="sizePolicy">
@@ -44,7 +70,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="iconSize">
       <size>
@@ -63,7 +89,7 @@
      </property>
      <widget class="QWidget" name="tabTerrain">
       <attribute name="icon">
-       <iconset>
+       <iconset resource="../ress.qrc">
         <normaloff>:/ressources/images/mountain.png</normaloff>:/ressources/images/mountain.png</iconset>
       </attribute>
       <attribute name="title">
@@ -72,31 +98,105 @@
       <attribute name="toolTip">
        <string>Terrain</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QComboBox" name="comboBox">
-         <item>
-          <property name="text">
-           <string>Plat</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Plaine</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Montagne</string>
-          </property>
-         </item>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="3" column="0" colspan="2">
+        <widget class="QPushButton" name="buttonGenerator">
+         <property name="text">
+          <string>Generator, go !</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Elevation</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Découpage des zones</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0" colspan="2">
+           <widget class="QComboBox" name="comboBox">
+            <item>
+             <property name="text">
+              <string>Voronoi</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>X max</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="spinXMax">
+            <property name="minimum">
+             <number>100</number>
+            </property>
+            <property name="maximum">
+             <number>10000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Z max</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Nombre</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="spinYMax">
+            <property name="minimum">
+             <number>100</number>
+            </property>
+            <property name="maximum">
+             <number>10000</number>
+            </property>
+            <property name="value">
+             <number>500</number>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QSpinBox" name="spinZoneNumber">
+            <property name="maximum">
+             <number>200</number>
+            </property>
+            <property name="value">
+             <number>50</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Humidité</string>
+         </property>
         </widget>
        </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tabParticules">
       <attribute name="icon">
-       <iconset>
+       <iconset resource="../ress.qrc">
         <normaloff>:/ressources/images/particle.png</normaloff>:/ressources/images/particle.png</iconset>
       </attribute>
       <attribute name="title">
@@ -134,7 +234,7 @@
      </widget>
      <widget class="QWidget" name="tabModele">
       <attribute name="icon">
-       <iconset>
+       <iconset resource="../ress.qrc">
         <normaloff>:/ressources/images/model.png</normaloff>:/ressources/images/model.png</iconset>
       </attribute>
       <attribute name="title">
@@ -155,7 +255,7 @@
      </widget>
      <widget class="QWidget" name="tabSkybox">
       <attribute name="icon">
-       <iconset>
+       <iconset resource="../ress.qrc">
         <normaloff>:/ressources/images/sky.png</normaloff>:/ressources/images/sky.png</iconset>
       </attribute>
       <attribute name="title">
@@ -168,34 +268,10 @@
      </widget>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="switchButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Ignored" vsizetype="Minimum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>&lt;</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>549</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../ress.qrc"/>
+ </resources>
  <connections/>
 </ui>
