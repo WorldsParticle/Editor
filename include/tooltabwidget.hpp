@@ -14,7 +14,10 @@ class ToolWidget;
 namespace Editor
 {
 
-class ToolWidget : public QWidget
+///
+/// \brief The ToolTabWidget class is used to regroup the engine and generator tools
+///
+class ToolTabWidget : public QWidget
 {
     Q_OBJECT
 
@@ -23,29 +26,18 @@ public:
     /// \brief ToolWidget default constructor
     /// \param parent is the top widget
     ///
-    explicit ToolWidget(MainWindow &mainwindow);
+    explicit ToolTabWidget(MainWindow &mainwindow);
 
     ///
     /// \brief Destructor
     ///
-    ~ToolWidget();
+    ~ToolTabWidget();
 
 public slots:
     ///
     /// \brief switchVisibility is a slot which switch the _ui->tabwidget visibility
     ///
     void    switchVisibility();
-
-    ///
-    /// \brief importModel import a model to the scene
-    ///
-    void    importModel();
-
-    ///
-    /// \brief launchGenerator
-    ///
-    void    launchGenerator();
-
 
 protected:
     ///
@@ -57,21 +49,19 @@ protected:
 
 private:
     ///
-    /// \brief addMapTo2DScene will be removed in a custom graphicsScene class
-    /// \param map
-    ///
-    void    addMapTo2DScene(map::MapGraph &map);
-    ///
     /// \brief _ui contain some ui elements which are defined in toolwidget.ui
     ///
-    Ui::ToolWidget      *_ui;
+    Ui::ToolWidget      *m_ui;
 
     ///
     /// \brief _slideAnimation is used for having a smooth animation when switching the _ui->tabwidget visibility
     ///
-    QPropertyAnimation  *_slideAnimation;
+    QPropertyAnimation  *m_slideAnimation;
 
-    MainWindow          &_mainwindow;
+    ///
+    /// \brief _mainwindow
+    ///
+    MainWindow          &m_mainWindow;
 };
 
 }

@@ -17,7 +17,11 @@ class MainWindow;
 namespace Editor
 {
 
-class ToolWidget;
+class ToolTabWidget;
+class TerrainWidget;
+class ModelWidget;
+class SkyboxWidget;
+class ParticleWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -37,17 +41,39 @@ public:
 
     ///
     /// \brief engine getter
-    /// \return _engine
     ///
     inline Engine::Core     &engine()
-    { return _engine; }
+    { return m_engine; }
 
     ///
-    /// \brief _mapScene getter
-    /// \return _mapScene
+    /// \brief mapScene getter
     ///
     inline QGraphicsScene   &mapScene()
-    { return _mapScene; }
+    { return m_mapScene; }
+
+    ///
+    /// \brief terrainWidget getter
+    ///
+    inline TerrainWidget    *terrainWidget()
+    { return m_terrainWidget; }
+
+    ///
+    /// \brief modelWidget getter
+    ///
+    inline ModelWidget      *modelWidget()
+    { return m_modelWidget; }
+
+    ///
+    /// \brief skyboxWidget getter
+    ///
+    inline SkyboxWidget     *skyboxWidget()
+    { return m_skyboxWidget; }
+
+    ///
+    /// \brief particleWidget getter
+    ///
+    inline ParticleWidget   *particleWidget()
+    { return m_particleWidget; }
 
 protected:
     ///
@@ -70,47 +96,78 @@ protected:
 
 private:
     ///
-    /// \brief _ui contain some ui elements which are defined in mainwindow.ui
+    /// \brief initializeCustomUi instanciate custom ui class, and construct the final interface
+    /// should be called only during construction
     ///
-    Ui::MainWindow  *_ui;
+    void    initializeCustomUi();
 
     ///
-    /// \brief _glWindow is the OpenGLWindow, which create an openGL context for the engine rendering
+    /// \brief makeConnections open the signal / slots connections
     ///
-    OpenGLWindow    _glWindow;
+    void    makeConnections();
+    ///
+    /// \brief m_ui contain some ui elements which are defined in mainwindow.ui
+    ///
+    Ui::MainWindow  *m_ui;
 
     ///
-    /// \brief _toolWidget is a widget which enable user to interact with the engine
+    /// \brief m_glWindow is the OpenGLWindow, which create an openGL context for the engine rendering
     ///
-    ToolWidget      *_toolWidget;
+    OpenGLWindow    m_glWindow;
 
     ///
-    /// \brief _glView is a widget used for docking the _glWindow
+    /// \brief m_toolWidget is a widget which regroup user tools (don't instanciate it before user tools)
     ///
-    QWidget         *_glView;
+    ToolTabWidget      *m_toolTabWidget;
 
     ///
-    /// \brief _centralLayout is the main layout of the window, linked to the central widget, containing the _docker and _toolWidget.
+    /// \brief m_terrainWidget allow user to interact with the terrain generation
     ///
-    QHBoxLayout     _centralLayout;
+    TerrainWidget       *m_terrainWidget;
 
     ///
-    /// \brief _engine is the worldsparticle engine, where the magic happen.
+    /// \brief m_modelWidget allow user to interact with the scene graph
+    ///
+    ModelWidget         *m_modelWidget;
+
+    ///
+    /// \brief m_particleWidget allow user to interact with the particle generator
+    ///
+    ParticleWidget      *m_particleWidget;
+
+    ///
+    /// \brief m_skyboxWidget allow user to interact with the skybox
+    ///
+    SkyboxWidget        *m_skyboxWidget;
+
+
+    ///
+    /// \brief m_glView is a widget used for docking the _glWindow
+    ///
+    QWidget         *m_glView;
+
+    ///
+    /// \brief m_centralLayout is the main layout of the window, linked to the central widget, containing the _docker and _toolWidget.
+    ///
+    QHBoxLayout     m_centralLayout;
+
+    ///
+    /// \brief m_engine is the worldsparticle engine, where the magic happen.
     /// It must be instaciated after the openglcontext (here _glwindow)
     ///
-    Engine::Core   _engine;
+    Engine::Core   m_engine;
 
     ///
-    /// \brief _mapView is the widget which act as a view on the mapScene
+    /// \brief m_mapView is the widget which act as a view on the mapScene
     /// Will use a custom class after
     ///
-    QGraphicsView  *_mapView;
+    QGraphicsView  *m_mapView;
 
     ///
-    /// \brief _mapScene is a simple scene containing graphics 2D map elements
+    /// \brief m_mapScene is a simple scene containing graphics 2D map elements
     /// Will use a custom class after
     ///
-    QGraphicsScene _mapScene;
+    QGraphicsScene m_mapScene;
 };
 
 }

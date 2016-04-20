@@ -1,6 +1,10 @@
 #include "include/mainwindow.hpp"
 #include "include/openglwindow.hpp"
-#include "include/toolwidget.hpp"
+#include "include/tooltabwidget.hpp"
+#include "include/terrainwidget.hpp"
+#include "include/modelwidget.hpp"
+#include "include/particlewidget.hpp"
+#include "include/skyboxwidget.hpp"
 #include "ui_mainwindow.h"
 #include <QPainter>
 #include <qdebug.h>
@@ -11,49 +15,70 @@ namespace Editor
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    _ui(new Ui::MainWindow),
-    _glWindow(),
-    _toolWidget(NULL),
-    _glView(NULL),
-    _centralLayout(),
-    _engine(),
-    _mapView(NULL),
-    _mapScene()
+    m_ui(new Ui::MainWindow),
+    m_glWindow(),
+    m_toolTabWidget(NULL),
+    m_terrainWidget(NULL),
+    m_modelWidget(NULL),
+    m_particleWidget(NULL),
+    m_skyboxWidget(NULL),
+    m_glView(NULL),
+    m_centralLayout(),
+    m_engine(),
+    m_mapView(NULL),
+    m_mapScene()
 {
-    _ui->setupUi(this);
-    setWindowTitle("Editeur");
-    _ui->statusBar->showMessage("Welcome to WorldsParticle editor !", 5000);
-    setAttribute(Qt::WA_QuitOnClose, true);
+    m_ui->setupUi(this);
 
-    _ui->centralWidget->setLayout(&_centralLayout);
+    initializeCustomUi();
 
-    _toolWidget = new ToolWidget(*this);
-    _centralLayout.addWidget(_toolWidget, 0);
-
-    _glView = QWidget::createWindowContainer(&_glWindow);
-    _centralLayout.addWidget(_glView, 1);
-
-    _mapView = new QGraphicsView();
-    _mapView->setScene(&_mapScene);
-    _centralLayout.addWidget(_mapView, 1);
-    _mapView->hide();
-
-    connect(_ui->actionZones, SIGNAL(triggered(bool)), _glView, SLOT(hide()));
-    connect(_ui->actionZones, SIGNAL(triggered(bool)), _mapView, SLOT(show()));
-
-    connect(_ui->actionExploration, SIGNAL(triggered(bool)), _mapView, SLOT(hide()));
-    connect(_ui->actionExploration, SIGNAL(triggered(bool)), _glView, SLOT(show()));
-
-    connect(_ui->actionGenerer, SIGNAL(triggered(bool)), _toolWidget, SLOT(launchGenerator()));
+    makeConnections();
 
     show();
-    _glWindow.run(&_engine);
+
+    m_glWindow.run(&m_engine);
 }
 
 MainWindow::~MainWindow()
 {
-    delete _glView;
-    delete _ui;
+    delete m_glView;
+    delete m_ui;
+}
+
+void    MainWindow::initializeCustomUi()
+{
+    setWindowTitle("Editeur");
+    m_ui->statusBar->showMessage("Welcome to WorldsParticle editor !", 5000);
+    setAttribute(Qt::WA_QuitOnClose, true);
+
+    m_ui->centralWidget->setLayout(&m_centralLayout);
+
+    m_terrainWidget = new TerrainWidget(*this);
+    m_modelWidget = new ModelWidget(*this);
+    m_particleWidget = new ParticleWidget(*this);
+    m_skyboxWidget = new SkyboxWidget(*this);
+
+    m_toolTabWidget = new ToolTabWidget(*this);
+    m_centralLayout.addWidget(m_toolTabWidget, 0);
+
+    m_glView = QWidget::createWindowContainer(&m_glWindow);
+    m_centralLayout.addWidget(m_glView, 1);
+
+    m_mapView = new QGraphicsView();
+    m_mapView->setScene(&m_mapScene);
+    m_centralLayout.addWidget(m_mapView, 1);
+    m_mapView->hide();
+}
+
+void    MainWindow::makeConnections()
+{
+    connect(m_ui->actionZones, SIGNAL(triggered(bool)), m_glView, SLOT(hide()));
+    connect(m_ui->actionZones, SIGNAL(triggered(bool)), m_mapView, SLOT(show()));
+
+    connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_mapView, SLOT(hide()));
+    connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_glView, SLOT(show()));
+
+    connect(m_ui->actionGenerer, SIGNAL(triggered(bool)), m_toolTabWidget, SLOT(launchGenerator()));
 }
 
 void    MainWindow::keyPressEvent(QKeyEvent *e)
