@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>242</width>
+    <width>152</width>
     <height>669</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Maximum" vsizetype="Minimum">
+   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -41,7 +41,7 @@
       </sizepolicy>
      </property>
      <property name="text">
-      <string>&lt;</string>
+      <string>&gt;</string>
      </property>
     </widget>
    </item>
@@ -70,7 +70,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>-1</number>
      </property>
      <property name="iconSize">
       <size>
@@ -91,8 +91,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../ress.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

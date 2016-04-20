@@ -78,7 +78,7 @@ void    MainWindow::makeConnections()
     connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_mapView, SLOT(hide()));
     connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_glView, SLOT(show()));
 
-    connect(m_ui->actionGenerer, SIGNAL(triggered(bool)), m_toolTabWidget, SLOT(launchGenerator()));
+    connect(m_ui->actionGenerer, SIGNAL(triggered(bool)), m_terrainWidget, SLOT(launchGenerator()));
 }
 
 void    MainWindow::keyPressEvent(QKeyEvent *e)
