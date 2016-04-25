@@ -3,9 +3,12 @@
 #include "Generator/map/map.hpp"
 #include "Generator/generator.hpp"
 #include "Generator/param/intvalue.hpp"
+#include "include/param/paramlink.hpp"
 #include <QGraphicsItem>
 #include <QGroupBox>
 #include <QVBoxLayout>
+
+#include <QDebug>
 
 namespace Editor
 {
@@ -40,17 +43,7 @@ void    GeneratorWidget::assignGenerator(gen::Generator *generator)
         soloRun->setEnabled(false);
         layout->addWidget(soloRun);
         foreach (gen::Param *p, step->params())
-        {
-            layout->addWidget(new QLabel(p->name().c_str(), box));
-            if (p->type() == gen::Param::intvalue)
-            {
-                QSpinBox    *s = new QSpinBox(box);
-                s->setMinimum(((gen::IntValue *)(p))->minValue());
-                s->setMaximum(((gen::IntValue *)(p))->maxValue());
-                s->setValue(((gen::IntValue *)(p))->value());
-                layout->addWidget(s);
-            }
-        }
+            layout->addWidget(ParamLink::createLink(p));
         m_ui->scrollContent->layout()->addWidget(box);
     }
 
