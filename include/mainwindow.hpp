@@ -18,7 +18,7 @@ namespace Editor
 {
 
 class ToolTabWidget;
-class TerrainWidget;
+class GeneratorWidget;
 class ModelWidget;
 class SkyboxWidget;
 class ParticleWidget;
@@ -54,8 +54,8 @@ public:
     ///
     /// \brief terrainWidget getter
     ///
-    inline TerrainWidget    *terrainWidget()
-    { return m_terrainWidget; }
+    inline GeneratorWidget    *terrainWidget()
+    { return m_generatorWidget; }
 
     ///
     /// \brief modelWidget getter
@@ -123,7 +123,7 @@ private:
     ///
     /// \brief m_terrainWidget allow user to interact with the terrain generation
     ///
-    TerrainWidget       *m_terrainWidget;
+    GeneratorWidget       *m_generatorWidget;
 
     ///
     /// \brief m_modelWidget allow user to interact with the scene graph

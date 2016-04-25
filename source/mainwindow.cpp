@@ -1,7 +1,7 @@
 #include "include/mainwindow.hpp"
 #include "include/openglwindow.hpp"
 #include "include/tooltabwidget.hpp"
-#include "include/terrainwidget.hpp"
+#include "include/generatorwidget.hpp"
 #include "include/modelwidget.hpp"
 #include "include/particlewidget.hpp"
 #include "include/skyboxwidget.hpp"
@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_ui(new Ui::MainWindow),
     m_glWindow(),
     m_toolTabWidget(NULL),
-    m_terrainWidget(NULL),
+    m_generatorWidget(NULL),
     m_modelWidget(NULL),
     m_particleWidget(NULL),
     m_skyboxWidget(NULL),
@@ -53,7 +53,7 @@ void    MainWindow::initializeCustomUi()
 
     m_ui->centralWidget->setLayout(&m_centralLayout);
 
-    m_terrainWidget = new TerrainWidget(*this);
+    m_generatorWidget = new GeneratorWidget(*this);
     m_modelWidget = new ModelWidget(*this);
     m_particleWidget = new ParticleWidget(*this);
     m_skyboxWidget = new SkyboxWidget(*this);
@@ -68,6 +68,8 @@ void    MainWindow::initializeCustomUi()
     m_mapView->setScene(&m_mapScene);
     m_centralLayout.addWidget(m_mapView, 1);
     m_mapView->hide();
+
+    m_generatorWidget->assignGenerator(&m_engine.generator());
 }
 
 void    MainWindow::makeConnections()
@@ -78,7 +80,7 @@ void    MainWindow::makeConnections()
     connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_mapView, SLOT(hide()));
     connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_glView, SLOT(show()));
 
-    connect(m_ui->actionGenerer, SIGNAL(triggered(bool)), m_terrainWidget, SLOT(launchGenerator()));
+    connect(m_ui->actionGenerer, SIGNAL(triggered(bool)), m_generatorWidget, SLOT(launchGenerator()));
 }
 
 void    MainWindow::keyPressEvent(QKeyEvent *e)

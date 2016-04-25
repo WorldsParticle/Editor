@@ -5,13 +5,13 @@
 #include "mainwindow.hpp"
 
 namespace Ui {
-class TerrainWidget;
+class GeneratorWidget;
 }
 
 namespace Editor
 {
 
-class TerrainWidget : public QWidget
+class GeneratorWidget : public QWidget
 {
     Q_OBJECT
 
@@ -20,12 +20,17 @@ public:
     /// \brief terrainWidget constructor
     /// \param mainWindow
     ///
-    explicit TerrainWidget(MainWindow &mainWindow);
+    explicit GeneratorWidget(MainWindow &mainWindow);
+
+    ///
+    /// \brief assignGenerator
+    ///
+    void    assignGenerator(gen::Generator *generator);
 
     ///
     /// \brief destructor
     ///
-    ~TerrainWidget();
+    ~GeneratorWidget();
 
 public slots:
     ///
@@ -43,12 +48,14 @@ private:
     ///
     /// \brief m_ui contain ui base elements
     ///
-    Ui::TerrainWidget *m_ui;
+    Ui::GeneratorWidget *m_ui;
 
     ///
-    /// \brief m_mainWindow
+    /// \brief m_mainWindow, temporaire
     ///
-    MainWindow        &m_mainWindow;
+    MainWindow          &m_mainWindow;
+
+    gen::Generator      *m_generator;
 };
 
 }

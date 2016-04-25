@@ -1,35 +1,75 @@
-#include "include/terrainwidget.hpp"
-#include "ui_terrainwidget.h"
+#include "include/generatorwidget.hpp"
+#include "ui_generatorwidget.h"
+#include "Generator/map/map.hpp"
+#include "Generator/generator.hpp"
+#include "Generator/param/intvalue.hpp"
 #include <QGraphicsItem>
+#include <QGroupBox>
+#include <QVBoxLayout>
 
 namespace Editor
 {
 
-TerrainWidget::TerrainWidget(MainWindow &mainWindow) :
+GeneratorWidget::GeneratorWidget(MainWindow &mainWindow) :
     QWidget(&mainWindow),
-    m_ui(new Ui::TerrainWidget),
-    m_mainWindow(mainWindow)
+    m_ui(new Ui::GeneratorWidget),
+    m_mainWindow(mainWindow),
+    m_generator(nullptr)
 {
     m_ui->setupUi(this);
 
     connect(m_ui->launchButton, SIGNAL(pressed()), this, SLOT(launchGenerator()));
 }
 
-TerrainWidget::~TerrainWidget()
+GeneratorWidget::~GeneratorWidget()
 {
     delete m_ui;
 }
 
-void    TerrainWidget::launchGenerator()
+void    GeneratorWidget::assignGenerator(gen::Generator *generator)
 {
-    map::MapGraph  *map = m_mainWindow.engine().generator().generate(m_ui->XMaxSpin->value(),
-                                                                m_ui->YMaxSpin->value(),
-                                                                m_ui->ZoneNumberSpin->value());
+    // todo : faire une fonction pour clean les anciens widgets
+    // Fait à la va vite pour test, à split et clean
+    foreach (gen::GenerationStep *step, m_mainWindow.engine().generator().steps())
+    {
+        QGroupBox   *box = new QGroupBox(m_ui->scrollArea);
+        QVBoxLayout *layout = new QVBoxLayout(box);
+        box->setLayout(layout);
+        box->setTitle(step->name().c_str());
+        QPushButton *soloRun = new QPushButton("Launch", box);
+        soloRun->setEnabled(false);
+        layout->addWidget(soloRun);
+        foreach (gen::Param *p, step->params())
+        {
+            layout->addWidget(new QLabel(p->name().c_str(), box));
+            if (p->type() == gen::Param::intvalue)
+            {
+                QSpinBox    *s = new QSpinBox(box);
+                s->setMinimum(((gen::IntValue *)(p))->minValue());
+                s->setMaximum(((gen::IntValue *)(p))->maxValue());
+                s->setValue(((gen::IntValue *)(p))->value());
+                layout->addWidget(s);
+            }
+        }
+        m_ui->scrollContent->layout()->addWidget(box);
+    }
 
+    m_generator = generator;
+}
+
+void    GeneratorWidget::launchGenerator()
+{
+    if (!m_generator)
+        return;
+    // Temporaire
+    map::MapGraph  *map = new map::MapGraph(m_ui->xMaxSpin->value(),
+                                            m_ui->yMaxSpin->value());
+
+    m_generator->run(map);
     addMapTo2DScene(*map);
 }
 
-void    TerrainWidget::addMapTo2DScene(map::MapGraph &map)
+void    GeneratorWidget::addMapTo2DScene(map::MapGraph &map)
 {
     // insert 2D item in the map scene for easy debug
     // The following is, i concede, awfully long and somehow missplaced (don't think of THAT stuff, you perv)
@@ -40,7 +80,7 @@ void    TerrainWidget::addMapTo2DScene(map::MapGraph &map)
     m_mainWindow.mapScene().clear();
 
     // Bordure
-    m_mainWindow.mapScene().addRect(0, 0, m_ui->XMaxSpin->value(), m_ui->YMaxSpin->value(),
+    m_mainWindow.mapScene().addRect(0, 0, m_ui->xMaxSpin->value(), m_ui->yMaxSpin->value(),
                                    QPen());
 
 
