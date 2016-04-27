@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_glView(NULL),
     m_centralLayout(),
     m_engine(),
+    m_generator(),
     m_mapView(NULL),
     m_mapScene()
 {
@@ -69,7 +70,7 @@ void    MainWindow::initializeCustomUi()
     m_centralLayout.addWidget(m_mapView, 1);
     m_mapView->hide();
 
-    m_generatorWidget->assignGenerator(&m_engine.generator());
+    m_generatorWidget->assignGenerator(&m_generator);
 }
 
 void    MainWindow::makeConnections()

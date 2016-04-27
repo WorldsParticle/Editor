@@ -9,6 +9,7 @@
 #include <QGraphicsScene> // Same
 #include "openglwindow.hpp"
 #include <Engine/Core.hpp>
+#include <Generator/generator.hpp>
 
 namespace Ui {
 class MainWindow;
@@ -44,6 +45,9 @@ public:
     ///
     inline Engine::Core     &engine()
     { return m_engine; }
+
+    inline gen::Generator   &generator()
+    { return m_generator; }
 
     ///
     /// \brief mapScene getter
@@ -156,6 +160,11 @@ private:
     /// It must be instaciated after the openglcontext (here _glwindow)
     ///
     Engine::Core   m_engine;
+
+    ///
+    /// \brief m_generator is the generator which will generate the heightmap
+    ///
+    gen::Generator m_generator;
 
     ///
     /// \brief m_mapView is the widget which act as a view on the mapScene

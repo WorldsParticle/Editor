@@ -4,6 +4,8 @@
 #include "Generator/generator.hpp"
 #include "Generator/param/intvalue.hpp"
 #include "include/param/paramlink.hpp"
+#include <Engine/Core/Scene.hpp>
+#include <Engine/Core/Terrain.hpp>
 #include <QGraphicsItem>
 #include <QGroupBox>
 #include <QVBoxLayout>
@@ -33,7 +35,7 @@ void    GeneratorWidget::assignGenerator(gen::Generator *generator)
 {
     // todo : faire une fonction pour clean les anciens widgets
     // Fait à la va vite pour test, à split et clean
-    foreach (gen::GenerationStep *step, m_mainWindow.engine().generator().steps())
+    foreach (gen::GenerationStep *step, generator->steps())
     {
         QGroupBox   *box = new QGroupBox(m_ui->scrollArea);
         QVBoxLayout *layout = new QVBoxLayout(box);
@@ -60,6 +62,11 @@ void    GeneratorWidget::launchGenerator()
 
     m_generator->run(map);
     addMapTo2DScene(*map);
+
+    if (!m_mainWindow.engine().scenes().size())
+        return;
+    Engine::Scene   *scene = m_mainWindow.engine().scenes().front();
+    scene->add(new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms()));
 }
 
 void    GeneratorWidget::addMapTo2DScene(map::MapGraph &map)
