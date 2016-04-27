@@ -24,6 +24,9 @@ class ModelWidget;
 class SkyboxWidget;
 class ParticleWidget;
 
+///
+/// \brief The MainWindow class, contains the model and some basic ui
+///
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

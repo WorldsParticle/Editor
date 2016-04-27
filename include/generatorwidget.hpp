@@ -11,6 +11,10 @@ class GeneratorWidget;
 namespace Editor
 {
 
+
+///
+/// \brief The GeneratorWidget class will handle the UI for the Generator
+///
 class GeneratorWidget : public QWidget
 {
     Q_OBJECT
@@ -55,6 +59,9 @@ private:
     ///
     MainWindow          &m_mainWindow;
 
+    ///
+    /// \brief Current generator in use
+    ///
     gen::Generator      *m_generator;
 };
 

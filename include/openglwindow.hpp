@@ -10,6 +10,9 @@
 namespace Editor
 {
 
+///
+/// \brief The OpenGLWindow class, handle openGL context as well as the game loop
+///
 class OpenGLWindow : public QWindow
 {
     Q_OBJECT
