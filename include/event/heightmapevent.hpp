@@ -11,18 +11,33 @@ class HeightMap;
 namespace Editor
 {
 
+///
+/// \brief The HeightMapEvent class
+///
 class HeightMapEvent : public QEvent
 {
 public:
-    HeightMapEvent(map::HeightMap &map) : QEvent(HeightMap_add), m_map(map) {}
+    ///
+    /// \brief HeightMapEvent constructor
+    ///
+    HeightMapEvent(map::HeightMap &heightMap) : QEvent(HeightMap_add), m_heightMap(heightMap) {}
 
+    ///
+    /// \brief heightMap getter
+    ///
     inline map::HeightMap   &heightMap()
-    { return m_map; }
+    { return m_heightMap; }
 
+    ///
+    /// \brief HeightMap_add, represent the type of the event
+    ///
     static const QEvent::Type   HeightMap_add = static_cast<QEvent::Type>(4201);
 
 protected:
-    map::HeightMap  &m_map;
+    ///
+    /// \brief the heightmap
+    ///
+    map::HeightMap  &m_heightMap;
 };
 
 }

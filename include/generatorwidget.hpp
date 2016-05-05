@@ -63,6 +63,11 @@ private:
     /// \brief Current generator in use
     ///
     gen::Generator      *m_generator;
+
+    ///
+    /// \brief contains every maps created
+    ///
+    std::list<map::MapGraph *>  m_maps;
 };
 
 }

@@ -29,6 +29,8 @@ GeneratorWidget::GeneratorWidget(MainWindow &mainWindow) :
 
 GeneratorWidget::~GeneratorWidget()
 {
+    foreach (map::MapGraph *map, m_maps)
+        delete map;
     delete m_ui;
 }
 
@@ -58,12 +60,12 @@ void    GeneratorWidget::launchGenerator()
     if (!m_generator)
         return;
 
-    // Temporaire, le pointeur disparait après appel = caca
     map::MapGraph  *map = new map::MapGraph(m_ui->xMaxSpin->value(),
                                             m_ui->yMaxSpin->value());
 
     m_generator->run(map);
     addMapTo2DScene(*map);
+    m_maps.push_back(map);
 
     QCoreApplication::postEvent(&m_mainWindow.glWindow(), new HeightMapEvent(map->heightMap()));
 }
