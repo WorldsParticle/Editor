@@ -9,35 +9,40 @@
 #include <iostream>
 #include <qcoreapplication.h>
 
+#include "include/event/heightmapevent.hpp"
+#include "include/event/modelevent.hpp"
+#include <Engine/Core/Terrain.hpp>
+#include <Engine/Core/Scene.hpp>
+
 namespace Editor
 {
 
 OpenGLWindow::OpenGLWindow(QWindow *parent) :
     QWindow(parent),
-    _context(this),
-    _format(),
-    _engine(NULL),
-    _mouseTracking(false)
+    m_context(this),
+    m_format(),
+    m_engine(NULL),
+    m_mouseTracking(false)
 {
     setSurfaceType(OpenGLSurface);
 
-    _format.setMajorVersion(4);
-    _format.setMinorVersion(2);
-    _format.setProfile(QSurfaceFormat::CoreProfile); //whatever this is
-    _format.setOption(QSurfaceFormat::DebugContext);
+    m_format.setMajorVersion(4);
+    m_format.setMinorVersion(2);
+    m_format.setProfile(QSurfaceFormat::CoreProfile); //whatever this is
+    m_format.setOption(QSurfaceFormat::DebugContext);
 
-    this->setFormat(_format);
-    _context.setFormat(_format);
+    this->setFormat(m_format);
+    m_context.setFormat(m_format);
 
     create();
-    _context.create();
+    m_context.create();
 
     resize(1024, 768);
 
-    if(!_context.isValid())
+    if(!m_context.isValid())
         qDebug() << "OpenGL context invalid !";
 
-    _context.makeCurrent(this);
+    m_context.makeCurrent(this);
 
     qDebug()    << "OpenGL version : "
                 << this->format().majorVersion() << "."
@@ -56,45 +61,73 @@ void    OpenGLWindow::run(Engine::Core *engine)
 {
     if (!engine)
         return;
-    _engine = engine;
+    m_engine = engine;
     //_engine->load("/home/thibaud/Bureau/EIP/Editor/ressources/scenes/altair/altair.dae");
 
     while (isVisible())
     {
-        _engine->update();
-        _context.makeCurrent(this);
-        _engine->render();
-        _context.swapBuffers(this);
-        _context.doneCurrent();
+        m_engine->update();
+        m_context.makeCurrent(this);
+        m_engine->render();
+        m_context.swapBuffers(this);
+        m_context.doneCurrent();
 
         QCoreApplication::processEvents();
     }
 }
 
+bool    OpenGLWindow::event(QEvent *e)
+{
+    if (e->type() == ModelEvent::Model_add)
+    {
+        modelAddEvent(dynamic_cast<ModelEvent *>(e));
+        return true;
+    }
+    else if (e->type() == HeightMapEvent::HeightMap_add)
+    {
+        heightMapAddEvent(dynamic_cast<HeightMapEvent *>(e));
+        return true;
+    }
+    return QWindow::event(e);
+}
+
+void    OpenGLWindow::modelAddEvent(ModelEvent *e)
+{
+    if (m_engine)
+        m_engine->load(e->path().toStdString());
+}
+
+void    OpenGLWindow::heightMapAddEvent(HeightMapEvent *e)
+{
+    if (m_engine && m_engine->scenes().size())
+    {
+        Engine::Scene   *scene = m_engine->scenes().front();
+        scene->add(new Engine::Terrain(e->heightMap(), scene, scene->getShaderPrograms()));
+    }
+}
+
 void    OpenGLWindow::keyPressEvent(QKeyEvent *e)
 {
-
-
     if (e->key() == Qt::Key_Escape)
         exit(1); // à remplacer quand on mettra en place les threads
     else if (e->key() == Qt::Key_Z){
         Engine::Event::KeyPressed  event(Engine::Keyboard::Z);
-        _engine->push_event(event);
+        m_engine->push_event(event);
         e->accept();
     }
     else if (e->key() == Qt::Key_Q){
         Engine::Event::KeyPressed  event(Engine::Keyboard::Q);
-        _engine->push_event(event);
+        m_engine->push_event(event);
         e->accept();
     }
     else if (e->key() == Qt::Key_S){
         Engine::Event::KeyPressed  event(Engine::Keyboard::S);
-        _engine->push_event(event);
+        m_engine->push_event(event);
         e->accept();
     }
     else if (e->key() == Qt::Key_D){
         Engine::Event::KeyPressed  event(Engine::Keyboard::D);
-        _engine->push_event(event);
+        m_engine->push_event(event);
         e->accept();
     }
 }
@@ -103,22 +136,22 @@ void    OpenGLWindow::keyReleaseEvent(QKeyEvent *e)
 {
     if (e->key() == Qt::Key_Z){
         Engine::Event::KeyReleased  event(Engine::Keyboard::Z);
-        _engine->push_event(event);
+        m_engine->push_event(event);
         e->accept();
     }
     if (e->key() == Qt::Key_Q){
         Engine::Event::KeyReleased  event(Engine::Keyboard::Q);
-        _engine->push_event(event);
+        m_engine->push_event(event);
         e->accept();
     }
     if (e->key() == Qt::Key_S){
         Engine::Event::KeyReleased  event(Engine::Keyboard::S);
-        _engine->push_event(event);
+        m_engine->push_event(event);
         e->accept();
     }
     if (e->key() == Qt::Key_D){
         Engine::Event::KeyReleased  event(Engine::Keyboard::D);
-        _engine->push_event(event);
+        m_engine->push_event(event);
         e->accept();
     }
 }
@@ -127,7 +160,7 @@ void    OpenGLWindow::resizeEvent(QResizeEvent* event)
 {
     event->accept();
     Engine::Event::Resize  e(glm::vec2(event->size().width(), event->size().height()));
-    _engine->push_event(e);
+    m_engine->push_event(e);
 }
 
 void    OpenGLWindow::mousePressEvent(QMouseEvent *event)
@@ -135,12 +168,12 @@ void    OpenGLWindow::mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton)
     {
         Engine::Event::MouseButtonPressed   e(Engine::Mouse::Button::LEFT, glm::vec2(event->pos().x(), event->pos().y()));
-        _engine->push_event(e);
+        m_engine->push_event(e);
 
         setCursor(Qt::BlankCursor);
         QPoint glob = mapToGlobal(QPoint(width() / 2, height() / 2));
         QCursor::setPos(glob);
-        _mouseTracking = true;
+        m_mouseTracking = true;
     }
     //    else if (event->button() == Qt::RightButton)
     //    {
@@ -154,20 +187,20 @@ void    OpenGLWindow::mouseReleaseEvent(QMouseEvent *event)
     if (event->button() == Qt::LeftButton)
     {
         Engine::Event::MouseButtonReleased  e(Engine::Mouse::Button::LEFT, glm::vec2(event->pos().x(), event->pos().y()));
-        _engine->push_event(e);
+        m_engine->push_event(e);
 
         setCursor(Qt::ArrowCursor);
-        _mouseTracking = false;
+        m_mouseTracking = false;
     }
 }
 
 void    OpenGLWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    if (_mouseTracking == true)
+    if (m_mouseTracking == true)
     {
         qDebug() << "Mouse move";
         Engine::Event::MouseMove  e(Engine::Mouse::Button::LEFT, glm::vec2(event->pos().x(), event->pos().y()));
-        _engine->push_event(e);
+        m_engine->push_event(e);
 
         QPoint glob = mapToGlobal(QPoint(width() / 2,height() / 2));
         QCursor::setPos(glob);

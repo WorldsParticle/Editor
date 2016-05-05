@@ -21,7 +21,9 @@ SOURCES +=	source/main.cpp \
                 source/tooltabwidget.cpp \
     source/generatorwidget.cpp \
     source/param/intvaluelink.cpp \
-    source/param/paramlink.cpp
+    source/param/paramlink.cpp \
+    source/event/heightmapevent.cpp \
+    source/event/modelevent.cpp
 
 HEADERS  +=	include/mainwindow.hpp \
                 include/openglwindow.hpp \
@@ -31,7 +33,9 @@ HEADERS  +=	include/mainwindow.hpp \
                 include/skyboxwidget.hpp \
     include/generatorwidget.hpp \
     include/param/intvaluelink.hpp \
-    include/param/paramlink.hpp
+    include/param/paramlink.hpp \
+    include/event/heightmapevent.hpp \
+    include/event/modelevent.hpp
 
 FORMS    += 	interface/mainwindow.ui \
                 interface/particlewidget.ui \

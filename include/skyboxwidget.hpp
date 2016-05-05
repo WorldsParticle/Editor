@@ -11,6 +11,9 @@ class SkyboxWidget;
 namespace Editor
 {
 
+///
+/// \brief The SkyboxWidget class
+///
 class SkyboxWidget : public QWidget
 {
     Q_OBJECT

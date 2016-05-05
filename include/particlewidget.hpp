@@ -11,6 +11,9 @@ class ParticleWidget;
 namespace Editor
 {
 
+///
+/// \brief The ParticleWidget class
+///
 class ParticleWidget : public QWidget
 {
     Q_OBJECT
