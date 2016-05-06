@@ -9,6 +9,7 @@
 #include <QGraphicsScene> // Same
 #include "openglwindow.hpp"
 #include <Engine/Core.hpp>
+#include <Generator/generator.hpp>
 
 namespace Ui {
 class MainWindow;
@@ -18,11 +19,14 @@ namespace Editor
 {
 
 class ToolTabWidget;
-class TerrainWidget;
+class GeneratorWidget;
 class ModelWidget;
 class SkyboxWidget;
 class ParticleWidget;
 
+///
+/// \brief The MainWindow class, contains the model and some basic ui
+///
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -45,6 +49,9 @@ public:
     inline Engine::Core     &engine()
     { return m_engine; }
 
+    inline gen::Generator   &generator()
+    { return m_generator; }
+
     ///
     /// \brief mapScene getter
     ///
@@ -54,8 +61,8 @@ public:
     ///
     /// \brief terrainWidget getter
     ///
-    inline TerrainWidget    *terrainWidget()
-    { return m_terrainWidget; }
+    inline GeneratorWidget    *terrainWidget()
+    { return m_generatorWidget; }
 
     ///
     /// \brief modelWidget getter
@@ -74,6 +81,9 @@ public:
     ///
     inline ParticleWidget   *particleWidget()
     { return m_particleWidget; }
+
+    inline OpenGLWindow     &glWindow()
+    { return m_glWindow; }
 
 protected:
     ///
@@ -123,7 +133,7 @@ private:
     ///
     /// \brief m_terrainWidget allow user to interact with the terrain generation
     ///
-    TerrainWidget       *m_terrainWidget;
+    GeneratorWidget       *m_generatorWidget;
 
     ///
     /// \brief m_modelWidget allow user to interact with the scene graph
@@ -156,6 +166,11 @@ private:
     /// It must be instaciated after the openglcontext (here _glwindow)
     ///
     Engine::Core   m_engine;
+
+    ///
+    /// \brief m_generator is the generator which will generate the heightmap
+    ///
+    gen::Generator m_generator;
 
     ///
     /// \brief m_mapView is the widget which act as a view on the mapScene

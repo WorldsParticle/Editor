@@ -15,11 +15,15 @@ TEMPLATE = app
 SOURCES +=	source/main.cpp \
                 source/mainwindow.cpp \
                 source/openglwindow.cpp \
-                source/terrainwidget.cpp \
                 source/particlewidget.cpp \
                 source/modelwidget.cpp \
                 source/skyboxwidget.cpp \
-                source/tooltabwidget.cpp
+                source/tooltabwidget.cpp \
+    source/generatorwidget.cpp \
+    source/param/intvaluelink.cpp \
+    source/param/paramlink.cpp \
+    source/event/heightmapevent.cpp \
+    source/event/modelevent.cpp
 
 HEADERS  +=	include/mainwindow.hpp \
                 include/openglwindow.hpp \
@@ -27,14 +31,18 @@ HEADERS  +=	include/mainwindow.hpp \
                 include/modelwidget.hpp \
                 include/particlewidget.hpp \
                 include/skyboxwidget.hpp \
-                include/terrainwidget.hpp
+    include/generatorwidget.hpp \
+    include/param/intvaluelink.hpp \
+    include/param/paramlink.hpp \
+    include/event/heightmapevent.hpp \
+    include/event/modelevent.hpp
 
 FORMS    += 	interface/mainwindow.ui \
-                interface/terrainwidget.ui \
                 interface/particlewidget.ui \
                 interface/modelwidget.ui \
                 interface/skyboxwidget.ui \
-                interface/tooltabwidget.ui
+                interface/tooltabwidget.ui \
+    interface/generatorwidget.ui
 
 RESOURCES +=    ress.qrc
 
@@ -46,6 +54,7 @@ RCC_DIR =       rcc
 OBJECTS_DIR =   obj
 
 CONFIG +=       c++14
+QMAKE_CXXFLAGS += -std=c++14
 
 unix: LIBS +=           -L/usr/local/lib/ -lEngine
 unix: INCLUDEPATH +=    -I/usr/local/include/

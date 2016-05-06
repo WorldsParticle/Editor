@@ -1,6 +1,6 @@
 #include "include/tooltabwidget.hpp"
 #include "ui_tooltabwidget.h"
-#include "include/terrainwidget.hpp"
+#include "include/generatorwidget.hpp"
 #include "include/modelwidget.hpp"
 #include "include/particlewidget.hpp"
 #include "include/skyboxwidget.hpp"
@@ -26,8 +26,6 @@ ToolTabWidget::ToolTabWidget(MainWindow &mainWindow) :
     m_slideAnimation->setDuration(500);
     m_slideAnimation->setStartValue(this->width());
     m_slideAnimation->setEndValue(0);
-
-    m_ui->tabWidget->setMaximumWidth(0);
 
     m_ui->tabWidget->addTab(m_mainWindow.terrainWidget(), QIcon(":/ressources/images/mountain.png"), QString());
     m_ui->tabWidget->addTab(m_mainWindow.modelWidget(), QIcon(":/ressources/images/model.png"), QString());

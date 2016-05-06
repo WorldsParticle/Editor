@@ -1,5 +1,6 @@
 #include "include/modelwidget.hpp"
 #include "ui_modelwidget.h"
+#include "include/event/modelevent.hpp"
 
 #include <QFileDialog>
 
@@ -24,10 +25,9 @@ ModelWidget::~ModelWidget()
 void    ModelWidget::importModel()
 {
     QString path = QFileDialog::getOpenFileName(this, tr("Import"), "", tr("Model files (*)"));
+
     if (!path.isEmpty())
-    {
-        m_mainWindow.engine().load(path.toStdString());
-    }
+        QCoreApplication::postEvent(&m_mainWindow.glWindow(), new ModelEvent(path));
 }
 
 }

@@ -10,6 +10,12 @@
 namespace Editor
 {
 
+class HeightMapEvent;
+class ModelEvent;
+
+///
+/// \brief The OpenGLWindow class, handle openGL context as well as the game loop
+///
 class OpenGLWindow : public QWindow
 {
     Q_OBJECT
@@ -33,6 +39,22 @@ public slots:
     void    run(Engine::Core *engine);
 
 protected:
+    ///
+    /// \brief event override, for handle custom events
+    /// \param e
+    ///
+    virtual bool    event(QEvent *e);
+
+    ///
+    /// \brief loadModelEvent
+    ///
+    virtual void    modelAddEvent(ModelEvent *e);
+
+    ///
+    /// \brief loadHeightmapEvent
+    ///
+    virtual void    heightMapAddEvent(HeightMapEvent *e);
+
     ///
     /// \brief keyPressEvent override, for passing events to the engine
     /// \param e
@@ -73,22 +95,22 @@ private:
     ///
     /// \brief _context handle the opengl context
     ///
-    QOpenGLContext _context;
+    QOpenGLContext m_context;
 
     ///
     /// \brief _format is the drawable surface of the window, where the engine is rendered
     ///
-    QSurfaceFormat _format;
+    QSurfaceFormat m_format;
 
     ///
     /// \brief _engine is the worldsparticle engine, where the magic happen
     ///
-    Engine::Core   *_engine;
+    Engine::Core   *m_engine;
 
     ///
     /// \brief _mouseTracking is used for handle if the mouse should be hide and centered (fps style)
     ///
-    bool           _mouseTracking;
+    bool           m_mouseTracking;
 };
 
 }
