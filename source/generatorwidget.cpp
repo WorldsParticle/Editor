@@ -5,10 +5,11 @@
 #include "Generator/param/intvalue.hpp"
 #include "include/param/paramlink.hpp"
 #include <Engine/Core/Scene.hpp>
-#include <Engine/Core/Terrain.hpp>
 #include <QGraphicsItem>
 #include <QGroupBox>
 #include <QVBoxLayout>
+
+#include "include/event/heightmapevent.hpp"
 
 #include <QDebug>
 
@@ -28,6 +29,8 @@ GeneratorWidget::GeneratorWidget(MainWindow &mainWindow) :
 
 GeneratorWidget::~GeneratorWidget()
 {
+    foreach (map::MapGraph *map, m_maps)
+        delete map;
     delete m_ui;
 }
 
@@ -56,17 +59,15 @@ void    GeneratorWidget::launchGenerator()
 {
     if (!m_generator)
         return;
-    // Temporaire
+
     map::MapGraph  *map = new map::MapGraph(m_ui->xMaxSpin->value(),
                                             m_ui->yMaxSpin->value());
 
     m_generator->run(map);
     addMapTo2DScene(*map);
+    m_maps.push_back(map);
 
-    if (!m_mainWindow.engine().scenes().size())
-        return;
-    Engine::Scene   *scene = m_mainWindow.engine().scenes().front();
-    scene->add(new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms()));
+    QCoreApplication::postEvent(&m_mainWindow.glWindow(), new HeightMapEvent(map->heightMap()));
 }
 
 void    GeneratorWidget::addMapTo2DScene(map::MapGraph &map)

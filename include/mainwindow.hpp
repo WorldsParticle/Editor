@@ -82,6 +82,9 @@ public:
     inline ParticleWidget   *particleWidget()
     { return m_particleWidget; }
 
+    inline OpenGLWindow     &glWindow()
+    { return m_glWindow; }
+
 protected:
     ///
     /// \brief keyPressEvent override, make esc a shortcut
