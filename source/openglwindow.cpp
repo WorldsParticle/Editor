@@ -5,14 +5,14 @@
 #include <Engine/Event/MouseButtonPressed.hpp>
 #include <Engine/Event/MouseButtonReleased.hpp>
 #include <Engine/Event/MouseMove.hpp>
-#include <qdebug.h>
-#include <iostream>
-#include <qcoreapplication.h>
-
 #include "include/event/heightmapevent.hpp"
 #include "include/event/modelevent.hpp"
 #include <Engine/Core/Terrain.hpp>
 #include <Engine/Core/Scene.hpp>
+#include <qdebug.h>
+#include <iostream>
+#include <qcoreapplication.h>
+
 
 namespace Editor
 {
@@ -62,6 +62,18 @@ void    OpenGLWindow::run(Engine::Core *engine)
     if (!engine)
         return;
     m_engine = engine;
+<<<<<<< HEAD
+=======
+    //_engine->load("test3.dae");
+
+    map::MapGraph *map = new map::MapGraph(500,500);
+    gen::Generator m_generator;
+    m_generator.run(map);
+
+//    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/altair.dae");
+//    Engine::Scene * scene = m_engine->scenes().front();
+//    new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms());
+>>>>>>> 233bc8131b523714aba13bd7143461874098e56f
 
     while (isVisible())
     {
