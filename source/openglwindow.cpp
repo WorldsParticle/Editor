@@ -69,7 +69,7 @@ void    OpenGLWindow::run(Engine::Core *engine)
     //m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/empty.dae");
 //    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/lowpolytree.obj");
 //    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/altair.dae");
-//    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/monkey.dae");
+    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/tree.dae");
 
     //Gen scene
     Engine::Scene * scene = m_engine->scenes().front();
@@ -217,7 +217,7 @@ void    OpenGLWindow::mouseMoveEvent(QMouseEvent *event)
 {
     if (m_mouseTracking == true)
     {
-        qDebug() << "Mouse move";
+//        qDebug() << "Mouse move";
         Engine::Event::MouseMove  e(Engine::Mouse::Button::LEFT, glm::vec2(event->pos().x(), event->pos().y()));
         m_engine->push_event(e);
 
