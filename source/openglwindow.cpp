@@ -64,13 +64,25 @@ void    OpenGLWindow::run(Engine::Core *engine)
     m_engine = engine;
     //_engine->load("test3.dae");
 
+
+    //Load scene
+    //m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/empty.dae");
+//    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/lowpolytree.obj");
+//    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/altair.dae");
+//    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/monkey.dae");
+
+    //Gen scene
+    Engine::Scene * scene = m_engine->scenes().front();
     map::MapGraph *map = new map::MapGraph(500,500);
     gen::Generator m_generator;
     m_generator.run(map);
 
-//    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/altair.dae");
-//    Engine::Scene * scene = m_engine->scenes().front();
-//    new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms());
+    //Add terrain
+    new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms());
+
+    //Add models
+//    scene->addModels();
+    //TODO: faire un event pour ca
 
     while (isVisible())
     {
