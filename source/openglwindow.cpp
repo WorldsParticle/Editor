@@ -90,9 +90,8 @@ void    OpenGLWindow::run(Engine::Core *engine)
         m_context.makeCurrent(this);
         m_engine->render();
         m_context.swapBuffers(this);
-        m_context.doneCurrent();
-
         QCoreApplication::processEvents();
+        m_context.doneCurrent();
     }
 }
 
