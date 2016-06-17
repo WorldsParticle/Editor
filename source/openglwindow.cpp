@@ -69,7 +69,8 @@ void    OpenGLWindow::run(Engine::Core *engine)
     //m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/empty.dae");
 //    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/lowpolytree.obj");
 //    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/altair.dae");
-    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/tree.dae");
+//    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/tree.DAE");
+    m_engine->load("../../Engine/resources/models/tree.DAE");
 
     //Gen scene
     Engine::Scene * scene = m_engine->scenes().front();
