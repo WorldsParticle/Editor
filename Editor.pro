@@ -54,18 +54,10 @@ RCC_DIR =       rcc
 OBJECTS_DIR =   obj
 
 CONFIG +=       c++14
-QMAKE_CXXFLAGS += -std=c++14
 
 unix: LIBS +=           -L/usr/local/lib/ -lEngine
 unix: INCLUDEPATH +=    -I/usr/local/include/
 
-#LIBS += -L$$OUT_PWD/../Engine/cmake/ -lEngine
-#INCLUDEPATH += $$PWD/../Engine/include/
 
-
-CONFIG += warn_off
-QMAKE_CXXFLAGS_WARN_OFF =
-QMAKE_CFLAGS_WARN_OFF =
-
-#QMAKE_CXXFLAGS += -fPIC -Wctor-dtor-privacy -Wnoexcept -Wnon-virtual-dtor -Weffc++ -Wstrict-null-sentinel -Wold-style-cast -Woverloaded-virtual -Wno-pmf-conversions -Wsign-promo -Wdouble-promotion -Wmissing-include-dirs -Wswitch-default -Wfloat-equal -Wzero-as-null-pointer-constant -Wuseless-cast -Wconversion -Wlogical-op -Wmissing-declarations -Winline -Wshadow -Wall -Wextra
-
+win32: LIBS += -LC:/Libraries/Binaries/Release/x64/ -lEngine
+win32: INCLUDEPATH += -I C:/Libraries/Includes

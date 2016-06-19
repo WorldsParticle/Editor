@@ -1,14 +1,16 @@
 #include "include/openglwindow.hpp"
+#include "include/event/heightmapevent.hpp"
+#include "include/event/modelevent.hpp"
+
 #include <Engine/Event/KeyPressed.hpp>
 #include <Engine/Event/KeyReleased.hpp>
 #include <Engine/Event/Resize.hpp>
 #include <Engine/Event/MouseButtonPressed.hpp>
 #include <Engine/Event/MouseButtonReleased.hpp>
 #include <Engine/Event/MouseMove.hpp>
-#include "include/event/heightmapevent.hpp"
-#include "include/event/modelevent.hpp"
 #include <Engine/Core/Terrain.hpp>
 #include <Engine/Core/Scene.hpp>
+
 #include <qdebug.h>
 #include <iostream>
 #include <qcoreapplication.h>
@@ -70,7 +72,7 @@ void    OpenGLWindow::run(Engine::Core *engine)
 //    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/lowpolytree.obj");
 //    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/scenes/altair.dae");
 //    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/tree.DAE");
-    m_engine->load("../../Engine/resources/models/tree.DAE");
+    m_engine->load("C:/Users/louis/Documents/GitHub/Engine/resources/models/tree.dae");
 
     //Gen scene
     Engine::Scene * scene = m_engine->scenes().front();
@@ -135,6 +137,16 @@ void    OpenGLWindow::keyPressEvent(QKeyEvent *e)
         m_engine->push_event(event);
         e->accept();
     }
+    else if (e->key() == Qt::Key_W){
+        Engine::Event::KeyPressed  event(Engine::Keyboard::Z);
+        m_engine->push_event(event);
+        e->accept();
+    }
+    else if (e->key() == Qt::Key_A){
+        Engine::Event::KeyPressed  event(Engine::Keyboard::Q);
+        m_engine->push_event(event);
+        e->accept();
+    }
     else if (e->key() == Qt::Key_Q){
         Engine::Event::KeyPressed  event(Engine::Keyboard::Q);
         m_engine->push_event(event);
@@ -154,8 +166,18 @@ void    OpenGLWindow::keyPressEvent(QKeyEvent *e)
 
 void    OpenGLWindow::keyReleaseEvent(QKeyEvent *e)
 {
+    if (e->key() == Qt::Key_W){
+        Engine::Event::KeyReleased  event(Engine::Keyboard::Z);
+        m_engine->push_event(event);
+        e->accept();
+    }
     if (e->key() == Qt::Key_Z){
         Engine::Event::KeyReleased  event(Engine::Keyboard::Z);
+        m_engine->push_event(event);
+        e->accept();
+    }
+    if (e->key() == Qt::Key_A){
+        Engine::Event::KeyReleased  event(Engine::Keyboard::Q);
         m_engine->push_event(event);
         e->accept();
     }
