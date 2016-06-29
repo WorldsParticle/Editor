@@ -54,6 +54,7 @@ RCC_DIR =       rcc
 OBJECTS_DIR =   obj
 
 CONFIG +=       c++14
+QMAKE_CXXFLAGS += -std=c++14
 
 unix: LIBS +=           -L/usr/local/lib/ -lEngine
 unix: INCLUDEPATH +=    -I/usr/local/include/
