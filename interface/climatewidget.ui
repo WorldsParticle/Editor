@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ParticleWidget</class>
- <widget class="QWidget" name="ParticleWidget">
+ <class>ClimateWidget</class>
+ <widget class="QWidget" name="ClimateWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>99</width>
+    <width>108</width>
     <height>448</height>
    </rect>
   </property>

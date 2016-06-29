@@ -21,8 +21,7 @@ namespace Editor
 class ToolTabWidget;
 class GeneratorWidget;
 class ModelWidget;
-class SkyboxWidget;
-class ParticleWidget;
+class ClimateWidget;
 
 ///
 /// \brief The MainWindow class, contains the model and some basic ui
@@ -71,16 +70,10 @@ public:
     { return m_modelWidget; }
 
     ///
-    /// \brief skyboxWidget getter
+    /// \brief climateWidget getter
     ///
-    inline SkyboxWidget     *skyboxWidget()
-    { return m_skyboxWidget; }
-
-    ///
-    /// \brief particleWidget getter
-    ///
-    inline ParticleWidget   *particleWidget()
-    { return m_particleWidget; }
+    inline ClimateWidget   *climateWidget()
+    { return m_climateWidget; }
 
     inline OpenGLWindow     &glWindow()
     { return m_glWindow; }
@@ -141,14 +134,9 @@ private:
     ModelWidget         *m_modelWidget;
 
     ///
-    /// \brief m_particleWidget allow user to interact with the particle generator
+    /// \brief m_climateWidget allow user to interact with the particle generator
     ///
-    ParticleWidget      *m_particleWidget;
-
-    ///
-    /// \brief m_skyboxWidget allow user to interact with the skybox
-    ///
-    SkyboxWidget        *m_skyboxWidget;
+    ClimateWidget      *m_climateWidget;
 
 
     ///

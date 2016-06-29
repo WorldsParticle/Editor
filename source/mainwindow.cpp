@@ -3,8 +3,7 @@
 #include "include/tooltabwidget.hpp"
 #include "include/generatorwidget.hpp"
 #include "include/modelwidget.hpp"
-#include "include/particlewidget.hpp"
-#include "include/skyboxwidget.hpp"
+#include "include/climatewidget.hpp"
 #include "ui_mainwindow.h"
 #include <QPainter>
 #include <qdebug.h>
@@ -20,8 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_toolTabWidget(NULL),
     m_generatorWidget(NULL),
     m_modelWidget(NULL),
-    m_particleWidget(NULL),
-    m_skyboxWidget(NULL),
+    m_climateWidget(NULL),
     m_glView(NULL),
     m_centralLayout(),
     m_engine(),
@@ -56,8 +54,7 @@ void    MainWindow::initializeCustomUi()
 
     m_generatorWidget = new GeneratorWidget(*this);
     m_modelWidget = new ModelWidget(*this);
-    m_particleWidget = new ParticleWidget(*this);
-    m_skyboxWidget = new SkyboxWidget(*this);
+    m_climateWidget = new ClimateWidget(*this);
 
     m_toolTabWidget = new ToolTabWidget(*this);
     m_centralLayout.addWidget(m_toolTabWidget, 0);

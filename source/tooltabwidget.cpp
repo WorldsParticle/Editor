@@ -2,8 +2,7 @@
 #include "ui_tooltabwidget.h"
 #include "include/generatorwidget.hpp"
 #include "include/modelwidget.hpp"
-#include "include/particlewidget.hpp"
-#include "include/skyboxwidget.hpp"
+#include "include/climatewidget.hpp"
 #include <qdebug.h>
 #include <QPainter>
 #include <QFileDialog>
@@ -29,8 +28,8 @@ ToolTabWidget::ToolTabWidget(MainWindow &mainWindow) :
 
     m_ui->tabWidget->addTab(m_mainWindow.terrainWidget(), QIcon(":/ressources/images/mountain.png"), QString());
     m_ui->tabWidget->addTab(m_mainWindow.modelWidget(), QIcon(":/ressources/images/model.png"), QString());
-    m_ui->tabWidget->addTab(m_mainWindow.particleWidget(), QIcon(":/ressources/images/particle.png"), QString());
-    m_ui->tabWidget->addTab(m_mainWindow.skyboxWidget(), QIcon(":/ressources/images/sky.png"), QString());
+    m_ui->tabWidget->addTab(m_mainWindow.climateWidget(), QIcon(":/ressources/images/particle.png"), QString());
+//    m_ui->tabWidget->addTab(m_mainWindow.skyboxWidget(), QIcon(":/ressources/images/sky.png"), QString());
 
     connect(m_ui->switchButton, SIGNAL(pressed()), this, SLOT(switchVisibility()));
 }

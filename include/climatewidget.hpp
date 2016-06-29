@@ -5,36 +5,36 @@
 #include "mainwindow.hpp"
 
 namespace Ui {
-class ParticleWidget;
+class ClimateWidget;
 }
 
 namespace Editor
 {
 
 ///
-/// \brief The ParticleWidget class
+/// \brief The ClimateWidget class
 ///
-class ParticleWidget : public QWidget
+class ClimateWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     ///
-    /// \brief ParticleWidget constructor
+    /// \brief ClimateWidget constructor
     /// \param mainWindow
     ///
-    explicit ParticleWidget(MainWindow &mainWindow);
+    explicit ClimateWidget(MainWindow &mainWindow);
 
     ///
     /// \brief destructor
     ///
-    ~ParticleWidget();
+    ~ClimateWidget();
 
 private:
     ///
     /// \brief m_ui contain base ui elements
     ///
-    Ui::ParticleWidget *m_ui;
+    Ui::ClimateWidget *m_ui;
 
     ///
     /// \brief m_mainWindow

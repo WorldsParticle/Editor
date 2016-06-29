@@ -15,34 +15,31 @@ TEMPLATE = app
 SOURCES +=	source/main.cpp \
                 source/mainwindow.cpp \
                 source/openglwindow.cpp \
-                source/particlewidget.cpp \
                 source/modelwidget.cpp \
-                source/skyboxwidget.cpp \
                 source/tooltabwidget.cpp \
-    source/generatorwidget.cpp \
-    source/param/intvaluelink.cpp \
-    source/param/paramlink.cpp \
-    source/event/heightmapevent.cpp \
-    source/event/modelevent.cpp
+                source/generatorwidget.cpp \
+                source/param/intvaluelink.cpp \
+                source/param/paramlink.cpp \
+                source/event/heightmapevent.cpp \
+                source/event/modelevent.cpp \
+                source/climatewidget.cpp
 
 HEADERS  +=	include/mainwindow.hpp \
                 include/openglwindow.hpp \
                 include/tooltabwidget.hpp \
                 include/modelwidget.hpp \
-                include/particlewidget.hpp \
-                include/skyboxwidget.hpp \
-    include/generatorwidget.hpp \
-    include/param/intvaluelink.hpp \
-    include/param/paramlink.hpp \
-    include/event/heightmapevent.hpp \
-    include/event/modelevent.hpp
+                include/generatorwidget.hpp \
+                include/param/intvaluelink.hpp \
+                include/param/paramlink.hpp \
+                include/event/heightmapevent.hpp \
+                include/event/modelevent.hpp \
+                include/climatewidget.hpp
 
 FORMS    += 	interface/mainwindow.ui \
-                interface/particlewidget.ui \
                 interface/modelwidget.ui \
-                interface/skyboxwidget.ui \
                 interface/tooltabwidget.ui \
-    interface/generatorwidget.ui
+                interface/generatorwidget.ui \
+                interface/climatewidget.ui
 
 RESOURCES +=    ress.qrc
 
