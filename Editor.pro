@@ -15,30 +15,30 @@ TEMPLATE = app
 SOURCES +=	source/main.cpp \
                 source/mainwindow.cpp \
                 source/openglwindow.cpp \
-                source/modelwidget.cpp \
                 source/tooltabwidget.cpp \
                 source/generatorwidget.cpp \
+                source/elementwidget.cpp \
+                source/climatewidget.cpp \
                 source/param/intvaluelink.cpp \
                 source/param/paramlink.cpp \
                 source/event/heightmapevent.cpp \
-                source/event/modelevent.cpp \
-                source/climatewidget.cpp
+                source/event/modelevent.cpp
 
 HEADERS  +=	include/mainwindow.hpp \
                 include/openglwindow.hpp \
                 include/tooltabwidget.hpp \
-                include/modelwidget.hpp \
                 include/generatorwidget.hpp \
+                include/elementwidget.hpp \
+                include/climatewidget.hpp \
                 include/param/intvaluelink.hpp \
                 include/param/paramlink.hpp \
                 include/event/heightmapevent.hpp \
-                include/event/modelevent.hpp \
-                include/climatewidget.hpp
+                include/event/modelevent.hpp
 
 FORMS    += 	interface/mainwindow.ui \
-                interface/modelwidget.ui \
                 interface/tooltabwidget.ui \
                 interface/generatorwidget.ui \
+                interface/elementwidget.ui \
                 interface/climatewidget.ui
 
 RESOURCES +=    ress.qrc

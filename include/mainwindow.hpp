@@ -20,7 +20,7 @@ namespace Editor
 
 class ToolTabWidget;
 class GeneratorWidget;
-class ModelWidget;
+class ElementWidget;
 class ClimateWidget;
 
 ///
@@ -66,7 +66,7 @@ public:
     ///
     /// \brief modelWidget getter
     ///
-    inline ModelWidget      *modelWidget()
+    inline ElementWidget      *modelWidget()
     { return m_modelWidget; }
 
     ///
@@ -95,7 +95,7 @@ protected:
     /// \brief closeEvent override, for an awfull exit(1) : have to fix that
     /// \param e
     ///
-    virtual void    closeEvent(QCloseEvent *e);
+    virtual void    closeEvent(QCloseEvent *);
 
 private:
     ///
@@ -131,7 +131,7 @@ private:
     ///
     /// \brief m_modelWidget allow user to interact with the scene graph
     ///
-    ModelWidget         *m_modelWidget;
+    ElementWidget         *m_modelWidget;
 
     ///
     /// \brief m_climateWidget allow user to interact with the particle generator

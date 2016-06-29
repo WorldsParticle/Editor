@@ -2,7 +2,7 @@
 #include "include/openglwindow.hpp"
 #include "include/tooltabwidget.hpp"
 #include "include/generatorwidget.hpp"
-#include "include/modelwidget.hpp"
+#include "include/elementwidget.hpp"
 #include "include/climatewidget.hpp"
 #include "ui_mainwindow.h"
 #include <QPainter>
@@ -53,7 +53,7 @@ void    MainWindow::initializeCustomUi()
     m_ui->centralWidget->setLayout(&m_centralLayout);
 
     m_generatorWidget = new GeneratorWidget(*this);
-    m_modelWidget = new ModelWidget(*this);
+    m_modelWidget = new ElementWidget(*this);
     m_climateWidget = new ClimateWidget(*this);
 
     m_toolTabWidget = new ToolTabWidget(*this);
@@ -94,7 +94,7 @@ void    MainWindow::paintEvent(QPaintEvent *e)
     QWidget::paintEvent(e);
 }
 
-void    MainWindow::closeEvent(QCloseEvent *e)
+void    MainWindow::closeEvent(QCloseEvent *)
 {
     exit(1); // à remplacer quand on mettra en place les threads
 }

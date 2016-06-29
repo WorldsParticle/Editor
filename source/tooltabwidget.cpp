@@ -1,7 +1,7 @@
 #include "include/tooltabwidget.hpp"
 #include "ui_tooltabwidget.h"
 #include "include/generatorwidget.hpp"
-#include "include/modelwidget.hpp"
+#include "include/elementwidget.hpp"
 #include "include/climatewidget.hpp"
 #include <qdebug.h>
 #include <QPainter>

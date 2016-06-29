@@ -5,30 +5,30 @@
 #include "mainwindow.hpp"
 
 namespace Ui {
-class ModelWidget;
+class ElementWidget;
 }
 
 namespace Editor
 {
 
 ///
-/// \brief The ModelWidget class, it will show the scene graph and will allow the user to change nodes properties (as well as add / delete them)
+/// \brief The ElementWidget class, it will show the scene graph and will allow the user to change nodes properties (as well as add / delete them)
 ///
-class ModelWidget : public QWidget
+class ElementWidget : public QWidget
 {
     Q_OBJECT
 
 public:
     ///
-    /// \brief ModelWidgetconstructor
+    /// \brief ElementWidgetconstructor
     /// \param mainWindow
     ///
-    explicit ModelWidget(MainWindow &mainWindow);
+    explicit ElementWidget(MainWindow &mainWindow);
 
     ///
     /// \brief destructor
     ///
-    ~ModelWidget();
+    ~ElementWidget();
 
 public slots:
     ///
@@ -40,7 +40,7 @@ private:
     ///
     /// \brief m_ui contain base ui elements
     ///
-    Ui::ModelWidget *m_ui;
+    Ui::ElementWidget *m_ui;
 
     ///
     /// \brief m_mainWindow
