@@ -1,5 +1,6 @@
 #include "include/mainwindow.hpp"
 #include "include/openglwindow.hpp"
+#include "include/menuobject.hpp"
 #include "include/tooltabwidget.hpp"
 #include "include/generatorwidget.hpp"
 #include "include/elementwidget.hpp"
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     m_ui(new Ui::MainWindow),
     m_glWindow(),
+    m_menuObject(NULL),
     m_toolTabWidget(NULL),
     m_generatorWidget(NULL),
     m_modelWidget(NULL),
@@ -52,6 +54,8 @@ void    MainWindow::initializeCustomUi()
 
     m_ui->centralWidget->setLayout(&m_centralLayout);
 
+    m_menuObject = new MenuObject(this);//TODO give window as a reference?
+
     m_generatorWidget = new GeneratorWidget(*this);
     m_modelWidget = new ElementWidget(*this);
     m_climateWidget = new ClimateWidget(*this);
@@ -67,6 +71,8 @@ void    MainWindow::initializeCustomUi()
     m_centralLayout.addWidget(m_mapView, 1);
     m_mapView->hide();
 
+    m_menuObject->setEngine(&m_engine);
+    m_menuObject->setGenerator(&m_generator);
     m_generatorWidget->assignGenerator(&m_generator);
 }
 
@@ -78,7 +84,8 @@ void    MainWindow::makeConnections()
     connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_mapView, SLOT(hide()));
     connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_glView, SLOT(show()));
 
-    connect(m_ui->actionGenerer, SIGNAL(triggered(bool)), m_generatorWidget, SLOT(launchGenerator()));
+    //connect(m_ui->actionGenerer, SIGNAL(triggered(bool)), m_generatorWidget, SLOT(launchGenerator()));
+    connect(m_ui->actionNew, SIGNAL(triggered(bool)), m_menuObject, SLOT(newScene()));
 }
 
 void    MainWindow::keyPressEvent(QKeyEvent *e)

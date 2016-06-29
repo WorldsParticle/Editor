@@ -18,6 +18,7 @@ class MainWindow;
 namespace Editor
 {
 
+class MenuObject;
 class ToolTabWidget;
 class GeneratorWidget;
 class ElementWidget;
@@ -56,6 +57,12 @@ public:
     ///
     inline QGraphicsScene   &mapScene()
     { return m_mapScene; }
+
+    ///
+    /// \brief menuObject getter
+    ///
+    inline MenuObject    *menuObject()
+    { return m_menuObject; }
 
     ///
     /// \brief terrainWidget getter
@@ -117,6 +124,11 @@ private:
     /// \brief m_glWindow is the OpenGLWindow, which create an openGL context for the engine rendering
     ///
     OpenGLWindow    m_glWindow;
+
+    ///
+    /// \brief m_menuObject is the main menu class
+    ///
+    MenuObject       *m_menuObject;
 
     ///
     /// \brief m_toolWidget is a widget which regroup user tools (don't instanciate it before user tools)

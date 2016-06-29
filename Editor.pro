@@ -22,7 +22,8 @@ SOURCES +=	source/main.cpp \
                 source/param/intvaluelink.cpp \
                 source/param/paramlink.cpp \
                 source/event/heightmapevent.cpp \
-                source/event/modelevent.cpp
+                source/event/modelevent.cpp \
+                source/menuobject.cpp
 
 HEADERS  +=	include/mainwindow.hpp \
                 include/openglwindow.hpp \
@@ -33,7 +34,8 @@ HEADERS  +=	include/mainwindow.hpp \
                 include/param/intvaluelink.hpp \
                 include/param/paramlink.hpp \
                 include/event/heightmapevent.hpp \
-                include/event/modelevent.hpp
+                include/event/modelevent.hpp \
+                include/menuobject.hpp
 
 FORMS    += 	interface/mainwindow.ui \
                 interface/tooltabwidget.ui \

@@ -24,7 +24,7 @@ GeneratorWidget::GeneratorWidget(MainWindow &mainWindow) :
 {
     m_ui->setupUi(this);
 
-    connect(m_ui->launchButton, SIGNAL(pressed()), this, SLOT(launchGenerator()));
+//    connect(m_ui->launchButton, SIGNAL(pressed()), this, SLOT(launchGenerator()));
 }
 
 GeneratorWidget::~GeneratorWidget()
@@ -57,6 +57,7 @@ void    GeneratorWidget::assignGenerator(gen::Generator *generator)
 
 void    GeneratorWidget::launchGenerator()
 {
+    std::cout << "LAUNCH GENERATOOOOR" << std::endl;
     if (!m_generator)
         return;
 
