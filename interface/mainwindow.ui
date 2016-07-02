@@ -83,7 +83,7 @@
   </action>
   <action name="actionImportScene">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Import scene</string>
@@ -115,7 +115,7 @@
   </action>
   <action name="actionExport">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Export</string>
@@ -123,7 +123,7 @@
   </action>
   <action name="actionQuit">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Quit</string>
@@ -131,7 +131,7 @@
   </action>
   <action name="actionAddMesh">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>Add Mesh</string>
@@ -139,7 +139,7 @@
   </action>
   <action name="actionAbout">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
     <string>About</string>

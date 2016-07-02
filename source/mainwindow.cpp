@@ -54,7 +54,7 @@ void    MainWindow::initializeCustomUi()
 
     m_ui->centralWidget->setLayout(&m_centralLayout);
 
-    m_menuObject = new MenuObject(this);//TODO give window as a reference?
+    m_menuObject = new MenuObject(*this);
 
     m_generatorWidget = new GeneratorWidget(*this);
     m_modelWidget = new ElementWidget(*this);
@@ -78,14 +78,24 @@ void    MainWindow::initializeCustomUi()
 
 void    MainWindow::makeConnections()
 {
-    connect(m_ui->actionZones, SIGNAL(triggered(bool)), m_glView, SLOT(hide()));
-    connect(m_ui->actionZones, SIGNAL(triggered(bool)), m_mapView, SLOT(show()));
+//    connect(m_ui->actionZones, SIGNAL(triggered(bool)), m_glView, SLOT(hide()));
+//    connect(m_ui->actionZones, SIGNAL(triggered(bool)), m_mapView, SLOT(show()));
 
-    connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_mapView, SLOT(hide()));
-    connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_glView, SLOT(show()));
+//    connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_mapView, SLOT(hide()));
+//    connect(m_ui->actionExploration, SIGNAL(triggered(bool)), m_glView, SLOT(show()));
 
     //connect(m_ui->actionGenerer, SIGNAL(triggered(bool)), m_generatorWidget, SLOT(launchGenerator()));
     connect(m_ui->actionNew, SIGNAL(triggered(bool)), m_menuObject, SLOT(newScene()));
+    connect(m_ui->actionImportScene, SIGNAL(triggered(bool)), m_menuObject, SLOT(importScene()));
+    connect(m_ui->actionExport, SIGNAL(triggered(bool)), m_menuObject, SLOT(exportScene()));
+    connect(m_ui->actionClose, SIGNAL(triggered(bool)), m_menuObject, SLOT(closeScene()));
+    //connect(m_ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(closeEvent()));
+
+    connect(m_ui->actionAddMesh, SIGNAL(triggered(bool)), m_menuObject, SLOT(addMesh()));
+
+    connect(m_ui->actionResolution, SIGNAL(triggered(bool)), m_menuObject, SLOT(setResolution()));
+    connect(m_ui->actionVolume, SIGNAL(triggered(bool)), m_menuObject, SLOT(setAmbientVolume()));
+    connect(m_ui->actionVolume, SIGNAL(triggered(bool)), m_menuObject, SLOT(setFxVolume()));
 }
 
 void    MainWindow::keyPressEvent(QKeyEvent *e)

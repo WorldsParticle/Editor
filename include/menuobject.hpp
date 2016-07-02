@@ -13,7 +13,8 @@ class MenuObject : public QObject
 {
     Q_OBJECT
 public:
-    explicit MenuObject(QObject *parent = 0);
+    //explicit MenuObject(QObject *parent = 0);
+    explicit MenuObject(MainWindow &mainWindow);
 
     ///
     /// \brief setGenerator
@@ -35,8 +36,26 @@ public slots:
     /// \brief newScene
     ///
     void    newScene();
+    void    importScene();
+    void    exportScene();
+    void    closeScene();
+    //void    quit();
+
+    void    addMesh();
+
+    void    setResolution();//flag ?
+    void    setAmbientVolume();
+    void    setFxVolume();
+
+    //void    about();
 
 private:
+
+
+    ///
+    /// \brief m_mainWindow, temporaire
+    ///
+    MainWindow          &m_mainWindow;
 
     ///
     /// \brief m_engine is the worldsparticle engine, where the magic happen.
