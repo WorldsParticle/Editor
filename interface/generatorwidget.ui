@@ -20,24 +20,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="3" column="0" colspan="2">
-    <widget class="QScrollArea" name="scrollArea">
-     <property name="widgetResizable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="scrollContent">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>162</width>
-        <height>535</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout"/>
-     </widget>
-    </widget>
-   </item>
    <item row="1" column="1">
     <widget class="QSpinBox" name="yMaxSpin">
      <property name="maximum">
@@ -77,6 +59,41 @@
      <property name="value">
       <number>500</number>
      </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QScrollArea" name="stepScrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="stepScrollContent">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>162</width>
+        <height>264</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout"/>
+     </widget>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QScrollArea" name="zoneDataScrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="zoneDataScrollContent">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>162</width>
+        <height>263</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </item>
   </layout>

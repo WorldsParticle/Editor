@@ -74,19 +74,6 @@ void    OpenGLWindow::run(Engine::Core *engine)
 ////    m_engine->load("/home/marie/project/WorldsParticleMaster/Engine/resources/models/tree.DAE");
 ////    m_engine->load("C:/Users/louis/Documents/GitHub/Engine/resources/models/tree.dae");
 
-//    //Gen scene
-//    Engine::Scene * scene = m_engine->scenes().front();
-//    map::MapGraph *map = new map::MapGraph(500,500);
-//    gen::Generator m_generator;
-//    m_generator.run(map);
-
-//    //Add terrain
-//    new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms());
-
-//    //Add models
-////    scene->addModels();
-//    //TODO: faire un event pour ca
-
     while (isVisible())
     {
         m_engine->update();
@@ -233,6 +220,21 @@ void    OpenGLWindow::mouseReleaseEvent(QMouseEvent *event)
 
         setCursor(Qt::ArrowCursor);
         m_mouseTracking = false;
+    }
+    else if (event->button() == Qt::RightButton)
+    {
+        //Gen scene
+        Engine::Scene * scene = m_engine->scenes().front();
+        map::MapGraph *map = new map::MapGraph(500,500);
+        gen::Generator m_generator;
+        m_generator.run(map);
+
+        //Add terrain
+        new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms());
+
+        //Add models
+        //    scene->addModels();
+        //TODO: faire un event pour ca
     }
 }
 

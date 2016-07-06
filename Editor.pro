@@ -21,6 +21,7 @@ SOURCES +=	source/main.cpp \
                 source/climatewidget.cpp \
                 source/param/intvaluelink.cpp \
                 source/param/paramlink.cpp \
+                source/param/boolvaluelink.cpp \
                 source/event/heightmapevent.cpp \
                 source/event/modelevent.cpp \
                 source/menuobject.cpp
@@ -33,6 +34,7 @@ HEADERS  +=	include/mainwindow.hpp \
                 include/climatewidget.hpp \
                 include/param/intvaluelink.hpp \
                 include/param/paramlink.hpp \
+                include/param/boolvaluelink.hpp \
                 include/event/heightmapevent.hpp \
                 include/event/modelevent.hpp \
                 include/menuobject.hpp

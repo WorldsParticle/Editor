@@ -24,7 +24,7 @@ GeneratorWidget::GeneratorWidget(MainWindow &mainWindow) :
 {
     m_ui->setupUi(this);
 
-//    connect(m_ui->launchButton, SIGNAL(pressed()), this, SLOT(launchGenerator()));
+    connect(m_ui->launchButton, SIGNAL(pressed()), this, SLOT(launchGenerator()));
 }
 
 GeneratorWidget::~GeneratorWidget()
@@ -38,18 +38,47 @@ void    GeneratorWidget::assignGenerator(gen::Generator *generator)
 {
     // todo : faire une fonction pour clean les anciens widgets
     // Fait à la va vite pour test, à split et clean
-    foreach (gen::GenerationStep *step, generator->steps())
+//    foreach (gen::GenerationStep *step, generator->steps())
+//    {
+//        QGroupBox   *box = new QGroupBox(m_ui->stepScrollArea);
+
+//        QVBoxLayout *layout = new QVBoxLayout(box);
+//        box->setLayout(layout);
+
+//        box->setTitle(step->name().c_str());
+
+//        QPushButton *soloRun = new QPushButton("Launch", box);
+//        soloRun->setEnabled(false);
+//        layout->addWidget(soloRun);
+
+//        foreach (gen::Param *p, step->params())
+//        layout->addWidget(ParamLink::createLink(p));
+
+//        m_ui->stepScrollContent->layout()->addWidget(box);
+//    }
+
+    std::cout << "allow ?" << std::endl;
+    int toto = generator->zoneDatas().size();
+
+    foreach (GenData::ZoneData zone, generator->zoneDatas())
     {
-        QGroupBox   *box = new QGroupBox(m_ui->scrollArea);
+        //TODO fix zoneData scroll layout
+        QGroupBox   *box = new QGroupBox(m_ui->stepScrollArea);//zoneDataScrollArea);
+
         QVBoxLayout *layout = new QVBoxLayout(box);
         box->setLayout(layout);
-        box->setTitle(step->name().c_str());
-        QPushButton *soloRun = new QPushButton("Launch", box);
-        soloRun->setEnabled(false);
-        layout->addWidget(soloRun);
-        foreach (gen::Param *p, step->params())
-            layout->addWidget(ParamLink::createLink(p));
-        m_ui->scrollContent->layout()->addWidget(box);
+        box->setTitle("Grassland");//zone.name().c_str());
+
+        //TODO dynamic params here too ?
+        //layout->addWidget(ParamLink::createLink(&zone.active));
+        //gen::Param test = zone.density;
+
+        //gen::IntValue *lol = &zone.density;
+        //gen::Param *p = dynamic_cast<gen::Param *>(lol);
+        //layout->addWidget(ParamLink::createLink(p));
+
+        //m_ui->zoneDataScrollContent->layout()->addWidget(box);
+        m_ui->stepScrollContent->layout()->addWidget(box);
     }
 
     m_generator = generator;
