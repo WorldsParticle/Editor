@@ -20,47 +20,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="1">
-    <widget class="QSpinBox" name="yMaxSpin">
-     <property name="maximum">
-      <number>10000</number>
-     </property>
-     <property name="value">
-      <number>500</number>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QPushButton" name="launchButton">
-     <property name="text">
-      <string>Générateur, go !</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Longeur</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Largeur</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QSpinBox" name="xMaxSpin">
-     <property name="maximum">
-      <number>10000</number>
-     </property>
-     <property name="value">
-      <number>500</number>
-     </property>
-    </widget>
-   </item>
    <item row="3" column="0" colspan="2">
     <widget class="QScrollArea" name="stepScrollArea">
      <property name="widgetResizable">
@@ -93,7 +52,49 @@
         <height>263</height>
        </rect>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4"/>
      </widget>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Largeur</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Longeur</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QPushButton" name="launchButton">
+     <property name="text">
+      <string>Générateur, go !</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QSpinBox" name="xMaxSpin">
+     <property name="maximum">
+      <number>10000</number>
+     </property>
+     <property name="value">
+      <number>500</number>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QSpinBox" name="yMaxSpin">
+     <property name="maximum">
+      <number>10000</number>
+     </property>
+     <property name="value">
+      <number>500</number>
+     </property>
     </widget>
    </item>
   </layout>

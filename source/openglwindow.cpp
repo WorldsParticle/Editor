@@ -23,7 +23,8 @@ OpenGLWindow::OpenGLWindow(QWindow *parent) :
     QWindow(parent),
     m_context(this),
     m_format(),
-    m_engine(NULL),
+    m_engine(nullptr),
+    m_generator(nullptr),
     m_mouseTracking(false)
 {
     setSurfaceType(OpenGLSurface);
@@ -59,11 +60,12 @@ OpenGLWindow::~OpenGLWindow()
 
 }
 
-void    OpenGLWindow::run(Engine::Core *engine)
+void    OpenGLWindow::run(Engine::Core *engine, gen::Generator *generator)
 {
-    if (!engine)
+    if (!engine || !generator)
         return;
     m_engine = engine;
+    m_generator = generator;
 //    //_engine->load("test3.dae");
 
 
@@ -102,17 +104,20 @@ bool    OpenGLWindow::event(QEvent *e)
 
 void    OpenGLWindow::modelAddEvent(ModelEvent *e)
 {
+    //TODO c'est quoi cette merde ?
     if (m_engine)
         m_engine->load(e->path().toStdString());
 }
 
 void    OpenGLWindow::heightMapAddEvent(HeightMapEvent *e)
 {
-    if (m_engine && m_engine->scenes().size())
-    {
-        Engine::Scene   *scene = m_engine->scenes().front();
-        scene->add(new Engine::Terrain(e->heightMap(), scene, scene->getShaderPrograms()));
-    }
+    if (m_generator)
+        m_generator->addTerrain(e->heightMap());
+//    if (m_engine && m_engine->scenes().size())
+//    {
+//        Engine::Scene   *scene = m_engine->scenes().front();
+//        scene->add(new Engine::Terrain(e->heightMap(), scene, scene->getShaderPrograms()));
+//    }
 }
 
 void    OpenGLWindow::keyPressEvent(QKeyEvent *e)
@@ -223,18 +228,18 @@ void    OpenGLWindow::mouseReleaseEvent(QMouseEvent *event)
     }
     else if (event->button() == Qt::RightButton)
     {
-        //Gen scene
-        Engine::Scene * scene = m_engine->scenes().front();
-        map::MapGraph *map = new map::MapGraph(500,500);
-        gen::Generator m_generator;
-        m_generator.run(map);
+//        //Gen scene
+//        Engine::Scene * scene = m_engine->scenes().front();
+//        map::MapGraph *map = new map::MapGraph(500,500);
+//        gen::Generator m_generator;
+//        m_generator.run(map);
 
-        //Add terrain
-        new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms());
+//        //Add terrain
+//        new Engine::Terrain(map->heightMap(), scene, scene->getShaderPrograms());
 
-        //Add models
-        //    scene->addModels();
-        //TODO: faire un event pour ca
+//        //Add models
+//        //    scene->addModels();
+//        //TODO: faire un event pour ca
     }
 }
 

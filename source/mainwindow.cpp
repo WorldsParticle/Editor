@@ -20,12 +20,12 @@ MainWindow::MainWindow(QWidget *parent) :
     m_menuObject(NULL),
     m_toolTabWidget(NULL),
     m_generatorWidget(NULL),
-    m_modelWidget(NULL),
+    m_elementWidget(NULL),
     m_climateWidget(NULL),
     m_glView(NULL),
     m_centralLayout(),
     m_engine(),
-    m_generator(),
+    m_generator(&m_engine),
     m_mapView(NULL),
     m_mapScene()
 {
@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     show();
 
-    m_glWindow.run(&m_engine);
+    m_glWindow.run(&m_engine, &m_generator);
 }
 
 MainWindow::~MainWindow()
@@ -57,7 +57,7 @@ void    MainWindow::initializeCustomUi()
     m_menuObject = new MenuObject(*this);
 
     m_generatorWidget = new GeneratorWidget(*this);
-    m_modelWidget = new ElementWidget(*this);
+    m_elementWidget = new ElementWidget(*this);
     m_climateWidget = new ClimateWidget(*this);
 
     m_toolTabWidget = new ToolTabWidget(*this);
@@ -74,6 +74,7 @@ void    MainWindow::initializeCustomUi()
     m_menuObject->setEngine(&m_engine);
     m_menuObject->setGenerator(&m_generator);
     m_generatorWidget->assignGenerator(&m_generator);
+    m_elementWidget->assignGenerator(&m_generator);
 }
 
 void    MainWindow::makeConnections()

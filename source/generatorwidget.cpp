@@ -72,14 +72,6 @@ void    GeneratorWidget::assignGenerator(gen::Generator *generator)
         foreach (gen::Param *p, zone->params())
             layout->addWidget(ParamLink::createLink(p));
 
-        //TODO dynamic params here too ?
-        //layout->addWidget(ParamLink::createLink(&zone.active));
-        //gen::Param test = zone.density;
-
-        //gen::IntValue *lol = &zone.density;
-        //gen::Param *p = dynamic_cast<gen::Param *>(lol);
-        //layout->addWidget(ParamLink::createLink(p));
-
         //m_ui->zoneDataScrollContent->layout()->addWidget(box);
         m_ui->stepScrollContent->layout()->addWidget(box);
     }

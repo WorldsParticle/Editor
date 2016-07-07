@@ -19,21 +19,39 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QPushButton" name="importButton">
-     <property name="text">
-      <string>Importer</string>
+  <layout class="QVBoxLayout" name="verticalLayout_4">
+   <item>
+    <widget class="QScrollArea" name="elementScrollArea">
+     <property name="widgetResizable">
+      <bool>true</bool>
      </property>
+     <widget class="QWidget" name="elementScrollContent">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>254</width>
+        <height>174</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2"/>
+     </widget>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item>
     <widget class="QTreeView" name="treeView">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="importButton">
+     <property name="text">
+      <string>Importer</string>
      </property>
     </widget>
    </item>

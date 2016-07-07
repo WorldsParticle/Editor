@@ -26,15 +26,20 @@ public:
     explicit ElementWidget(MainWindow &mainWindow);
 
     ///
+    /// \brief assignGenerator
+    ///
+    void    assignGenerator(gen::Generator *generator);
+
+    ///
     /// \brief destructor
     ///
     ~ElementWidget();
 
 public slots:
-    ///
-    /// \brief importModel import a model to the scene
-    ///
-    void    importModel();
+//    ///
+//    /// \brief importModel import a model to the scene
+//    ///
+//    void    importModel();
 
 private:
     ///
@@ -46,6 +51,11 @@ private:
     /// \brief m_mainWindow
     ///
     MainWindow      &m_mainWindow;
+
+    ///
+    /// \brief Current generator in use
+    ///
+    gen::Generator      *m_generator;
 };
 
 }

@@ -6,6 +6,7 @@
 #include    <QKeyEvent>
 #include    <QTime>
 #include    <Engine/Core.hpp>
+#include    <Generator/generator.hpp>
 
 namespace Editor
 {
@@ -36,7 +37,7 @@ public slots:
     ///
     /// \brief run launch the main loop, which remain active while this window is visible
     ///
-    void    run(Engine::Core *engine);
+    void    run(Engine::Core *engine, gen::Generator *generator);
 
 protected:
     ///
@@ -105,7 +106,8 @@ private:
     ///
     /// \brief _engine is the worldsparticle engine, where the magic happen
     ///
-    Engine::Core   *m_engine;
+    Engine::Core    *m_engine;
+    gen::Generator  *m_generator;
 
     ///
     /// \brief _mouseTracking is used for handle if the mouse should be hide and centered (fps style)

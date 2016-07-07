@@ -27,7 +27,7 @@ ToolTabWidget::ToolTabWidget(MainWindow &mainWindow) :
     m_slideAnimation->setEndValue(0);
 
     m_ui->tabWidget->addTab(m_mainWindow.terrainWidget(), QIcon(":/ressources/images/mountain.png"), QString());
-    m_ui->tabWidget->addTab(m_mainWindow.modelWidget(), QIcon(":/ressources/images/model.png"), QString());
+    m_ui->tabWidget->addTab(m_mainWindow.elementWidget(), QIcon(":/ressources/images/model.png"), QString());
     m_ui->tabWidget->addTab(m_mainWindow.climateWidget(), QIcon(":/ressources/images/particle.png"), QString());
 //    m_ui->tabWidget->addTab(m_mainWindow.skyboxWidget(), QIcon(":/ressources/images/sky.png"), QString());
 

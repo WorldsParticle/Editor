@@ -73,8 +73,8 @@ public:
     ///
     /// \brief modelWidget getter
     ///
-    inline ElementWidget      *modelWidget()
-    { return m_modelWidget; }
+    inline ElementWidget      *elementWidget()
+    { return m_elementWidget; }
 
     ///
     /// \brief climateWidget getter
@@ -141,9 +141,9 @@ private:
     GeneratorWidget       *m_generatorWidget;
 
     ///
-    /// \brief m_modelWidget allow user to interact with the scene graph
+    /// \brief m_elementWidget allow user to interact with the scene graph
     ///
-    ElementWidget         *m_modelWidget;
+    ElementWidget         *m_elementWidget;
 
     ///
     /// \brief m_climateWidget allow user to interact with the particle generator
