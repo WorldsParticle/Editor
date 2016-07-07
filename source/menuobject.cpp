@@ -51,6 +51,14 @@ void    MenuObject::closeScene()
     //TODO
 }
 
+void    MenuObject::quit()
+{
+    std::cout << "MenuObject quit" << std::endl;
+
+    //TODO
+    m_mainWindow.close();
+}
+
 void    MenuObject::addMesh()
 {
     std::cout << "MenuObject new scene" << std::endl;

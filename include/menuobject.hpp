@@ -39,7 +39,7 @@ public slots:
     void    importScene();
     void    exportScene();
     void    closeScene();
-    //void    quit();
+    void    quit();
 
     void    addMesh();
 

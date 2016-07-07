@@ -89,7 +89,7 @@ void    MainWindow::makeConnections()
     connect(m_ui->actionImportScene, SIGNAL(triggered(bool)), m_menuObject, SLOT(importScene()));
     connect(m_ui->actionExport, SIGNAL(triggered(bool)), m_menuObject, SLOT(exportScene()));
     connect(m_ui->actionClose, SIGNAL(triggered(bool)), m_menuObject, SLOT(closeScene()));
-    //connect(m_ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(closeEvent()));
+    connect(m_ui->actionQuit, SIGNAL(triggered(bool)), m_menuObject, SLOT(quit()));
 
     connect(m_ui->actionAddMesh, SIGNAL(triggered(bool)), m_menuObject, SLOT(addMesh()));
 
