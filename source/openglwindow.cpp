@@ -111,8 +111,8 @@ void    OpenGLWindow::modelAddEvent(ModelEvent *e)
 
 void    OpenGLWindow::heightMapAddEvent(HeightMapEvent *e)
 {
-    if (m_generator)
-        m_generator->addTerrain(e->heightMap());
+//    if (m_generator)
+//        m_generator->addTerrain(e->heightMap());
 //    if (m_engine && m_engine->scenes().size())
 //    {
 //        Engine::Scene   *scene = m_engine->scenes().front();
