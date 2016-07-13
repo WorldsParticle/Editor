@@ -75,6 +75,7 @@ void    MainWindow::initializeCustomUi()
     m_menuObject->setGenerator(&m_generator);
     m_generatorWidget->assignGenerator(&m_generator);
     m_elementWidget->assignGenerator(&m_generator);
+    m_climateWidget->assignGenerator(&m_generator);
 }
 
 void    MainWindow::makeConnections()

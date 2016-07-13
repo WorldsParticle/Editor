@@ -26,6 +26,11 @@ public:
     explicit ClimateWidget(MainWindow &mainWindow);
 
     ///
+    /// \brief assignGenerator
+    ///
+    void    assignGenerator(gen::Generator *generator);
+
+    ///
     /// \brief destructor
     ///
     ~ClimateWidget();
@@ -40,6 +45,11 @@ private:
     /// \brief m_mainWindow
     ///
     MainWindow         &m_mainWindow;
+
+    ///
+    /// \brief Current generator in use
+    ///
+    gen::Generator      *m_generator;
 };
 
 }
