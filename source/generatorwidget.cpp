@@ -60,14 +60,15 @@ void    GeneratorWidget::assignGenerator(gen::Generator *generator)
     std::cout << "allow ?" << std::endl;
     int toto = generator->zoneDatas().size();
 
-    foreach (GenData::ZoneData *zone, generator->zoneDatas())
+//    foreach (GenData::ZoneData *zone, generator->zoneDatas())
+    GenData::ZoneData *zone = generator->zoneDatas().at(0);
     {
         //TODO fix zoneData scroll layout
         QGroupBox   *box = new QGroupBox(m_ui->stepScrollArea);//zoneDataScrollArea);
 
         QVBoxLayout *layout = new QVBoxLayout(box);
         box->setLayout(layout);
-        box->setTitle(zone->name().c_str());
+        box->setTitle("Forest");//zone->name().c_str());
 
         foreach (gen::Param *p, zone->params())
             layout->addWidget(ParamLink::createLink(p));
